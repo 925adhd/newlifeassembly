@@ -181,7 +181,7 @@ export default function HomePage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="pt-16 md:pt-28 pb-8 md:pb-16 bg-gradient-to-r from-brand-primary via-[#3d5575] to-[#7e94ad] overflow-hidden">
+      <section className="pt-4 md:pt-12 pb-8 md:pb-16 bg-gradient-to-r from-brand-primary via-[#3d5575] to-[#7e94ad] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 items-center mt-4 md:mt-0">
             {/* Text */}

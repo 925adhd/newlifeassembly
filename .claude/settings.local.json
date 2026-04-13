@@ -4,7 +4,15 @@
       "Bash(npx create-next-app@latest . --typescript --tailwind --app --src-dir --no-git --use-npm)",
       "Bash(mkdir -p client-info)",
       "Bash(mv images:*)",
-      "Bash(mv info.txt client-info/)"
+      "Bash(mv info.txt client-info/)",
+      "Bash(mv ../client-info-temp client-info)",
+      "Bash(npm install:*)",
+      "Bash(npx sharp-cli:*)",
+      "Bash(npx next:*)",
+      "Bash(node -e ':*)",
+      "Bash(find public:*)",
+      "Bash(sort -k5 -rn)",
+      "Bash(git add:*)"
     ]
   }
 }

@@ -1,0 +1,288 @@
+"use client";
+
+import { motion } from "motion/react";
+import {
+  Music,
+  BookOpen,
+  Baby,
+  Users,
+  Heart,
+  HandHeart,
+  ChevronRight,
+  Clock,
+} from "lucide-react";
+
+const ministries = [
+  {
+    title: "Sunday Worship",
+    time: "Sundays at 11:00 AM",
+    icon: Music,
+    image: "/tony-preaching.webp",
+    description:
+      "Our Sunday morning worship service is the heartbeat of New Life Assembly. Experience Spirit-filled praise and worship, heartfelt prayer, and powerful teaching from God's Word. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
+    details: [
+      "Live worship with our praise band",
+      "Biblical, practical teaching from Pastor Tony Redmon",
+      "Prayer ministry and altar time",
+      "A welcoming atmosphere for everyone",
+    ],
+  },
+  {
+    title: "Sunday School",
+    time: "Sundays at 10:00 AM",
+    icon: BookOpen,
+    image: "/sunday-school.webp",
+    description:
+      "Start your Sunday with in-depth Bible study in a small group setting. Our Sunday School classes are designed for adults and provide an opportunity to dig deeper into Scripture, ask questions, and build relationships with fellow believers.",
+    details: [
+      "Age-appropriate classes",
+      "In-depth Bible study and discussion",
+      "Fellowship and relationship building",
+      "A great way to start your Sunday",
+    ],
+  },
+  {
+    title: "Children's Church",
+    time: "Sundays at 11:30 AM",
+    icon: Baby,
+    image: "/childrens-church.webp",
+    description:
+      "We believe in investing in the next generation. Children's Church at New Life Assembly provides a fun, safe, and engaging environment where kids can learn about God's love through age-appropriate lessons, crafts, games, and worship.",
+    details: [
+      "Safe, supervised environment",
+      "Age-appropriate Bible lessons",
+      "Fun activities, crafts, and games",
+      "Builds a foundation of faith",
+    ],
+  },
+  {
+    title: "Bible Study",
+    time: "Wednesdays at 6:30 PM",
+    icon: BookOpen,
+    image: "/bible-study.webp",
+    description:
+      "Our midweek Bible study is a time to go deeper into God's Word in a more intimate setting. Led by Pastor Tony, these sessions focus on practical application of Scripture for everyday life. It's a great way to recharge and refocus during the week.",
+    details: [
+      "Verse-by-verse Bible study",
+      "Practical life application",
+      "Prayer and fellowship",
+      "Open to all ages and backgrounds",
+    ],
+  },
+  {
+    title: "Outreach",
+    time: "Year-round",
+    icon: HandHeart,
+    image: "/new-life-assembly-community-outreach.webp",
+    description:
+      "New Life Assembly is committed to serving the Leitchfield and Grayson County community. From serving free hot chocolate on the town square at Christmas to service projects throughout the year, we strive to be the hands and feet of Jesus in our neighborhood.",
+    details: [
+      "Community service projects",
+      "Special outreach events",
+      "Serving those in need",
+      "Being the hands and feet of Jesus",
+    ],
+  },
+  {
+    title: "Fellowship",
+    time: "Various times",
+    icon: Users,
+    images: ["/new-life-assembly-community-dinner.webp", "/new-life-assembly-community-dinner-2.webp"],
+    description:
+      "Building meaningful relationships is at the core of who we are. From community dinners to fellowship events, we create opportunities for people to connect, share life together, and grow in faith outside of Sunday services.",
+    details: [
+      "Regular fellowship events",
+      "Building meaningful relationships",
+      "Life-sharing and encouragement",
+      "Growing together in community",
+    ],
+  },
+];
+
+export default function MinistriesPage() {
+  return (
+    <>
+      {/* Hero */}
+      <section className="relative py-16 md:py-32 bg-brand-primary overflow-hidden">
+        <div className="absolute inset-0 opacity-20 hidden md:block">
+          <img
+            src="/new-life-assembly-worship-service.webp"
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover object-[center_75%]"
+            width={800}
+            height={600}
+          />
+        </div>
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-4">
+              Get Involved
+            </p>
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Our Ministries
+            </h1>
+            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              There&apos;s a place for everyone at New Life Assembly of God.
+              Discover how you can grow, serve, and connect.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Ministries List */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-4 space-y-12">
+          {ministries.map((ministry, index) => {
+            const Icon = ministry.icon;
+            return (
+              <motion.article
+                key={ministry.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                className="bg-white rounded-2xl p-8 md:p-10 shadow-sm"
+              >
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-xl bg-brand-accent/10 flex items-center justify-center shrink-0">
+                    <Icon className="w-7 h-7 text-brand-accent" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h2 className="font-serif text-2xl font-bold text-brand-primary">
+                      {ministry.title}
+                    </h2>
+                    <p className="text-brand-accent font-medium text-sm flex items-center gap-1 mt-1">
+                      <Clock className="w-4 h-4" aria-hidden="true" />
+                      {ministry.time}
+                    </p>
+                  </div>
+                </div>
+
+                {"images" in ministry && ministry.images ? (
+                  <>
+                    {/* Mobile: show first image on top */}
+                    <img
+                      src={ministry.images[0]}
+                      alt={`${ministry.title} at New Life Assembly of God`}
+                      width={400}
+                      height={300}
+                      className="w-full rounded-xl object-cover mb-4 md:hidden"
+                      loading="lazy"
+                    />
+
+                    <p className="text-brand-primary/75 leading-relaxed mb-4">
+                      {ministry.description}
+                    </p>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                      {ministry.details.map((detail) => (
+                        <li
+                          key={detail}
+                          className="flex items-center gap-2 text-brand-primary/70 text-sm"
+                        >
+                          <Heart className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Desktop: show both images */}
+                    <div className="hidden md:grid grid-cols-2 gap-4">
+                      {ministry.images.map((img: string) => (
+                        <img
+                          key={img}
+                          src={img}
+                          alt={`${ministry.title} at New Life Assembly of God`}
+                          width={400}
+                          height={300}
+                          className="w-full rounded-xl object-cover"
+                          loading="lazy"
+                        />
+                      ))}
+                    </div>
+                  </>
+                ) : ("image" in ministry && ministry.image ? (
+                  <div className="flex flex-col md:flex-row gap-6 mb-6">
+                    <img
+                      src={ministry.image}
+                      alt={`${ministry.title} at New Life Assembly of God`}
+                      width={400}
+                      height={300}
+                      className="w-full md:w-96 rounded-xl shrink-0 object-cover order-1 md:order-2"
+                      loading="lazy"
+                    />
+                    <div className="flex-1 order-2 md:order-1">
+                      <p className="text-brand-primary/75 leading-relaxed mb-8">
+                        {ministry.description}
+                      </p>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
+                        {ministry.details.map((detail) => (
+                          <li
+                            key={detail}
+                            className="flex items-center gap-2 text-brand-primary/70 text-sm"
+                          >
+                            <Heart className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <p className="text-brand-primary/75 leading-relaxed mb-6">
+                      {ministry.description}
+                    </p>
+
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {ministry.details.map((detail) => (
+                    <li
+                      key={detail}
+                      className="flex items-center gap-2 text-brand-primary/70 text-sm"
+                    >
+                      <Heart className="w-4 h-4 text-brand-accent shrink-0" />
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+                  </>
+                ))}
+              </motion.article>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 md:py-24 bg-brand-primary">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+              Ready to Get Connected?
+            </h2>
+            <p className="text-white/80 max-w-lg mx-auto mb-8">
+              The best way to experience New Life Assembly is to visit us in
+              person. We&apos;d love to meet you and help you find your place.
+            </p>
+            <a
+              href="/contact"
+              className="bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2"
+            >
+              Plan Your Visit
+              <ChevronRight className="w-5 h-5" aria-hidden="true" />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+    </>
+  );
+}

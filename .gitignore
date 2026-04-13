@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# client files
+client-info/
+
+# system files
+desktop.ini
+
+# source image files (originals before WebP conversion)
+assets/

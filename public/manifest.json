@@ -1,0 +1,21 @@
+{
+  "name": "New Life Assembly of God",
+  "short_name": "New Life AG",
+  "description": "A welcoming Assemblies of God church in Leitchfield, Kentucky.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F6F1",
+  "theme_color": "#1B2A4A",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ExternalLink, Play } from "lucide-react";
 
 const worshipReels = [
@@ -21,7 +21,6 @@ const sermonReels = [
 function FacebookVideo({ reelId }: { reelId: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -45,31 +44,28 @@ function FacebookVideo({ reelId }: { reelId: string }) {
   return (
     <div ref={containerRef} className="bg-white rounded-2xl overflow-hidden shadow-sm">
       <div className="aspect-video relative">
-        {/* Placeholder spinner */}
-        {!loaded && (
-          <div className="absolute inset-0 bg-brand-primary/5 flex items-center justify-center z-10">
-            <div className="text-center">
-              <div className="relative w-14 h-14 mx-auto mb-3">
-                <div className="absolute inset-0 rounded-full border-2 border-brand-accent/20" />
-                <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-brand-accent animate-spin" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Play className="w-6 h-6 text-brand-accent" aria-hidden="true" />
-                </div>
+        {/* Placeholder spinner — sits behind iframe so iframe covers it naturally */}
+        <div className="absolute inset-0 bg-brand-primary/5 flex items-center justify-center">
+          <div className="text-center">
+            <div className="relative w-14 h-14 mx-auto mb-3">
+              <div className="absolute inset-0 rounded-full border-2 border-brand-accent/20" />
+              <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-brand-accent animate-spin" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Play className="w-6 h-6 text-brand-accent" aria-hidden="true" />
               </div>
-              <p className="text-brand-primary/65 text-sm">Loading video...</p>
             </div>
+            <p className="text-brand-primary/65 text-sm">Loading video...</p>
           </div>
-        )}
+        </div>
         {visible && (
           <iframe
             src={embedUrl}
-            className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full z-10"
             style={{ border: "none", overflow: "hidden" }}
             allowFullScreen
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             loading="lazy"
-            title={`Facebook video ${reelId}`}
-            onLoad={() => setLoaded(true)}
+            title={`Service video from New Life Assembly of God`}
           />
         )}
       </div>
@@ -78,6 +74,10 @@ function FacebookVideo({ reelId }: { reelId: string }) {
 }
 
 export default function WatchPage() {
+  const prefersReducedMotion = useReducedMotion();
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6 } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } };
+
   return (
     <>
       {/* Hero */}
@@ -94,9 +94,7 @@ export default function WatchPage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeIn}
           >
             <p className="text-white/70 font-medium text-sm tracking-widest uppercase mb-4">
               Watch Online
@@ -117,9 +115,7 @@ export default function WatchPage() {
         <div className="max-w-5xl mx-auto px-4">
           {/* Sermons */}
           <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            {...slideUp()}
             className="font-serif text-2xl md:text-3xl font-bold text-brand-primary mb-6"
           >
             Sermons
@@ -128,10 +124,7 @@ export default function WatchPage() {
             {sermonReels.map((id) => (
               <motion.div
                 key={id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
+                {...slideUp()}
               >
                 <FacebookVideo reelId={id} />
               </motion.div>
@@ -140,9 +133,7 @@ export default function WatchPage() {
 
           {/* Worship */}
           <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            {...slideUp()}
             className="font-serif text-2xl md:text-3xl font-bold text-brand-primary mb-6"
           >
             Worship
@@ -151,10 +142,7 @@ export default function WatchPage() {
             {worshipReels.map((id) => (
               <motion.div
                 key={id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
+                {...slideUp()}
               >
                 <FacebookVideo reelId={id} />
               </motion.div>
@@ -162,10 +150,7 @@ export default function WatchPage() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
             className="text-center mt-12"
           >
             <p className="text-brand-primary/65 mb-4">

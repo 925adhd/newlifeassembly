@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
   Music,
   BookOpen,
@@ -100,6 +100,10 @@ const ministries = [
 ];
 
 export default function MinistriesPage() {
+  const prefersReducedMotion = useReducedMotion();
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6 } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } };
+
   return (
     <>
       {/* Hero */}
@@ -116,9 +120,7 @@ export default function MinistriesPage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeIn}
           >
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-4">
               Get Involved
@@ -142,10 +144,7 @@ export default function MinistriesPage() {
             return (
               <motion.article
                 key={ministry.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
+                {...slideUp(index * 0.05)}
                 className="bg-white rounded-2xl p-8 md:p-10 shadow-sm"
               >
                 <div className="flex items-start gap-4 mb-4">
@@ -244,7 +243,7 @@ export default function MinistriesPage() {
                       key={detail}
                       className="flex items-center gap-2 text-brand-primary/70 text-sm"
                     >
-                      <Heart className="w-4 h-4 text-brand-accent shrink-0" />
+                      <Heart className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
                       {detail}
                     </li>
                   ))}
@@ -261,10 +260,7 @@ export default function MinistriesPage() {
       <section className="py-16 md:py-24 bg-brand-primary">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
           >
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
               Ready to Get Connected?

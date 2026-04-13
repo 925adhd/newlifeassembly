@@ -12,7 +12,11 @@
       "Bash(node -e ':*)",
       "Bash(find public:*)",
       "Bash(sort -k5 -rn)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git remote:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
     ]
   }
 }

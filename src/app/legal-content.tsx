@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 type LegalType = "privacy-policy" | "terms-of-service";
 
@@ -78,19 +78,19 @@ interface LegalContentProps {
 
 export default function LegalContent({ type }: LegalContentProps) {
   const data = legalData[type];
+  const prefersReducedMotion = useReducedMotion();
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
 
   return (
     <section className="py-24 md:py-32">
       <div className="max-w-3xl mx-auto px-4 pt-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          {...fadeIn}
         >
           <h1 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-2">
             {data.title}
           </h1>
-          <p className="text-brand-primary/50 text-sm mb-12">
+          <p className="text-brand-primary/65 text-sm mb-12">
             Last updated: {data.lastUpdated}
           </p>
 

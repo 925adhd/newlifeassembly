@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
   Phone,
   MapPin,
@@ -46,6 +46,11 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6 } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } };
+  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: -30 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
+  const slideRight = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: 30 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -90,9 +95,7 @@ export default function ContactPage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeIn}
           >
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-4">
               We&apos;d Love to Meet You
@@ -112,10 +115,7 @@ export default function ContactPage() {
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
             className="text-center mb-12"
           >
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
@@ -130,10 +130,7 @@ export default function ContactPage() {
             {whatToExpect.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                {...slideUp(index * 0.1)}
                 className="text-center p-6"
               >
                 <div className="w-10 h-10 rounded-full bg-brand-accent text-white flex items-center justify-center mx-auto mb-4 font-bold">
@@ -157,10 +154,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Left Column - Info */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              {...slideLeft}
             >
               {/* Church from Road - mobile only above content */}
               <div className="md:hidden rounded-2xl overflow-hidden shadow-sm mb-8">
@@ -281,10 +275,7 @@ export default function ContactPage() {
 
             {/* Right Column - Form */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              {...slideRight}
             >
               <div className="bg-white rounded-2xl p-8 md:p-10 shadow-sm">
                 <h2 className="font-serif text-2xl font-bold text-brand-primary mb-2">
@@ -296,7 +287,7 @@ export default function ContactPage() {
                 </p>
 
                 {submitted ? (
-                  <div className="text-center py-12" role="alert">
+                  <div className="text-center py-12" role="status" aria-live="polite">
                     <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" aria-hidden="true" />
                     <h3 className="font-serif text-2xl font-bold text-brand-primary mb-2">
                       Message Sent!
@@ -325,13 +316,15 @@ export default function ContactPage() {
                         htmlFor="name"
                         className="block text-sm font-medium text-brand-primary mb-2"
                       >
-                        Your Name
+                        Your Name <span className="text-brand-red">*</span>
                       </label>
                       <input
                         type="text"
                         id="name"
                         name="name"
                         required
+                        aria-required="true"
+                        autoComplete="name"
                         className="w-full px-4 py-3 rounded-lg border border-brand-primary/20 bg-brand-warm focus:border-brand-accent focus:ring-1 focus:ring-brand-accent text-brand-primary transition-colors"
                         placeholder="John Smith"
                       />
@@ -342,13 +335,15 @@ export default function ContactPage() {
                         htmlFor="email"
                         className="block text-sm font-medium text-brand-primary mb-2"
                       >
-                        Email Address
+                        Email Address <span className="text-brand-red">*</span>
                       </label>
                       <input
                         type="email"
                         id="email"
                         name="email"
                         required
+                        aria-required="true"
+                        autoComplete="email"
                         className="w-full px-4 py-3 rounded-lg border border-brand-primary/20 bg-brand-warm focus:border-brand-accent focus:ring-1 focus:ring-brand-accent text-brand-primary transition-colors"
                         placeholder="john@example.com"
                       />
@@ -366,6 +361,7 @@ export default function ContactPage() {
                         type="tel"
                         id="phone"
                         name="phone"
+                        autoComplete="tel"
                         className="w-full px-4 py-3 rounded-lg border border-brand-primary/20 bg-brand-warm focus:border-brand-accent focus:ring-1 focus:ring-brand-accent text-brand-primary transition-colors"
                         placeholder="(270) 555-0123"
                       />
@@ -376,12 +372,13 @@ export default function ContactPage() {
                         htmlFor="message"
                         className="block text-sm font-medium text-brand-primary mb-2"
                       >
-                        Message
+                        Message <span className="text-brand-red">*</span>
                       </label>
                       <textarea
                         id="message"
                         name="message"
                         required
+                        aria-required="true"
                         rows={5}
                         className="w-full px-4 py-3 rounded-lg border border-brand-primary/20 bg-brand-warm focus:border-brand-accent focus:ring-1 focus:ring-brand-accent text-brand-primary transition-colors resize-none"
                         placeholder="How can we help you?"
@@ -396,20 +393,22 @@ export default function ContactPage() {
                       </div>
                     )}
 
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full bg-brand-accent hover:bg-brand-accent/90 disabled:bg-brand-accent/50 text-white px-6 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center justify-center gap-2"
-                    >
-                      {loading ? (
-                        "Sending..."
-                      ) : (
-                        <>
-                          Send Message
-                          <Send className="w-5 h-5" aria-hidden="true" />
-                        </>
-                      )}
-                    </button>
+                    <div aria-live="polite">
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-brand-accent hover:bg-brand-accent/90 disabled:bg-brand-accent/50 text-white px-6 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center justify-center gap-2"
+                      >
+                        {loading ? (
+                          "Sending..."
+                        ) : (
+                          <>
+                            Send Message
+                            <Send className="w-5 h-5" aria-hidden="true" />
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </form>
                 )}
               </div>

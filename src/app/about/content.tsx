@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
   Heart,
   BookOpen,
@@ -39,6 +39,12 @@ const beliefs = [
 ];
 
 export default function AboutPage() {
+  const prefersReducedMotion = useReducedMotion();
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6 } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } };
+  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: -30 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
+  const slideRight = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: 30 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
+
   return (
     <>
       {/* Hero */}
@@ -55,9 +61,7 @@ export default function AboutPage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeIn}
           >
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-4">
               About Us
@@ -78,10 +82,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              {...slideLeft}
             >
               <img
                 src="/pastor-tony-closeup.webp"
@@ -94,10 +95,7 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              {...slideRight}
             >
               <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
                 Our Pastor
@@ -134,10 +132,7 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 grid-pattern">
         <div className="max-w-4xl mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
             className="text-center mb-12"
           >
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
@@ -149,10 +144,7 @@ export default function AboutPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
             className="bg-white rounded-2xl p-8 md:p-12 shadow-sm"
           >
             <p className="text-brand-primary/75 leading-relaxed mb-4">
@@ -189,10 +181,7 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
             className="text-center mb-12"
           >
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
@@ -213,10 +202,7 @@ export default function AboutPage() {
               return (
                 <motion.div
                   key={belief.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  {...slideUp(index * 0.1)}
                   className="flex gap-4"
                 >
                   <div className="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center shrink-0">
@@ -241,10 +227,7 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 bg-brand-primary">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
           >
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
               Come Experience New Life

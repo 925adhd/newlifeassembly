@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   Clock,
   MapPin,
@@ -15,6 +15,7 @@ import {
   Quote,
   X,
 } from "lucide-react";
+import { OliveBranchDivider } from "@/components/Decorations";
 
 const serviceTimes = [
   {
@@ -87,8 +88,12 @@ const values = [
 
 export default function HomePage() {
   const [lightboxImg, setLightboxImg] = useState<{ src: string; alt: string } | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const prefersReducedMotion = useReducedMotion();
 
-  const openLightbox = useCallback((photo: { src: string; alt: string }) => {
+  const openLightbox = useCallback((photo: { src: string; alt: string }, trigger?: HTMLElement) => {
+    triggerRef.current = trigger || null;
     setLightboxImg(photo);
     window.history.pushState({ lightbox: true }, "");
   }, []);
@@ -102,10 +107,46 @@ export default function HomePage() {
   useEffect(() => {
     const handlePopState = () => {
       setLightboxImg(null);
+      triggerRef.current?.focus();
     };
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
+
+  // Focus the close button when lightbox opens
+  useEffect(() => {
+    if (lightboxImg) {
+      closeBtnRef.current?.focus();
+    }
+  }, [lightboxImg]);
+
+  // Trap focus inside lightbox and handle Escape
+  useEffect(() => {
+    if (!lightboxImg) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeLightbox();
+      }
+      if (e.key === "Tab") {
+        // Trap focus on the close button (only focusable element)
+        e.preventDefault();
+        closeBtnRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxImg, closeLightbox]);
+
+  const fade = prefersReducedMotion ? {} : { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0.2 } };
+  const fadeScale = prefersReducedMotion ? {} : { initial: { scale: 0.9, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.9, opacity: 0 }, transition: { duration: 0.2 } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } };
+  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: -30 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
+  const slideRight = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: 30 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.6, delay } };
+  const heroLeft = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: -30 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.6 } };
+  const heroRight = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: 30 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.6, delay: 0.2 } };
+  const scaleIn = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, scale: 0.95 }, whileInView: { opacity: 1, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, delay } };
 
   return (
     <>
@@ -113,43 +154,39 @@ export default function HomePage() {
       <AnimatePresence>
         {lightboxImg && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            {...fade}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Enlarged image"
             className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 cursor-pointer"
             onClick={closeLightbox}
           >
             <button
+              ref={closeBtnRef}
               onClick={closeLightbox}
               className="absolute top-4 right-4 text-white/80 hover:text-white p-2"
               aria-label="Close image"
             >
-              <X className="w-8 h-8" />
+              <X className="w-8 h-8" aria-hidden="true" />
             </button>
             <motion.img
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              {...fadeScale}
               src={lightboxImg.src}
               alt={lightboxImg.alt}
               className="max-w-full max-h-[90vh] object-contain rounded-lg"
-              onClick={closeLightbox}
+              onClick={(e) => e.stopPropagation()}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="pt-16 md:pt-28 pb-8 md:pb-16 bg-gradient-to-br from-brand-primary via-brand-primary/90 to-brand-accent/30 overflow-hidden">
+      <section className="pt-16 md:pt-28 pb-8 md:pb-16 bg-gradient-to-r from-brand-primary via-[#3d5575] to-[#7e94ad] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 items-center mt-4 md:mt-0">
             {/* Text */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+              {...heroLeft}
               className="text-center md:text-left order-2 md:order-1"
             >
               <p className="text-white/70 font-medium text-xs tracking-widest uppercase mb-2 hidden md:block">
@@ -181,17 +218,15 @@ export default function HomePage() {
 
             {/* Church Photo */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative order-1 md:order-2"
+              {...heroRight}
+              className="relative order-1 md:order-2 md:-mr-16 lg:-mr-24"
             >
               <img
-                src="/church.webp"
+                src="/new-life-assembly-church-building.webp"
                 alt="New Life Assembly of God church building in Leitchfield, Kentucky"
                 width={960}
                 height={720}
-                className="w-full h-auto rounded-2xl md:rounded-l-2xl md:rounded-r-none shadow-2xl"
+                className="w-full h-auto hero-img-mask"
                 fetchPriority="high"
               />
             </motion.div>
@@ -200,7 +235,7 @@ export default function HomePage() {
       </section>
 
       {/* Trust Strip */}
-      <section className="bg-white py-12 md:py-16">
+      <section className="bg-white py-12 md:py-16" aria-label="Our values">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {values.map((value, index) => {
@@ -208,10 +243,7 @@ export default function HomePage() {
               return (
               <motion.div
                 key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                {...slideUp(index * 0.1)}
                 className="text-center px-4"
               >
                 <div className="w-12 h-12 rounded-full bg-brand-accent/10 flex items-center justify-center mx-auto mb-4">
@@ -233,20 +265,19 @@ export default function HomePage() {
       {/* Service Times */}
       <section
         id="service-times"
+        aria-labelledby="service-times-heading"
         className="py-16 md:py-24 scroll-mt-20 grid-pattern"
       >
         <div className="max-w-6xl mx-auto px-4">
+          <OliveBranchDivider className="text-brand-primary/10 mb-12" />
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
             className="text-center mb-12"
           >
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               Join Us
             </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
+            <h2 id="service-times-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
               Service Times
             </h2>
             <p className="text-brand-primary/70 max-w-xl mx-auto">
@@ -259,10 +290,7 @@ export default function HomePage() {
             {serviceTimes.map((day, dayIndex) => (
               <motion.div
                 key={day.day}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: dayIndex * 0.1 }}
+                {...slideUp(dayIndex * 0.1)}
                 className="bg-white rounded-2xl p-8 shadow-sm"
               >
                 <h3 className="font-serif text-2xl font-bold text-brand-primary mb-6 flex items-center gap-2">
@@ -296,19 +324,17 @@ export default function HomePage() {
       </section>
 
       {/* About / Welcome Section */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white" aria-labelledby="about-heading">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              {...slideLeft}
             >
+              <img src="/dove-logo.webp" alt="" aria-hidden="true" width={40} height={40} className="w-10 h-10 opacity-15 mb-3" />
               <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
                 About Us
               </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-6">
+              <h2 id="about-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-6">
                 A Place to Belong in Leitchfield, KY
               </h2>
               <p className="text-brand-primary/75 leading-relaxed mb-4">
@@ -333,10 +359,7 @@ export default function HomePage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              {...slideRight()}
               className="relative"
             >
               <img
@@ -353,19 +376,16 @@ export default function HomePage() {
       </section>
 
       {/* Ministries Overview */}
-      <section className="py-16 md:py-24 grid-pattern">
+      <section className="py-16 md:py-24 grid-pattern" aria-labelledby="ministries-heading">
         <div className="max-w-4xl mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
             className="text-center mb-10"
           >
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               Get Involved
             </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary">
+            <h2 id="ministries-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary">
               Our Ministries
             </h2>
           </motion.div>
@@ -377,10 +397,7 @@ export default function HomePage() {
                 <motion.a
                   key={ministry.title}
                   href="/ministries"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  {...slideUp(index * 0.1)}
                   className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow text-center group"
                 >
                   <div className="w-12 h-12 rounded-full bg-brand-accent/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-accent/20 transition-colors">
@@ -400,21 +417,18 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 text-brand-accent font-medium hover:gap-3 transition-all underline underline-offset-4 decoration-brand-accent/30 hover:decoration-brand-accent"
             >
               View all ministries
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4" aria-hidden="true" />
             </a>
           </div>
         </div>
       </section>
 
       {/* Baptism / Life at New Life */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white" aria-labelledby="life-heading">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              {...slideLeft}
               className="order-2 lg:order-1"
             >
               <img
@@ -428,16 +442,13 @@ export default function HomePage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              {...slideRight()}
               className="order-1 lg:order-2"
             >
               <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
                 Life at New Life
               </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-6">
+              <h2 id="life-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-6">
                 Growing Together in Faith
               </h2>
               <p className="text-brand-primary/75 leading-relaxed mb-4">
@@ -464,31 +475,30 @@ export default function HomePage() {
       </section>
 
       {/* Life at New Life Gallery */}
-      <section className="py-16 md:py-24 bg-white overflow-hidden">
+      <section className="py-16 md:py-24 bg-white overflow-hidden" aria-labelledby="gallery-heading">
         <div className="max-w-6xl mx-auto px-4">
+          <OliveBranchDivider className="text-brand-primary/10 mb-12" />
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
             className="text-center mb-10"
           >
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               Life at New Life
             </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary">
+            <h2 id="gallery-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary">
               Events &amp; Activities
             </h2>
           </motion.div>
 
           {/* Christmas Play Banner */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
+            {...slideUp()}
             className="overflow-hidden rounded-xl mb-3 md:mb-4 cursor-pointer"
-            onClick={() => openLightbox({ src: "/gallery-christmas-play-stage.webp", alt: "Christmas nativity play at New Life Assembly" })}
+            role="button"
+            tabIndex={0}
+            aria-label="View enlarged: Christmas nativity play at New Life Assembly"
+            onClick={(e) => openLightbox({ src: "/gallery-christmas-play-stage.webp", alt: "Christmas nativity play at New Life Assembly" }, e.currentTarget)}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox({ src: "/gallery-christmas-play-stage.webp", alt: "Christmas nativity play at New Life Assembly" }, e.currentTarget); }}}
           >
             <img
               src="/gallery-christmas-play-stage.webp"
@@ -503,12 +513,13 @@ export default function HomePage() {
           {/* Desktop: play photos + logo in middle */}
           <div className="hidden md:flex justify-between items-center mb-4">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
+              {...scaleIn()}
               className="overflow-hidden rounded-xl w-[30%] aspect-[3/4] cursor-pointer"
-              onClick={() => openLightbox({ src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly" })}
+              role="button"
+              tabIndex={0}
+              aria-label="View enlarged: Children's Christmas play at New Life Assembly"
+              onClick={(e) => openLightbox({ src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly" }, e.currentTarget)}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox({ src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly" }, e.currentTarget); }}}
             >
               <img
                 src="/gallery-christmas-play-angels.webp"
@@ -521,15 +532,13 @@ export default function HomePage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              {...scaleIn(0.1)}
               className="flex items-center justify-center w-[25%]"
             >
               <img
                 src="/new-life-assembly-logo.webp"
-                alt="New Life Assembly of God logo"
+                alt=""
+                aria-hidden="true"
                 width={200}
                 height={100}
                 className="w-full opacity-15"
@@ -538,12 +547,13 @@ export default function HomePage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.05 }}
+              {...scaleIn(0.05)}
               className="overflow-hidden rounded-xl w-[30%] aspect-[3/4] cursor-pointer"
-              onClick={() => openLightbox({ src: "/gallery-christmas-play-kids.webp", alt: "Kids performing in Christmas play at New Life Assembly" })}
+              role="button"
+              tabIndex={0}
+              aria-label="View enlarged: Kids performing in Christmas play at New Life Assembly"
+              onClick={(e) => openLightbox({ src: "/gallery-christmas-play-kids.webp", alt: "Kids performing in Christmas play at New Life Assembly" }, e.currentTarget)}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox({ src: "/gallery-christmas-play-kids.webp", alt: "Kids performing in Christmas play at New Life Assembly" }, e.currentTarget); }}}
             >
               <img
                 src="/gallery-christmas-play-kids.webp"
@@ -564,12 +574,13 @@ export default function HomePage() {
             ].map((photo, index) => (
               <motion.div
                 key={photo.src}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
+                {...scaleIn(index * 0.05)}
                 className="overflow-hidden rounded-xl aspect-square cursor-pointer"
-                onClick={() => openLightbox(photo)}
+                role="button"
+                tabIndex={0}
+                aria-label={`View enlarged: ${photo.alt}`}
+                onClick={(e) => openLightbox(photo, e.currentTarget)}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(photo, e.currentTarget); }}}
               >
                 <img
                   src={photo.src}
@@ -595,12 +606,13 @@ export default function HomePage() {
             ].map((photo, index) => (
               <motion.div
                 key={photo.src}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
+                {...scaleIn(index * 0.05)}
                 className="overflow-hidden rounded-xl aspect-square cursor-pointer"
-                onClick={() => openLightbox(photo)}
+                role="button"
+                tabIndex={0}
+                aria-label={`View enlarged: ${photo.alt}`}
+                onClick={(e) => openLightbox(photo, e.currentTarget)}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(photo, e.currentTarget); }}}
               >
                 <img
                   src={photo.src}
@@ -618,16 +630,13 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-brand-primary">
+      <section className="py-16 md:py-24 bg-brand-primary" aria-labelledby="testimonials-heading">
         <div className="max-w-4xl mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
             className="text-center mb-12"
           >
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 id="testimonials-heading" className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
               From Our Church Family
             </h2>
           </motion.div>
@@ -636,10 +645,7 @@ export default function HomePage() {
             {testimonials.map((testimonial, index) => (
               <motion.article
                 key={testimonial.author}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                {...slideUp(index * 0.1)}
                 className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 max-w-lg w-full"
               >
                 <Quote className="w-8 h-8 text-brand-accent mb-4" aria-hidden="true" />
@@ -654,19 +660,17 @@ export default function HomePage() {
       </section>
 
       {/* Contact / CTA Section */}
-      <section className="py-16 md:py-24" id="contact">
+      <section className="py-16 md:py-24" id="contact" aria-labelledby="cta-heading">
         <div className="max-w-4xl mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...slideUp()}
             className="bg-white rounded-3xl p-8 md:p-12 shadow-sm text-center"
           >
+            <img src="/dove-logo.webp" alt="" aria-hidden="true" width={48} height={48} className="w-12 h-12 opacity-15 mx-auto mb-4" />
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               We&apos;d Love to Meet You
             </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
+            <h2 id="cta-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
               Plan Your Visit
             </h2>
             <p className="text-brand-primary/70 max-w-lg mx-auto mb-8">

@@ -20,6 +20,14 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const [pastHero, setPastHero] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => setPastHero(window.scrollY > window.innerHeight * 0.7);
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
     <nav
@@ -110,11 +118,15 @@ export default function Navbar() {
 
     </nav>
 
-    {/* Sticky mobile CTA */}
+    {/* Sticky mobile CTA — appears after scrolling past hero */}
     <a
       href="tel:+12702003422"
-      className="md:hidden fixed bottom-6 right-6 z-50 bg-brand-accent text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-brand-accent/90 transition-colors"
+      className={`md:hidden fixed bottom-6 right-6 z-50 bg-brand-accent text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-brand-accent/90 transition-all duration-300 ${
+        pastHero ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-75 pointer-events-none"
+      }`}
       aria-label="Call Pastor Tony Redmon"
+      aria-hidden={!pastHero}
+      tabIndex={pastHero ? 0 : -1}
     >
       <Phone className="w-6 h-6" />
     </a>

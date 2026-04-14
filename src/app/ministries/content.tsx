@@ -140,12 +140,13 @@ export default function MinistriesPage() {
                 {...slideUp(index * 0.05)}
                 className="bg-white rounded-2xl p-8 md:p-10 shadow-[0_1px_2px_rgba(27,42,74,0.04)] scroll-mt-24 lift"
               >
-                <div className="mb-6">
-                  <h2 className="font-serif text-2xl font-bold text-brand-primary">
+                <div className="mb-8">
+                  <span className="block h-px w-10 bg-brand-accent/60 mb-5" aria-hidden="true" />
+                  <h2 className="font-serif italic text-4xl md:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4">
                     {ministry.title}
                   </h2>
-                  <p className="text-brand-accent font-medium text-sm flex items-center gap-1 mt-1">
-                    <Clock className="w-4 h-4" aria-hidden="true" />
+                  <p className="text-brand-accent font-medium text-xs tracking-[0.2em] uppercase inline-flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5" aria-hidden="true" />
                     {ministry.time}
                   </p>
                 </div>

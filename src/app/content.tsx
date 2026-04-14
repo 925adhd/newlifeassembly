@@ -15,7 +15,6 @@ import {
   ChevronRight,
   X,
 } from "lucide-react";
-import { OliveBranchDivider } from "@/components/Decorations";
 import Tilt from "@/components/Tilt";
 
 const serviceTimes = [
@@ -230,7 +229,7 @@ export default function HomePage() {
         className="py-16 md:py-24 scroll-mt-20 grid-pattern"
       >
         <div className="max-w-6xl mx-auto px-4">
-          <OliveBranchDivider className="text-brand-primary/10 mb-12" />
+          <div className="h-px w-24 mx-auto bg-brand-primary/15 mb-12" aria-hidden="true" />
           <motion.div
             {...slideUp()}
             className="text-center mb-12"
@@ -420,7 +419,7 @@ export default function HomePage() {
       {/* Life at New Life Gallery */}
       <section className="py-16 md:py-24 bg-white overflow-hidden" aria-labelledby="gallery-heading">
         <div className="max-w-6xl mx-auto px-4">
-          <OliveBranchDivider className="text-brand-primary/10 mb-12" />
+          <div className="h-px w-24 mx-auto bg-brand-primary/15 mb-12" aria-hidden="true" />
           <motion.div
             {...slideUp()}
             className="text-center mb-10"
@@ -603,7 +602,6 @@ export default function HomePage() {
             {...slideUp()}
             className="bg-white rounded-3xl p-8 md:p-12 shadow-sm text-center"
           >
-            <img src="/dove-logo.webp" alt="" aria-hidden="true" width={48} height={48} className="w-12 h-12 opacity-15 mx-auto mb-4" />
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               We&apos;d Love to Meet You
             </p>

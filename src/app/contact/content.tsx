@@ -160,7 +160,7 @@ export default function ContactPage() {
               {/* Church from Road - mobile only above content */}
               <div className="md:hidden rounded-2xl overflow-hidden shadow-sm mb-8">
                 <img
-                  src="/churchfromroad.webp"
+                  src="/church-exterior.webp"
                   alt="New Life Assembly of God church building and sign from the road in Leitchfield, Kentucky"
                   width={800}
                   height={500}
@@ -176,7 +176,7 @@ export default function ContactPage() {
               {/* Church from Road - desktop after service times */}
               <div className="hidden md:block rounded-2xl overflow-hidden shadow-sm mb-8">
                 <img
-                  src="/churchfromroad.webp"
+                  src="/church-exterior.webp"
                   alt="New Life Assembly of God church building and sign from the road in Leitchfield, Kentucky"
                   width={800}
                   height={500}
@@ -310,6 +310,15 @@ export default function ContactPage() {
                       type="hidden"
                       name="subject"
                       value="New message from New Life Assembly website"
+                    />
+                    {/* Honeypot — real users leave this empty; bots fill it */}
+                    <input
+                      type="checkbox"
+                      name="botcheck"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      style={{ position: "absolute", left: "-9999px", opacity: 0 }}
                     />
 
                     <div>

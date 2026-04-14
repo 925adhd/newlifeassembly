@@ -43,7 +43,9 @@ export default function WatchPage() {
       <section className="relative py-8 md:py-24 bg-brand-primary overflow-hidden gradient-mesh">
         <div className="absolute inset-0 opacity-25 md:opacity-40">
           <img
-            src="/new-life-assembly-worship-service.webp"
+            src="/new-life-assembly-worship-service-1600.webp"
+            srcSet="/new-life-assembly-worship-service-480.webp 480w, /new-life-assembly-worship-service-960.webp 960w, /new-life-assembly-worship-service-1600.webp 1600w"
+            sizes="100vw"
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover object-[center_25%] md:object-[center_75%]"

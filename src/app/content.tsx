@@ -210,7 +210,9 @@ export default function HomePage() {
               className="relative order-1 md:order-2 md:-mr-16 lg:-mr-24"
             >
               <img
-                src="/new-life-assembly-church-building.webp"
+                src="/new-life-assembly-church-building-960.webp"
+                srcSet="/new-life-assembly-church-building-480.webp 480w, /new-life-assembly-church-building-960.webp 960w, /new-life-assembly-church-building-1600.webp 1600w"
+                sizes="(min-width: 1280px) 640px, (min-width: 768px) 50vw, 100vw"
                 alt="New Life Assembly of God church building in Leitchfield, Kentucky"
                 width={960}
                 height={720}
@@ -374,7 +376,9 @@ export default function HomePage() {
               className="order-1 lg:order-1"
             >
               <img
-                src="/new-life-assembly-baptism.webp"
+                src="/new-life-assembly-baptism-960.webp"
+                srcSet="/new-life-assembly-baptism-480.webp 480w, /new-life-assembly-baptism-960.webp 960w"
+                sizes="(min-width: 1024px) 448px, 100vw"
                 alt="Outdoor baptism at New Life Assembly of God"
                 width={600}
                 height={550}

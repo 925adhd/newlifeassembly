@@ -229,6 +229,16 @@ export default function VideoExperienceSection({
             transition={{ duration: 0.3 }}
           >
             <MainVideoPlayer video={active} kind={kind} />
+            <figcaption className="mt-4 md:mt-5 text-white/80">
+              <p className="font-serif text-lg md:text-xl font-bold text-white">
+                {active.label ? `${active.label} ${kind}` : `Sunday ${kind}`} — {active.date}
+              </p>
+              <p className="text-sm md:text-base text-white/65 mt-1 max-w-2xl">
+                {kind === "Sermon"
+                  ? `Sermon from Pastor Tony Redmon at New Life Assembly of God in Leitchfield, Kentucky, recorded ${active.date}.`
+                  : `Sunday morning worship with the New Life Assembly of God church family in Leitchfield, Kentucky, recorded ${active.date}.`}
+              </p>
+            </figcaption>
           </motion.div>
         </AnimatePresence>
         <div className="mt-8 md:mt-10">

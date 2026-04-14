@@ -99,7 +99,9 @@ export default function MinistriesPage() {
       <section className="relative py-10 md:py-24 bg-brand-primary overflow-hidden gradient-mesh">
         <div className="absolute inset-0 opacity-40 hidden md:block">
           <img
-            src="/new-life-assembly-baptism.webp"
+            src="/new-life-assembly-baptism-1600.webp"
+            srcSet="/new-life-assembly-baptism-960.webp 960w, /new-life-assembly-baptism-1600.webp 1600w"
+            sizes="100vw"
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover object-[center_45%]"

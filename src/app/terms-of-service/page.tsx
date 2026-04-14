@@ -14,7 +14,7 @@ export const metadata: Metadata = {
       "Terms of service for the New Life Assembly of God website in Leitchfield, KY.",
     url: "/terms-of-service",
     type: "website",
-    images: ["/new-life-assembly-og.png"],
+    images: ["/new-life-assembly-og-v2.png"],
   },
 };
 

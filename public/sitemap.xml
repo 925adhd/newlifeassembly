@@ -2,37 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://newlifeassembly.vercel.app/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-04-14</lastmod>
   </url>
   <url>
     <loc>https://newlifeassembly.vercel.app/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-04-14</lastmod>
   </url>
   <url>
     <loc>https://newlifeassembly.vercel.app/ministries</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-04-14</lastmod>
   </url>
   <url>
     <loc>https://newlifeassembly.vercel.app/contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-04-14</lastmod>
   </url>
   <url>
     <loc>https://newlifeassembly.vercel.app/watch</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-04-14</lastmod>
   </url>
   <url>
     <loc>https://newlifeassembly.vercel.app/privacy-policy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-04-14</lastmod>
   </url>
   <url>
     <loc>https://newlifeassembly.vercel.app/terms-of-service</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-04-14</lastmod>
   </url>
 </urlset>

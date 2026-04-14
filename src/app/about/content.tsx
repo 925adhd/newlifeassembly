@@ -52,7 +52,9 @@ export default function AboutPage() {
       <section className="relative py-10 md:py-24 bg-brand-primary overflow-hidden gradient-mesh">
         <div className="absolute inset-0 opacity-40 hidden md:block">
           <img
-            src="/new-life-assembly-entrance.webp"
+            src="/new-life-assembly-entrance-1600.webp"
+            srcSet="/new-life-assembly-entrance-960.webp 960w, /new-life-assembly-entrance-1600.webp 1600w"
+            sizes="100vw"
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover object-[center_31%]"
@@ -87,7 +89,9 @@ export default function AboutPage() {
               {...slideLeft}
             >
               <img
-                src="/pastor-tony-redmon.webp"
+                src="/pastor-tony-redmon-960.webp"
+                srcSet="/pastor-tony-redmon-480.webp 480w, /pastor-tony-redmon-960.webp 960w, /pastor-tony-redmon-1600.webp 1600w"
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 alt="Pastor Tony Redmon preaching at New Life Assembly of God in Leitchfield, Kentucky"
                 width={1920}
                 height={1440}
@@ -111,7 +115,7 @@ export default function AboutPage() {
                 biblical teaching and genuine care for the congregation has made
                 New Life a place where people feel truly at home.
               </p>
-              <p className="text-brand-primary/75 leading-relaxed mb-4 hidden md:block">
+              <p className="text-brand-primary/75 leading-relaxed mb-4">
                 Under his leadership, New Life Assembly has become known as a
                 welcoming, Spirit-filled church where lives are being
                 transformed through the power of the Gospel. Pastor Tony&apos;s
@@ -119,7 +123,7 @@ export default function AboutPage() {
                 experience the new life that comes through a relationship with
                 Jesus Christ.
               </p>
-              <p className="text-brand-primary/75 leading-relaxed hidden md:block">
+              <p className="text-brand-primary/75 leading-relaxed">
                 Whether through Sunday morning worship, Wednesday evening Bible
                 study, or personal ministry, Pastor Tony is committed to helping
                 people grow in their faith and discover God&apos;s purpose for
@@ -156,14 +160,14 @@ export default function AboutPage() {
               County, we are a community of believers who are passionate about
               worship, prayer, and sharing the Gospel.
             </p>
-            <p className="text-brand-primary/75 leading-relaxed mb-4 hidden md:block">
+            <p className="text-brand-primary/75 leading-relaxed mb-4">
               Our church is known for warm, Spirit-filled worship services that
               blend contemporary praise with timeless hymns. We believe that
               church should be a place where people from all walks of life can
               come together, experience God&apos;s presence, and grow in their
               relationship with Him.
             </p>
-            <p className="text-brand-primary/75 leading-relaxed mb-4 hidden md:block">
+            <p className="text-brand-primary/75 leading-relaxed mb-4">
               From Sunday School to midweek Bible study, from children&apos;s
               ministry to community outreach, every ministry at New Life is
               designed to help people take their next step in faith. We

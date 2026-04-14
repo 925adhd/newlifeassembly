@@ -14,7 +14,7 @@ export const metadata: Metadata = {
       "Privacy policy for the New Life Assembly of God website in Leitchfield, KY.",
     url: "/privacy-policy",
     type: "website",
-    images: ["/new-life-assembly-og.png"],
+    images: ["/new-life-assembly-og-v2.png"],
   },
 };
 

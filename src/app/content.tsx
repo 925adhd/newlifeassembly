@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform, useSpring } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   Clock,
   MapPin,
@@ -78,15 +78,6 @@ export default function HomePage() {
   const triggerRef = useRef<HTMLElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
-
-  // Parallax: hero image drifts up as you scroll down
-  const heroRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress: heroProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const heroImageY = useSpring(useTransform(heroProgress, [0, 1], [0, 120]), { stiffness: 100, damping: 30 });
-  const heroTextY = useSpring(useTransform(heroProgress, [0, 1], [0, -40]), { stiffness: 100, damping: 30 });
 
   const openLightbox = useCallback((photo: { src: string; alt: string }, trigger?: HTMLElement) => {
     triggerRef.current = trigger || null;
@@ -178,16 +169,12 @@ export default function HomePage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section
-        ref={heroRef}
-        className="relative pt-4 md:pt-12 pb-16 md:pb-16 bg-gradient-to-br from-brand-primary via-[#2d3f5e] to-[#1B4D8A] overflow-hidden gradient-mesh"
-      >
+      <section className="relative pt-4 md:pt-12 pb-16 md:pb-16 bg-gradient-to-br from-brand-primary via-[#2d3f5e] to-[#1B4D8A] overflow-hidden gradient-mesh">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 items-center mt-4 md:mt-0">
             {/* Text */}
             <motion.div
               {...heroLeft}
-              style={{ y: prefersReducedMotion ? 0 : heroTextY }}
               className="text-center md:text-left order-2 md:order-1 -mt-[55px] md:mt-0 relative z-10"
             >
               <p className="text-white/70 font-medium text-xs tracking-widest uppercase mb-2 hidden md:block">
@@ -220,8 +207,7 @@ export default function HomePage() {
             {/* Church Photo */}
             <motion.div
               {...heroRight}
-              style={{ y: prefersReducedMotion ? 0 : heroImageY }}
-              className="relative order-1 md:order-2 md:-mr-16 lg:-mr-24 will-change-transform"
+              className="relative order-1 md:order-2 md:-mr-16 lg:-mr-24"
             >
               <img
                 src="/new-life-assembly-church-building.webp"

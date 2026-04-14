@@ -402,7 +402,7 @@ export default function HomePage() {
                 connect with others who share your journey.
               </p>
               <a
-                href="/contact"
+                href="/contact#get-in-touch"
                 className="bg-brand-accent hover:bg-brand-accent/90 text-white px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center gap-2"
               >
                 Get Connected

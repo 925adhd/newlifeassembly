@@ -149,7 +149,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Info + Form */}
-      <section className="py-16 md:py-24 grid-pattern">
+      <section id="get-in-touch" className="py-16 md:py-24 grid-pattern scroll-mt-20">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Left Column - Info */}

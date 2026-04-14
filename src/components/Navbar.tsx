@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, Phone, MapPin } from "lucide-react";
 
 const navLinks = [
@@ -13,6 +14,7 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -162,20 +164,24 @@ export default function Navbar() {
 
         {/* Nav links — big serif italic, centered */}
         <div className="relative flex-1 flex flex-col justify-center px-8 gap-1">
-          {navLinks.map((link, i) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              style={{ animation: `fadeSlideRight 600ms ${120 + i * 80}ms cubic-bezier(0.16, 1, 0.3, 1) backwards` }}
-              className="tap group block font-serif italic font-bold text-brand-primary leading-none py-4 text-4xl sm:text-5xl"
-            >
-              <span className="inline-block transition-transform duration-500 group-hover:translate-x-2 group-active:translate-x-2">
-                {link.label}
-              </span>
-              <span className="block h-px w-0 bg-brand-accent/50 mt-3 transition-all duration-500 group-hover:w-20 group-active:w-20" />
-            </a>
-          ))}
+          {navLinks.map((link, i) => {
+            const isActive = pathname === link.href;
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                aria-current={isActive ? "page" : undefined}
+                style={{ animation: `fadeSlideRight 600ms ${120 + i * 80}ms cubic-bezier(0.16, 1, 0.3, 1) backwards` }}
+                className="tap group block font-serif italic font-bold text-brand-primary leading-none py-4 text-4xl sm:text-5xl"
+              >
+                <span className={`inline-block transition-transform duration-500 group-hover:translate-x-2 group-active:translate-x-2 ${isActive ? "translate-x-2" : ""}`}>
+                  {link.label}
+                </span>
+                <span className={`block h-px bg-brand-accent/50 mt-3 transition-all duration-500 group-hover:w-20 group-active:w-20 ${isActive ? "w-20" : "w-0"}`} />
+              </a>
+            );
+          })}
         </div>
 
         {/* Contact block at bottom */}
@@ -203,11 +209,16 @@ export default function Navbar() {
               href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 text-brand-primary/75 hover:text-brand-accent transition-colors"
+              className="group flex items-center gap-3 text-brand-primary/75 hover:text-brand-accent transition-colors"
               aria-label="Open directions to 47 Embry Acres Dr, Leitchfield, KY in Google Maps"
             >
               <MapPin className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
-              47 Embry Acres Dr, Leitchfield, KY
+              <span>
+                47 Embry Acres Dr, Leitchfield, KY
+                <span className="text-brand-accent text-xs ml-1.5 whitespace-nowrap">
+                  Directions <span aria-hidden="true" className="inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+                </span>
+              </span>
             </a>
           </div>
         </div>

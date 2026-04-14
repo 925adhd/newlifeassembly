@@ -16,7 +16,18 @@
       "Bash(git remote:*)",
       "Bash(git commit -m ':*)",
       "Bash(git branch:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(npx sharp:*)",
+      "Bash(npm run:*)",
+      "Bash(taskkill //PID 6264 //F)",
+      "Bash(npm audit:*)",
+      "Bash(npm view:*)",
+      "Bash(mv -f church.webp churchfromroad.webp)",
+      "Bash(mv -f IMG_3356.webp church.webp)",
+      "Bash(rm -f IMG_3356.JPG church.jpg)",
+      "Bash(ls IMG_3356* church.jpg)",
+      "Bash(node -e 'const sharp=require\\('\\\\''sharp'\\\\''\\); sharp\\('\\\\''__TRACKED_VAR__'\\\\''\\).metadata\\(\\).then\\(m=>console.log\\(m.width+'\\\\''x'\\\\''+m.height\\)\\)')",
+      "Bash(npx tsc:*)"
     ]
   }
 }

@@ -427,7 +427,7 @@ export default function HomePage() {
             className="text-center mb-10"
           >
             <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
-              Life at New Life
+              Moments Together
             </p>
             <h2 id="gallery-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary">
               Events &amp; Activities

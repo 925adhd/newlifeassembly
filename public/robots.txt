@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://newlifeassemblyleitchfield.com/sitemap.xml
+Sitemap: https://newlifeassembly.vercel.app/sitemap.xml

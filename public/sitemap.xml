@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://newlifeassemblyleitchfield.com/</loc>
+    <loc>https://newlifeassembly.vercel.app/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://newlifeassemblyleitchfield.com/about</loc>
+    <loc>https://newlifeassembly.vercel.app/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://newlifeassemblyleitchfield.com/ministries</loc>
+    <loc>https://newlifeassembly.vercel.app/ministries</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://newlifeassemblyleitchfield.com/contact</loc>
+    <loc>https://newlifeassembly.vercel.app/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://newlifeassemblyleitchfield.com/watch</loc>
+    <loc>https://newlifeassembly.vercel.app/watch</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://newlifeassemblyleitchfield.com/privacy-policy</loc>
+    <loc>https://newlifeassembly.vercel.app/privacy-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://newlifeassemblyleitchfield.com/terms-of-service</loc>
+    <loc>https://newlifeassembly.vercel.app/terms-of-service</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

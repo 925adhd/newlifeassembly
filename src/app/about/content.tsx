@@ -69,7 +69,7 @@ export default function AboutPage() {
               About Us
             </p>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Our Story & Mission
+              Rooted in Faith
             </h1>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
               New Life Assembly of God has been serving the Leitchfield,

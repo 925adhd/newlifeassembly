@@ -308,8 +308,29 @@ export default function HomePage() {
       {/* Ministries Overview */}
       <section className="relative py-16 md:py-24 bg-white overflow-hidden" aria-labelledby="ministries-heading">
         {/* Floating decorative orbs */}
-        <span aria-hidden="true" className="orb orb-float w-[400px] h-[400px] -top-32 -right-32 bg-brand-accent/[0.07]" />
-        <span aria-hidden="true" className="orb orb-float w-[320px] h-[320px] bottom-0 -left-24 bg-brand-primary/[0.05]" style={{ animationDelay: "-4s", animationDuration: "16s" }} />
+        <span
+          aria-hidden="true"
+          className="orb orb-float w-[480px] h-[480px] top-10 -right-20 md:right-10"
+          style={{ background: "radial-gradient(circle, rgba(37,99,171,0.22) 0%, rgba(37,99,171,0) 70%)" }}
+        />
+        <span
+          aria-hidden="true"
+          className="orb orb-float w-[400px] h-[400px] bottom-10 -left-20 md:left-10"
+          style={{
+            background: "radial-gradient(circle, rgba(125,148,173,0.28) 0%, rgba(125,148,173,0) 70%)",
+            animationDelay: "-4s",
+            animationDuration: "16s",
+          }}
+        />
+        <span
+          aria-hidden="true"
+          className="orb orb-float w-[260px] h-[260px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{
+            background: "radial-gradient(circle, rgba(196,30,58,0.10) 0%, rgba(196,30,58,0) 70%)",
+            animationDelay: "-8s",
+            animationDuration: "20s",
+          }}
+        />
         <img
           src="/dove-logo.webp"
           alt=""

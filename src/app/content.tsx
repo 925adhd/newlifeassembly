@@ -311,7 +311,7 @@ export default function HomePage() {
               <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-brand-primary/50 mb-2">
                 Get Involved
               </p>
-              <h2 id="ministries-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight">
+              <h2 id="ministries-heading" className="font-serif text-xl md:text-3xl font-medium text-brand-primary/80 tracking-tight">
                 Our Ministries
               </h2>
             </div>

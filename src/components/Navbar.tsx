@@ -200,10 +200,10 @@ export default function Navbar() {
           <div className="space-y-2.5 text-sm">
             <a
               href="tel:+12702003422"
-              className="flex items-center gap-3 text-brand-primary/75 hover:text-brand-accent transition-colors"
+              className="flex items-center gap-3 text-brand-accent hover:text-brand-accent/80 transition-colors"
             >
-              <Phone className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
-              <span>(270) 200-3422 <span className="text-brand-primary/50 text-xs ml-1">· Pastor Tony</span></span>
+              <Phone className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <span className="font-medium">(270) 200-3422 <span className="text-brand-primary/50 font-normal text-xs ml-1">· Pastor Tony</span></span>
             </a>
             <a
               href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"

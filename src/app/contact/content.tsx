@@ -83,8 +83,8 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-12 md:py-20 bg-brand-primary overflow-hidden">
-        <div className="absolute inset-0 opacity-20 hidden md:block">
+      <section className="relative py-10 md:py-24 bg-brand-primary overflow-hidden">
+        <div className="absolute inset-0 opacity-40 hidden md:block">
           <img
             src="/churchfromroad.webp"
             alt=""
@@ -94,11 +94,12 @@ export default function ContactPage() {
             height={500}
           />
         </div>
+        <div className="absolute inset-0 bg-black/35 hidden md:block" aria-hidden="true" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-8">
           <motion.div
             {...fadeIn}
           >
-            <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-4">
+            <p className="text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
               We&apos;d Love to Meet You
             </p>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">

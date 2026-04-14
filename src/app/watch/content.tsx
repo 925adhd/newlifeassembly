@@ -40,27 +40,27 @@ export default function WatchPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-10 md:py-24 bg-brand-primary overflow-hidden gradient-mesh">
-        <div className="absolute inset-0 opacity-40 hidden md:block">
+      <section className="relative py-8 md:py-24 bg-brand-primary overflow-hidden gradient-mesh">
+        <div className="absolute inset-0 opacity-25 md:opacity-40">
           <img
             src="/new-life-assembly-worship-service.webp"
             alt=""
             aria-hidden="true"
-            className="w-full h-full object-cover object-[center_75%]"
+            className="w-full h-full object-cover object-[center_25%] md:object-[center_75%]"
             width={800}
             height={600}
           />
         </div>
-        <div className="absolute inset-0 bg-black/35 hidden md:block" aria-hidden="true" />
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-8">
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-primary/60 via-black/40 to-brand-primary/80 md:bg-black/35 md:bg-none" aria-hidden="true" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center md:pt-8">
           <motion.div {...fadeIn}>
-            <p className="text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
+            <p className="text-white/80 font-medium text-[11px] md:text-sm tracking-[0.25em] uppercase mb-2 md:mb-4">
               Watch Online
             </p>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-6">
               Past Services
             </h1>
-            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+            <p className="text-white/75 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
               Missed a Sunday? Catch up on past services from New Life Assembly
               of God.
             </p>

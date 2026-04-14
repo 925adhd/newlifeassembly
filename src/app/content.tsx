@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform, useSpring } from "motion/react";
 import {
   Clock,
   MapPin,
@@ -16,6 +16,7 @@ import {
   X,
 } from "lucide-react";
 import { OliveBranchDivider } from "@/components/Decorations";
+import Tilt from "@/components/Tilt";
 
 const serviceTimes = [
   {
@@ -77,6 +78,15 @@ export default function HomePage() {
   const triggerRef = useRef<HTMLElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
+
+  // Parallax: hero image drifts up as you scroll down
+  const heroRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroImageY = useSpring(useTransform(heroProgress, [0, 1], [0, 120]), { stiffness: 100, damping: 30 });
+  const heroTextY = useSpring(useTransform(heroProgress, [0, 1], [0, -40]), { stiffness: 100, damping: 30 });
 
   const openLightbox = useCallback((photo: { src: string; alt: string }, trigger?: HTMLElement) => {
     triggerRef.current = trigger || null;
@@ -168,12 +178,16 @@ export default function HomePage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="pt-4 md:pt-12 pb-16 md:pb-16 bg-gradient-to-r from-brand-primary via-[#3d5575] to-[#7e94ad] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section
+        ref={heroRef}
+        className="relative pt-4 md:pt-12 pb-16 md:pb-16 bg-gradient-to-br from-brand-primary via-[#2d3f5e] to-[#1B4D8A] overflow-hidden gradient-mesh"
+      >
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 items-center mt-4 md:mt-0">
             {/* Text */}
             <motion.div
               {...heroLeft}
+              style={{ y: prefersReducedMotion ? 0 : heroTextY }}
               className="text-center md:text-left order-2 md:order-1 -mt-[55px] md:mt-0 relative z-10"
             >
               <p className="text-white/70 font-medium text-xs tracking-widest uppercase mb-2 hidden md:block">
@@ -206,7 +220,8 @@ export default function HomePage() {
             {/* Church Photo */}
             <motion.div
               {...heroRight}
-              className="relative order-1 md:order-2 md:-mr-16 lg:-mr-24"
+              style={{ y: prefersReducedMotion ? 0 : heroImageY }}
+              className="relative order-1 md:order-2 md:-mr-16 lg:-mr-24 will-change-transform"
             >
               <img
                 src="/new-life-assembly-church-building.webp"
@@ -292,6 +307,9 @@ export default function HomePage() {
 
       {/* Ministries Overview */}
       <section className="relative py-16 md:py-24 bg-white overflow-hidden" aria-labelledby="ministries-heading">
+        {/* Floating decorative orbs */}
+        <span aria-hidden="true" className="orb orb-float w-[400px] h-[400px] -top-32 -right-32 bg-brand-accent/[0.07]" />
+        <span aria-hidden="true" className="orb orb-float w-[320px] h-[320px] bottom-0 -left-24 bg-brand-primary/[0.05]" style={{ animationDelay: "-4s", animationDuration: "16s" }} />
         <img
           src="/dove-logo.webp"
           alt=""
@@ -328,23 +346,24 @@ export default function HomePage() {
             className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16"
           >
             {ministries.map((ministry, index) => (
-              <a
-                key={ministry.title}
-                href={ministry.href}
-                className={`group block tap ${index % 2 === 1 ? "md:mt-10" : ""}`}
-              >
-                <span className="block h-px w-10 bg-brand-primary/15 mb-4 transition-all duration-500 group-hover:w-16 group-hover:bg-brand-accent" aria-hidden="true" />
-                <h3 className="font-serif italic text-3xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors duration-500">
-                  {ministry.title}
-                </h3>
-                <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">
-                  {ministry.description}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/60 group-hover:text-brand-accent transition-colors duration-500">
-                  <span className="link-underline">Learn more</span>
-                  <ChevronRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
-                </span>
-              </a>
+              <Tilt key={ministry.title} max={5} scale={1.01} className={index % 2 === 1 ? "md:mt-10" : ""}>
+                <a
+                  href={ministry.href}
+                  className="group block tap"
+                >
+                  <span className="block h-px w-10 bg-brand-primary/15 mb-4 transition-all duration-500 group-hover:w-16 group-hover:bg-brand-accent" aria-hidden="true" />
+                  <h3 className="font-serif italic text-3xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors duration-500">
+                    {ministry.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">
+                    {ministry.description}
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/60 group-hover:text-brand-accent transition-colors duration-500">
+                    <span className="link-underline">Learn more</span>
+                    <ChevronRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
+                  </span>
+                </a>
+              </Tilt>
             ))}
           </motion.div>
 
@@ -552,14 +571,14 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="relative py-20 md:py-32 bg-brand-primary overflow-hidden" aria-labelledby="testimonials-heading">
+      <section className="relative py-20 md:py-32 bg-brand-primary overflow-hidden aurora" aria-labelledby="testimonials-heading">
         <span
           aria-hidden="true"
-          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 font-serif text-[22rem] md:text-[30rem] leading-none text-white/[0.04] select-none pointer-events-none"
+          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 font-serif text-[22rem] md:text-[30rem] leading-none text-white/[0.04] select-none pointer-events-none z-0"
         >
           &ldquo;
         </span>
-        <div className="relative max-w-4xl mx-auto px-6">
+        <div className="relative z-10 max-w-4xl mx-auto px-6">
           <motion.p
             {...slideUp()}
             className="text-[11px] font-medium tracking-[0.25em] uppercase text-brand-accent text-center mb-10"

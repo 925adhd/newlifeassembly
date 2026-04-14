@@ -49,7 +49,7 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-16 md:py-32 bg-brand-primary overflow-hidden">
+      <section className="relative py-16 md:py-32 bg-brand-primary overflow-hidden gradient-mesh">
         <div className="absolute inset-0 opacity-20 hidden md:block">
           <img
             src="/new-life-assembly-entrance.webp"
@@ -225,8 +225,8 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-24 bg-brand-primary">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+      <section className="relative py-16 md:py-24 bg-brand-primary overflow-hidden aurora">
+        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
           <motion.div
             {...slideUp()}
           >

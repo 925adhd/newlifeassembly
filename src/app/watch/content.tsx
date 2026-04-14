@@ -82,7 +82,7 @@ export default function WatchPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-16 md:py-32 bg-brand-primary overflow-hidden">
+      <section className="relative py-16 md:py-32 bg-brand-primary overflow-hidden gradient-mesh">
         <div className="absolute inset-0 opacity-20 hidden md:block">
           <img
             src="/tony-preaching.webp"

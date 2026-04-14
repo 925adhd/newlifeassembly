@@ -6,7 +6,6 @@ import {
   Clock,
   MapPin,
   Phone,
-  Heart,
   BookOpen,
   Church,
   Users,
@@ -70,24 +69,6 @@ const testimonials = [
   {
     quote: "An amazing church with an amazing pastor.",
     author: "E Howe",
-  },
-];
-
-const values = [
-  {
-    title: "Spirit-Filled Worship",
-    description: "Passionate praise and worship that invites the presence of God into every service.",
-    icon: Music2,
-  },
-  {
-    title: "Biblical Teaching",
-    description: "Sound, practical teaching from God's Word that equips you for everyday life.",
-    icon: BookOpen,
-  },
-  {
-    title: "Welcoming Community",
-    description: "A warm church family where everyone is valued, accepted, and loved.",
-    icon: Heart,
   },
 ];
 
@@ -206,10 +187,10 @@ export default function HomePage() {
               </p>
               <div className="flex flex-row items-center md:items-start justify-center md:justify-start gap-3">
                 <a
-                  href="#service-times"
+                  href="/contact"
                   className="bg-brand-accent hover:bg-brand-accent/90 text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg transition-colors inline-flex items-center gap-2"
                 >
-                  Join Us Sunday
+                  Plan Your Visit
                   <ChevronRight className="w-4 h-4 md:w-5 md:h-5" aria-hidden="true" />
                 </a>
                 <a
@@ -235,29 +216,6 @@ export default function HomePage() {
                 fetchPriority="high"
               />
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Strip */}
-      <section className="bg-white py-16 md:py-24" aria-label="Our values">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 md:divide-x divide-brand-primary/10">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                {...slideUp(index * 0.1)}
-                className="py-8 md:py-2 md:px-10 first:md:pl-0 last:md:pr-0 border-b md:border-b-0 border-brand-primary/10 last:border-b-0"
-              >
-                <span className="block h-px w-10 bg-brand-accent/60 mb-5" aria-hidden="true" />
-                <h2 className="font-serif text-xl md:text-2xl font-bold text-brand-primary mb-3 tracking-tight">
-                  {value.title}
-                </h2>
-                <p className="text-brand-primary/65 text-sm leading-relaxed">
-                  {value.description}
-                </p>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
@@ -331,60 +289,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* About / Welcome Section */}
-      <section className="py-16 md:py-24 bg-white" aria-labelledby="about-heading">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              {...slideLeft}
-              className="order-2 lg:order-1"
-            >
-              <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
-                About Us
-              </p>
-              <h2 id="about-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-6">
-                A Place to Belong in Leitchfield, KY
-              </h2>
-              <p className="text-brand-primary/75 leading-relaxed mb-4">
-                New Life Assembly of God is more than a church — it&apos;s a
-                family. Led by Pastor Tony Redmon, we are an Assemblies of God
-                church committed to sharing the love of Jesus Christ with
-                Leitchfield and the surrounding Grayson County community.
-              </p>
-              <p className="text-brand-primary/75 leading-relaxed mb-6">
-                Whether you&apos;re looking for a church home, seeking answers,
-                or just curious about faith, you&apos;ll find a warm welcome
-                here. We believe in the power of worship, the truth of God&apos;s
-                Word, and the importance of community.
-              </p>
-              <a
-                href="/about"
-                className="inline-flex items-center gap-2 text-brand-accent font-medium hover:gap-3 transition-all underline underline-offset-4 decoration-brand-accent/30 hover:decoration-brand-accent"
-              >
-                Learn more about us
-                <ChevronRight className="w-4 h-4" aria-hidden="true" />
-              </a>
-            </motion.div>
-
-            <motion.div
-              {...slideRight()}
-              className="relative order-1 lg:order-2"
-            >
-              <img
-                src="/new-life-assembly-worship-service.webp"
-                alt="Worship service at New Life Assembly of God with live band and congregation"
-                width={800}
-                height={600}
-                className="rounded-2xl shadow-lg w-full"
-                loading="lazy"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* Ministries Overview */}
-      <section className="relative py-16 md:py-24 grid-pattern overflow-hidden" aria-labelledby="ministries-heading">
+      <section className="relative py-16 md:py-24 bg-white overflow-hidden" aria-labelledby="ministries-heading">
         <img
           src="/dove-logo.webp"
           alt=""
@@ -462,7 +368,7 @@ export default function HomePage() {
       </section>
 
       {/* Baptism / Life at New Life */}
-      <section className="py-16 md:py-24 bg-white" aria-labelledby="life-heading">
+      <section className="py-16 md:py-24 grid-pattern" aria-labelledby="life-heading">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div

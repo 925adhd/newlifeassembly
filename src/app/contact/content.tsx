@@ -82,15 +82,15 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-16 md:py-32 bg-brand-primary overflow-hidden">
+      <section className="relative py-12 md:py-20 bg-brand-primary overflow-hidden">
         <div className="absolute inset-0 opacity-20 hidden md:block">
           <img
-            src="/new-life-assembly-church-building.webp"
+            src="/churchfromroad.webp"
             alt=""
             aria-hidden="true"
-            className="w-full h-full object-cover"
-            width={960}
-            height={960}
+            className="w-full h-full object-cover object-[center_calc(45%+5px)]"
+            width={800}
+            height={500}
           />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-8">

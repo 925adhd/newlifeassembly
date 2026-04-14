@@ -332,12 +332,7 @@ export default function HomePage() {
                 href={ministry.href}
                 className={`group block ${index % 2 === 1 ? "md:mt-10" : ""}`}
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[11px] font-medium tracking-[0.2em] uppercase text-brand-primary/40">
-                    Ministry
-                  </span>
-                  <span className="h-px flex-1 bg-brand-primary/10" aria-hidden="true" />
-                </div>
+                <span className="block h-px w-10 bg-brand-primary/15 mb-4" aria-hidden="true" />
                 <h3 className="font-serif italic text-3xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors">
                   {ministry.title}
                 </h3>

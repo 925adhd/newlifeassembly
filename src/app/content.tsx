@@ -8,9 +8,11 @@ import {
   Phone,
   Heart,
   BookOpen,
+  Church,
   Users,
   Baby,
-  Music,
+  Music2,
+  Sun,
   ChevronRight,
   X,
 } from "lucide-react";
@@ -20,8 +22,8 @@ const serviceTimes = [
   {
     day: "Sunday",
     services: [
-      { name: "Sunday School", time: "10:00 AM", icon: BookOpen },
-      { name: "Sunday Morning Service", time: "11:00 AM", icon: Music },
+      { name: "Sunday School", time: "10:00 AM", icon: Church },
+      { name: "Sunday Morning Service", time: "11:00 AM", icon: Sun },
       { name: "Children's Church", time: "11:30 AM", icon: Baby },
     ],
   },
@@ -39,7 +41,7 @@ const ministries = [
     href: "/ministries#sunday-worship",
     description:
       "Experience uplifting praise and worship with our church family every Sunday morning. All are welcome.",
-    icon: Music,
+    icon: Music2,
   },
   {
     title: "Children's Church",
@@ -75,7 +77,7 @@ const values = [
   {
     title: "Spirit-Filled Worship",
     description: "Passionate praise and worship that invites the presence of God into every service.",
-    icon: Music,
+    icon: Music2,
   },
   {
     title: "Biblical Teaching",

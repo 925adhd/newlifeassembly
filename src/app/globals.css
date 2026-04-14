@@ -50,15 +50,15 @@
 .hero-img-mask {
   mask-image:
     linear-gradient(to bottom, black 60%, transparent 100%),
-    linear-gradient(to top, black 85%, transparent 100%),
+    linear-gradient(to top, black 65%, transparent 100%),
     linear-gradient(to right, black 85%, transparent 100%),
-    linear-gradient(to left, black 85%, transparent 100%);
+    linear-gradient(to left, black 65%, transparent 100%);
   mask-composite: intersect;
   -webkit-mask-image:
     linear-gradient(to bottom, black 60%, transparent 100%),
-    linear-gradient(to top, black 85%, transparent 100%),
+    linear-gradient(to top, black 65%, transparent 100%),
     linear-gradient(to right, black 85%, transparent 100%),
-    linear-gradient(to left, black 85%, transparent 100%);
+    linear-gradient(to left, black 65%, transparent 100%);
   -webkit-mask-composite: source-in;
 }
 

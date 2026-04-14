@@ -225,18 +225,20 @@ export default function Navbar() {
       </div>
     )}
 
-    {/* Sticky mobile CTA — appears after scrolling past hero, hidden when menu open */}
-    <a
-      href="tel:+12702003422"
-      className={`tap md:hidden fixed bottom-6 right-6 z-50 bg-brand-accent text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_24px_-4px_rgba(37,99,171,0.5)] hover:bg-brand-accent/90 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        pastHero && !isOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-75 translate-y-2 pointer-events-none"
-      }`}
-      aria-label="Call Pastor Tony Redmon"
-      aria-hidden={!pastHero || isOpen}
-      tabIndex={pastHero && !isOpen ? 0 : -1}
-    >
-      <Phone className="w-6 h-6" />
-    </a>
+    {/* Sticky mobile CTA — appears after scrolling past hero, hidden when menu open or on /watch */}
+    {pathname !== "/watch" && (
+      <a
+        href="tel:+12702003422"
+        className={`tap md:hidden fixed bottom-6 right-6 z-50 bg-brand-accent text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_24px_-4px_rgba(37,99,171,0.5)] hover:bg-brand-accent/90 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          pastHero && !isOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-75 translate-y-2 pointer-events-none"
+        }`}
+        aria-label="Call Pastor Tony Redmon"
+        aria-hidden={!pastHero || isOpen}
+        tabIndex={pastHero && !isOpen ? 0 : -1}
+      >
+        <Phone className="w-6 h-6" />
+      </a>
+    )}
     </>
   );
 }

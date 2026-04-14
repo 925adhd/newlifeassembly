@@ -2,12 +2,6 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import {
-  Music,
-  BookOpen,
-  Baby,
-  Users,
-  Heart,
-  HandHeart,
   ChevronRight,
   Clock,
 } from "lucide-react";
@@ -16,7 +10,6 @@ const ministries = [
   {
     title: "Sunday Worship",
     time: "Sundays at 11:00 AM",
-    icon: Music,
     image: "/tony-preaching.webp",
     description:
       "Our Sunday morning worship service is the heartbeat of New Life Assembly. Experience Spirit-filled praise and worship, heartfelt prayer, and powerful teaching from God's Word. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
@@ -30,7 +23,6 @@ const ministries = [
   {
     title: "Sunday School",
     time: "Sundays at 10:00 AM",
-    icon: BookOpen,
     image: "/sunday-school.webp",
     description:
       "Start your Sunday with in-depth Bible study in a small group setting. Our Sunday School classes are designed for adults and provide an opportunity to dig deeper into Scripture, ask questions, and build relationships with fellow believers.",
@@ -44,7 +36,6 @@ const ministries = [
   {
     title: "Children's Church",
     time: "Sundays at 11:30 AM",
-    icon: Baby,
     image: "/childrens-church.webp",
     description:
       "We believe in investing in the next generation. Children's Church at New Life Assembly provides a fun, safe, and engaging environment where kids can learn about God's love through age-appropriate lessons, crafts, games, and worship.",
@@ -58,7 +49,6 @@ const ministries = [
   {
     title: "Bible Study",
     time: "Wednesdays at 6:30 PM",
-    icon: BookOpen,
     image: "/bible-study.webp",
     description:
       "Our midweek Bible study is a time to go deeper into God's Word in a more intimate setting. Led by Pastor Tony, these sessions focus on practical application of Scripture for everyday life. It's a great way to recharge and refocus during the week.",
@@ -72,7 +62,6 @@ const ministries = [
   {
     title: "Outreach",
     time: "Year-round",
-    icon: HandHeart,
     image: "/new-life-assembly-community-outreach.webp",
     description:
       "New Life Assembly is committed to serving the Leitchfield and Grayson County community. From serving free hot chocolate on the town square at Christmas to service projects throughout the year, we strive to be the hands and feet of Jesus in our neighborhood.",
@@ -86,7 +75,6 @@ const ministries = [
   {
     title: "Fellowship",
     time: "Various times",
-    icon: Users,
     images: ["/new-life-assembly-community-dinner.webp", "/new-life-assembly-community-dinner-2.webp"],
     description:
       "Building meaningful relationships is at the core of who we are. From community dinners to fellowship events, we create opportunities for people to connect, share life together, and grow in faith outside of Sunday services.",
@@ -101,8 +89,9 @@ const ministries = [
 
 export default function MinistriesPage() {
   const prefersReducedMotion = useReducedMotion();
-  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6 } };
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } };
+  const ease = [0.16, 1, 0.3, 1] as const;
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
 
   return (
     <>
@@ -140,7 +129,6 @@ export default function MinistriesPage() {
       <section className="py-16 md:py-24">
         <div className="max-w-6xl mx-auto px-4 space-y-12">
           {ministries.map((ministry, index) => {
-            const Icon = ministry.icon;
             const slug = ministry.title
               .toLowerCase()
               .replace(/['&]/g, "")
@@ -150,21 +138,16 @@ export default function MinistriesPage() {
                 key={ministry.title}
                 id={slug}
                 {...slideUp(index * 0.05)}
-                className="bg-white rounded-2xl p-8 md:p-10 shadow-sm scroll-mt-24"
+                className="bg-white rounded-2xl p-8 md:p-10 shadow-[0_1px_2px_rgba(27,42,74,0.04)] scroll-mt-24 lift"
               >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-xl bg-brand-accent/10 flex items-center justify-center shrink-0">
-                    <Icon className="w-7 h-7 text-brand-accent" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h2 className="font-serif text-2xl font-bold text-brand-primary">
-                      {ministry.title}
-                    </h2>
-                    <p className="text-brand-accent font-medium text-sm flex items-center gap-1 mt-1">
-                      <Clock className="w-4 h-4" aria-hidden="true" />
-                      {ministry.time}
-                    </p>
-                  </div>
+                <div className="mb-6">
+                  <h2 className="font-serif text-2xl font-bold text-brand-primary">
+                    {ministry.title}
+                  </h2>
+                  <p className="text-brand-accent font-medium text-sm flex items-center gap-1 mt-1">
+                    <Clock className="w-4 h-4" aria-hidden="true" />
+                    {ministry.time}
+                  </p>
                 </div>
 
                 {"images" in ministry && ministry.images ? (
@@ -186,9 +169,8 @@ export default function MinistriesPage() {
                       {ministry.details.map((detail) => (
                         <li
                           key={detail}
-                          className="flex items-center gap-2 text-brand-primary/70 text-sm"
+                          className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
                         >
-                          <Heart className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
                           {detail}
                         </li>
                       ))}
@@ -227,9 +209,8 @@ export default function MinistriesPage() {
                         {ministry.details.map((detail) => (
                           <li
                             key={detail}
-                            className="flex items-center gap-2 text-brand-primary/70 text-sm"
+                            className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
                           >
-                            <Heart className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
                             {detail}
                           </li>
                         ))}
@@ -246,9 +227,8 @@ export default function MinistriesPage() {
                   {ministry.details.map((detail) => (
                     <li
                       key={detail}
-                      className="flex items-center gap-2 text-brand-primary/70 text-sm"
+                      className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
                     >
-                      <Heart className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
                       {detail}
                     </li>
                   ))}
@@ -276,10 +256,10 @@ export default function MinistriesPage() {
             </p>
             <a
               href="/contact"
-              className="bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2"
+              className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2 group"
             >
               Plan Your Visit
-              <ChevronRight className="w-5 h-5" aria-hidden="true" />
+              <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
             </a>
           </motion.div>
         </div>

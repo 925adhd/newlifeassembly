@@ -42,7 +42,7 @@ function FacebookVideo({ reelId }: { reelId: string }) {
   const embedUrl = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(`https://www.facebook.com/reel/${reelId}`)}&show_text=false&width=500`;
 
   return (
-    <div ref={containerRef} className="bg-white rounded-2xl overflow-hidden shadow-sm">
+    <div ref={containerRef} className="bg-white rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(27,42,74,0.04)] lift">
       <div className="aspect-video relative">
         {/* Placeholder spinner — sits behind iframe so iframe covers it naturally */}
         <div className="absolute inset-0 bg-brand-primary/5 flex items-center justify-center">
@@ -75,8 +75,9 @@ function FacebookVideo({ reelId }: { reelId: string }) {
 
 export default function WatchPage() {
   const prefersReducedMotion = useReducedMotion();
-  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6 } };
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } };
+  const ease = [0.16, 1, 0.3, 1] as const;
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
 
   return (
     <>
@@ -160,10 +161,10 @@ export default function WatchPage() {
               href="https://www.facebook.com/newlifeagleitchfield"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2"
+              className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2 group"
             >
               Follow on Facebook
-              <ExternalLink className="w-5 h-5" aria-hidden="true" />
+              <ExternalLink className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
             </a>
           </motion.div>
         </div>

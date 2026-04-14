@@ -65,14 +65,14 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-brand-primary/80 hover:text-brand-accent font-medium text-sm transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-accent after:transition-all hover:after:w-full"
+                className="text-brand-primary/80 hover:text-brand-accent font-medium text-sm transition-colors duration-500 link-underline"
               >
                 {link.label}
               </a>
             ))}
             <a
               href="/contact"
-              className="bg-brand-accent hover:bg-brand-accent/90 text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-colors"
+              className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-colors"
             >
               Visit Us
             </a>
@@ -82,7 +82,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2.5 rounded-lg text-brand-primary hover:bg-brand-primary/5 transition-colors"
+            className="tap md:hidden p-2.5 rounded-lg text-brand-primary hover:bg-brand-primary/5 transition-colors"
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
@@ -94,14 +94,15 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div id="mobile-menu" className="md:hidden bg-white border-t border-brand-primary/10">
+        <div id="mobile-menu" className="md:hidden bg-white border-t border-brand-primary/10 animate-[fadeSlideDown_400ms_cubic-bezier(0.16,1,0.3,1)]">
           <div className="px-4 py-4 space-y-1">
-            {navLinks.map((link) => (
+            {navLinks.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-4 py-3 rounded-lg text-brand-primary/80 hover:bg-brand-accent/5 hover:text-brand-accent font-medium transition-colors"
+                style={{ animation: `fadeSlideDown 500ms ${i * 60}ms cubic-bezier(0.16, 1, 0.3, 1) backwards` }}
+                className="tap block px-4 py-3 rounded-lg text-brand-primary/80 hover:bg-brand-accent/5 hover:text-brand-accent font-medium transition-colors"
               >
                 {link.label}
               </a>
@@ -109,7 +110,8 @@ export default function Navbar() {
             <a
               href="/contact"
               onClick={() => setIsOpen(false)}
-              className="block text-center bg-brand-accent text-white px-4 py-3 rounded-lg font-medium mt-2 transition-colors hover:bg-brand-accent/90"
+              style={{ animation: `fadeSlideDown 500ms ${navLinks.length * 60}ms cubic-bezier(0.16, 1, 0.3, 1) backwards` }}
+              className="tap block text-center bg-brand-accent text-white px-4 py-3 rounded-lg font-medium mt-2 transition-colors hover:bg-brand-accent/90"
             >
               Visit Us
             </a>
@@ -122,8 +124,8 @@ export default function Navbar() {
     {/* Sticky mobile CTA — appears after scrolling past hero */}
     <a
       href="tel:+12702003422"
-      className={`md:hidden fixed bottom-6 right-6 z-50 bg-brand-accent text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-brand-accent/90 transition-all duration-300 ${
-        pastHero ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-75 pointer-events-none"
+      className={`tap md:hidden fixed bottom-6 right-6 z-50 bg-brand-accent text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_24px_-4px_rgba(37,99,171,0.5)] hover:bg-brand-accent/90 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        pastHero ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-75 translate-y-2 pointer-events-none"
       }`}
       aria-label="Call Pastor Tony Redmon"
       aria-hidden={!pastHero}

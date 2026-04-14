@@ -125,14 +125,15 @@ export default function HomePage() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [lightboxImg, closeLightbox]);
 
-  const fade = prefersReducedMotion ? {} : { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0.2 } };
-  const fadeScale = prefersReducedMotion ? {} : { initial: { scale: 0.9, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.9, opacity: 0 }, transition: { duration: 0.2 } };
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay } };
-  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: -30 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
-  const slideRight = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: 30 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.6, delay } };
-  const heroLeft = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: -30 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.6 } };
-  const heroRight = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, x: 30 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.6, delay: 0.2 } };
-  const scaleIn = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } } : { initial: { opacity: 0, scale: 0.95 }, whileInView: { opacity: 1, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, delay } };
+  const ease = [0.16, 1, 0.3, 1] as const;
+  const fade = prefersReducedMotion ? {} : { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0.25, ease } };
+  const fadeScale = prefersReducedMotion ? {} : { initial: { scale: 0.92, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.92, opacity: 0 }, transition: { duration: 0.3, ease } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
+  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: -32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
+  const slideRight = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: 32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, delay, ease } };
+  const heroLeft = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: -32 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.9, ease } };
+  const heroRight = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: 32 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.9, delay: 0.15, ease } };
+  const scaleIn = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, scale: 0.96 }, whileInView: { opacity: 1, scale: 1 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.7, delay, ease } };
 
   return (
     <>
@@ -188,14 +189,14 @@ export default function HomePage() {
               <div className="flex flex-row items-center md:items-start justify-center md:justify-start gap-3">
                 <a
                   href="/contact"
-                  className="bg-brand-accent hover:bg-brand-accent/90 text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg transition-colors inline-flex items-center gap-2"
+                  className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg transition-colors inline-flex items-center gap-2 group"
                 >
                   Plan Your Visit
-                  <ChevronRight className="w-4 h-4 md:w-5 md:h-5" aria-hidden="true" />
+                  <ChevronRight className="w-4 h-4 md:w-5 md:h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
                 </a>
                 <a
                   href="/watch"
-                  className="border-2 border-white/30 hover:border-white/60 text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg transition-colors"
+                  className="tap border-2 border-white/30 hover:border-white/60 text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg transition-colors"
                 >
                   Watch a Service
                 </a>
@@ -330,21 +331,18 @@ export default function HomePage() {
               <a
                 key={ministry.title}
                 href={ministry.href}
-                className={`group block ${index % 2 === 1 ? "md:mt-10" : ""}`}
+                className={`group block tap ${index % 2 === 1 ? "md:mt-10" : ""}`}
               >
-                <span className="block h-px w-10 bg-brand-primary/15 mb-4" aria-hidden="true" />
-                <h3 className="font-serif italic text-3xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors">
+                <span className="block h-px w-10 bg-brand-primary/15 mb-4 transition-all duration-500 group-hover:w-16 group-hover:bg-brand-accent" aria-hidden="true" />
+                <h3 className="font-serif italic text-3xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors duration-500">
                   {ministry.title}
                 </h3>
                 <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">
                   {ministry.description}
                 </p>
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/60 group-hover:text-brand-accent transition-colors">
-                  <span className="relative">
-                    Learn more
-                    <span className="absolute left-0 right-0 -bottom-0.5 h-px bg-current origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-                  </span>
-                  <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/60 group-hover:text-brand-accent transition-colors duration-500">
+                  <span className="link-underline">Learn more</span>
+                  <ChevronRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </a>
             ))}
@@ -403,10 +401,10 @@ export default function HomePage() {
               </p>
               <a
                 href="/contact#get-in-touch"
-                className="bg-brand-accent hover:bg-brand-accent/90 text-white px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center gap-2"
+                className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center gap-2 group"
               >
                 Get Connected
-                <ChevronRight className="w-5 h-5" aria-hidden="true" />
+                <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
               </a>
             </motion.div>
           </div>
@@ -432,7 +430,7 @@ export default function HomePage() {
           {/* Christmas Play Banner */}
           <motion.div
             {...slideUp()}
-            className="overflow-hidden rounded-xl mb-3 md:mb-4 cursor-pointer"
+            className="overflow-hidden rounded-xl mb-3 md:mb-4 cursor-pointer tap lift"
             role="button"
             tabIndex={0}
             aria-label="View enlarged: Christmas nativity play at New Life Assembly"
@@ -444,7 +442,7 @@ export default function HomePage() {
               alt="Christmas nativity play at New Life Assembly"
               width={1200}
               height={400}
-              className="w-full h-40 md:h-64 object-cover hover:scale-105 transition-transform duration-300"
+              className="w-full h-40 md:h-64 object-cover hover:scale-[1.03] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
               loading="lazy"
             />
           </motion.div>
@@ -453,7 +451,7 @@ export default function HomePage() {
           <div className="hidden md:grid grid-cols-2 gap-4 mb-4">
             <motion.div
               {...scaleIn()}
-              className="overflow-hidden rounded-xl aspect-[4/3] cursor-pointer"
+              className="overflow-hidden rounded-xl aspect-[4/3] cursor-pointer tap lift"
               role="button"
               tabIndex={0}
               aria-label="View enlarged: Children's Christmas play at New Life Assembly"
@@ -465,14 +463,14 @@ export default function HomePage() {
                 alt="Children's Christmas play at New Life Assembly"
                 width={600}
                 height={450}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
                 loading="lazy"
               />
             </motion.div>
 
             <motion.div
               {...scaleIn(0.05)}
-              className="overflow-hidden rounded-xl aspect-[4/3] cursor-pointer"
+              className="overflow-hidden rounded-xl aspect-[4/3] cursor-pointer tap lift"
               role="button"
               tabIndex={0}
               aria-label="View enlarged: Kids performing in Christmas play at New Life Assembly"
@@ -484,7 +482,7 @@ export default function HomePage() {
                 alt="Kids performing in Christmas play at New Life Assembly"
                 width={300}
                 height={400}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
                 loading="lazy"
               />
             </motion.div>
@@ -499,7 +497,7 @@ export default function HomePage() {
               <motion.div
                 key={photo.src}
                 {...scaleIn(index * 0.05)}
-                className="overflow-hidden rounded-xl aspect-square cursor-pointer"
+                className="overflow-hidden rounded-xl aspect-square cursor-pointer tap lift"
                 role="button"
                 tabIndex={0}
                 aria-label={`View enlarged: ${photo.alt}`}
@@ -511,7 +509,7 @@ export default function HomePage() {
                   alt={photo.alt}
                   width={300}
                   height={300}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
                   loading="lazy"
                 />
               </motion.div>
@@ -531,7 +529,7 @@ export default function HomePage() {
               <motion.div
                 key={photo.src}
                 {...scaleIn(index * 0.05)}
-                className="overflow-hidden rounded-xl aspect-square cursor-pointer"
+                className="overflow-hidden rounded-xl aspect-square cursor-pointer tap lift"
                 role="button"
                 tabIndex={0}
                 aria-label={`View enlarged: ${photo.alt}`}
@@ -543,7 +541,7 @@ export default function HomePage() {
                   alt={photo.alt}
                   width={300}
                   height={300}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
                   loading="lazy"
                 />
               </motion.div>
@@ -615,14 +613,14 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <a
                 href="/contact"
-                className="bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2"
+                className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2 group"
               >
                 Plan Your Visit
-                <ChevronRight className="w-5 h-5" aria-hidden="true" />
+                <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
               </a>
               <a
                 href="tel:+12702003422"
-                className="border-2 border-brand-primary/20 hover:border-brand-accent text-brand-primary px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2"
+                className="tap border-2 border-brand-primary/20 hover:border-brand-accent text-brand-primary px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2"
               >
                 <Phone className="w-5 h-5" aria-hidden="true" />
                 Call Pastor Tony

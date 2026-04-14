@@ -337,6 +337,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               {...slideLeft}
+              className="order-2 lg:order-1"
             >
               <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
                 About Us
@@ -367,7 +368,7 @@ export default function HomePage() {
 
             <motion.div
               {...slideRight()}
-              className="relative"
+              className="relative order-1 lg:order-2"
             >
               <img
                 src="/new-life-assembly-worship-service.webp"
@@ -466,7 +467,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               {...slideLeft}
-              className="order-2 lg:order-1"
+              className="order-1 lg:order-1"
             >
               <img
                 src="/new-life-assembly-baptism.webp"
@@ -480,7 +481,7 @@ export default function HomePage() {
 
             <motion.div
               {...slideRight()}
-              className="order-1 lg:order-2"
+              className="order-2 lg:order-2"
             >
               <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
                 Life at New Life

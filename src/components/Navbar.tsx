@@ -213,9 +213,9 @@ export default function Navbar() {
               aria-label="Open directions to 47 Embry Acres Dr, Leitchfield, KY in Google Maps"
             >
               <MapPin className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
-              <span>
-                47 Embry Acres Dr, Leitchfield, KY
-                <span className="text-brand-accent text-xs ml-1.5 whitespace-nowrap">
+              <span className="whitespace-nowrap">
+                47 Embry Acres Dr
+                <span className="text-brand-accent text-xs ml-1.5">
                   Directions <span aria-hidden="true" className="inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
                 </span>
               </span>

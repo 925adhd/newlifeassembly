@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     url: "/",
     images: [
       {
-        url: "/new-life-assembly-og.png",
+        url: "/new-life-assembly-og-v2.png",
         width: 1200,
         height: 630,
         alt: "New Life Assembly of God church building in Leitchfield, Kentucky",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: "New Life Assembly of God | Leitchfield, KY",
     description:
       "A welcoming Assemblies of God church in Leitchfield, Kentucky. Join us for worship, fellowship, and spiritual growth.",
-    images: ["/new-life-assembly-og.png"],
+    images: ["/new-life-assembly-og-v2.png"],
   },
   icons: {
     icon: "/favicon.png",

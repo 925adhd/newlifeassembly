@@ -43,6 +43,9 @@ next-env.d.ts
 # client files
 client-info/
 
+# local debug notes (not committed)
+debug-notes/
+
 # system files
 desktop.ini
 

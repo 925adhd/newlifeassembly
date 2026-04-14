@@ -13,8 +13,8 @@
 }
 
 @layer base {
-  html {
-    overflow-y: scroll;
+  html, body {
+    overflow-x: hidden;
   }
   body {
     @apply bg-brand-warm text-brand-primary font-sans antialiased;

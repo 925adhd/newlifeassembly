@@ -30,9 +30,10 @@ export default function Navbar() {
 
   return (
     <>
+    <div aria-hidden="true" className="h-16 md:h-20" />
     <nav
-      className={`sticky top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-300 ${
-        scrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-white/90 backdrop-blur-md"
+      className={`fixed top-0 left-0 right-0 z-[9999] bg-white transform-gpu will-change-transform transition-shadow duration-300 ${
+        scrolled ? "shadow-sm" : ""
       }`}
       role="navigation"
       aria-label="Main navigation"

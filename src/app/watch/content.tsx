@@ -4,21 +4,23 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ExternalLink, Play } from "lucide-react";
 
-const worshipReels = [
-  "644015321627140",
-  "1282550930213215",
-  "1236258307523153",
-  "598329929727976",
+type Service = { id: string; date: string; label?: string };
+
+const sermons: Service[] = [
+  { id: "2647737832246553", date: "July 27, 2025" },
+  { id: "609702385121850", date: "July 13, 2025" },
+  { id: "1054167483483185", date: "June 1, 2025" },
+  { id: "1005841564835385", date: "April 20, 2025", label: "Resurrection Day" },
 ];
 
-const sermonReels = [
-  "2647737832246553",
-  "609702385121850",
-  "1054167483483185",
-  "1005841564835385",
+const worship: Service[] = [
+  { id: "644015321627140", date: "August 17, 2025" },
+  { id: "1282550930213215", date: "July 27, 2025" },
+  { id: "598329929727976", date: "July 13, 2025" },
+  { id: "1236258307523153", date: "June 22, 2025" },
 ];
 
-function FacebookVideo({ reelId }: { reelId: string }) {
+function FacebookVideo({ service, kind }: { service: Service; kind: "Sermon" | "Worship" }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -39,7 +41,7 @@ function FacebookVideo({ reelId }: { reelId: string }) {
     return () => observer.disconnect();
   }, []);
 
-  const embedUrl = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(`https://www.facebook.com/reel/${reelId}`)}&show_text=false&width=500`;
+  const embedUrl = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(`https://www.facebook.com/reel/${service.id}`)}&show_text=false&width=500`;
 
   return (
     <div ref={containerRef} className="bg-white rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(27,42,74,0.04)] lift">
@@ -65,9 +67,15 @@ function FacebookVideo({ reelId }: { reelId: string }) {
             allowFullScreen
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             loading="lazy"
-            title={`Service video from New Life Assembly of God`}
+            title={`${kind} from New Life Assembly of God — ${service.date}`}
           />
         )}
+      </div>
+      <div className="px-5 py-4 md:px-6 md:py-5 border-t border-brand-primary/5">
+        <p className="font-serif text-lg md:text-xl font-bold text-brand-primary tracking-tight">
+          {service.label && <span className="text-brand-accent">{service.label} · </span>}
+          {service.date}
+        </p>
       </div>
     </div>
   );
@@ -121,13 +129,13 @@ export default function WatchPage() {
           >
             Sermons
           </motion.h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
-            {sermonReels.map((id) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 mb-20 md:mb-28">
+            {sermons.map((service, i) => (
               <motion.div
-                key={id}
-                {...slideUp()}
+                key={service.id}
+                {...slideUp(i * 0.08)}
               >
-                <FacebookVideo reelId={id} />
+                <FacebookVideo service={service} kind="Sermon" />
               </motion.div>
             ))}
           </div>
@@ -139,13 +147,13 @@ export default function WatchPage() {
           >
             Worship
           </motion.h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {worshipReels.map((id) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
+            {worship.map((service, i) => (
               <motion.div
-                key={id}
-                {...slideUp()}
+                key={service.id}
+                {...slideUp(i * 0.08)}
               >
-                <FacebookVideo reelId={id} />
+                <FacebookVideo service={service} kind="Worship" />
               </motion.div>
             ))}
           </div>

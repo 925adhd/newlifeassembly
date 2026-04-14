@@ -348,31 +348,34 @@ export default function HomePage() {
             </a>
           </motion.div>
 
-          <motion.div
-            {...slideUp(0.1)}
-            className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16">
             {ministries.map((ministry, index) => (
-              <Tilt key={ministry.title} max={5} scale={1.01} className={index % 2 === 1 ? "md:mt-10" : ""}>
-                <a
-                  href={ministry.href}
-                  className="group block tap"
-                >
-                  <span className="block h-px w-10 bg-brand-primary/15 mb-4 transition-all duration-500 group-hover:w-16 group-hover:bg-brand-accent" aria-hidden="true" />
-                  <h3 className="font-serif italic text-3xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors duration-500">
-                    {ministry.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">
-                    {ministry.description}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/60 group-hover:text-brand-accent transition-colors duration-500">
-                    <span className="link-underline">Learn more</span>
-                    <ChevronRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
-                  </span>
-                </a>
-              </Tilt>
+              <motion.div
+                key={ministry.title}
+                {...slideUp(index * 0.12)}
+                className={index % 2 === 1 ? "md:mt-10" : ""}
+              >
+                <Tilt max={5} scale={1.01}>
+                  <a
+                    href={ministry.href}
+                    className="group block tap"
+                  >
+                    <span className="block h-px w-10 bg-brand-primary/15 mb-4 transition-all duration-500 group-hover:w-16 group-hover:bg-brand-accent" aria-hidden="true" />
+                    <h3 className="font-serif italic text-3xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors duration-500">
+                      {ministry.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">
+                      {ministry.description}
+                    </p>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/60 group-hover:text-brand-accent transition-colors duration-500">
+                      <span className="link-underline">Learn more</span>
+                      <ChevronRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
+                    </span>
+                  </a>
+                </Tilt>
+              </motion.div>
             ))}
-          </motion.div>
+          </div>
 
           <div className="md:hidden mt-6 text-center">
             <a

@@ -25,7 +25,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://newlifeassemblyleitchfield.com"),
+  metadataBase: new URL("https://newlifeassembly.vercel.app"),
   title: {
     default: "New Life Assembly of God | Leitchfield, KY",
     template: "%s | New Life Assembly of God",
@@ -91,7 +91,7 @@ export default function RootLayout({
               name: "New Life Assembly of God",
               description:
                 "A welcoming Assemblies of God church in Leitchfield, Kentucky. Join Pastor Tony Redmon and our church family for Sunday worship, children's church, and Wednesday Bible study.",
-              url: "https://newlifeassemblyleitchfield.com",
+              url: "https://newlifeassembly.vercel.app",
               telephone: "+1-270-200-3422",
               address: {
                 "@type": "PostalAddress",
@@ -138,8 +138,8 @@ export default function RootLayout({
                     "An amazing church with an amazing pastor.",
                 },
               ],
-              image: "https://newlifeassemblyleitchfield.com/church.webp",
-              logo: "https://newlifeassemblyleitchfield.com/new-life-assembly-logo.webp",
+              image: "https://newlifeassembly.vercel.app/church.webp",
+              logo: "https://newlifeassembly.vercel.app/new-life-assembly-logo.webp",
               sameAs: [
                 "https://www.facebook.com/newlifeagleitchfield",
               ],

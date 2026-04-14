@@ -141,11 +141,16 @@ export default function MinistriesPage() {
         <div className="max-w-6xl mx-auto px-4 space-y-12">
           {ministries.map((ministry, index) => {
             const Icon = ministry.icon;
+            const slug = ministry.title
+              .toLowerCase()
+              .replace(/['&]/g, "")
+              .replace(/\s+/g, "-");
             return (
               <motion.article
                 key={ministry.title}
+                id={slug}
                 {...slideUp(index * 0.05)}
-                className="bg-white rounded-2xl p-8 md:p-10 shadow-sm"
+                className="bg-white rounded-2xl p-8 md:p-10 shadow-sm scroll-mt-24"
               >
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-14 h-14 rounded-xl bg-brand-accent/10 flex items-center justify-center shrink-0">

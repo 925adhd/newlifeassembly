@@ -12,7 +12,6 @@ import {
   Baby,
   Music,
   ChevronRight,
-  Quote,
   X,
 } from "lucide-react";
 import { OliveBranchDivider } from "@/components/Decorations";
@@ -37,24 +36,28 @@ const serviceTimes = [
 const ministries = [
   {
     title: "Sunday Worship",
+    href: "/ministries#sunday-worship",
     description:
       "Experience uplifting praise and worship with our church family every Sunday morning. All are welcome.",
     icon: Music,
   },
   {
     title: "Children's Church",
+    href: "/ministries#childrens-church",
     description:
       "A fun, safe environment where kids learn about God's love through age-appropriate lessons and activities.",
     icon: Baby,
   },
   {
     title: "Bible Study",
+    href: "/ministries#bible-study",
     description:
       "Dive deeper into God's Word every Wednesday evening. Grow in faith through study, discussion, and prayer.",
     icon: BookOpen,
   },
   {
     title: "Community & Fellowship",
+    href: "/ministries#outreach",
     description:
       "Build meaningful relationships with fellow believers through fellowship events, outreach, and service.",
     icon: Users,
@@ -181,13 +184,13 @@ export default function HomePage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="pt-4 md:pt-12 pb-8 md:pb-16 bg-gradient-to-r from-brand-primary via-[#3d5575] to-[#7e94ad] overflow-hidden">
+      <section className="pt-4 md:pt-12 pb-16 md:pb-16 bg-gradient-to-r from-brand-primary via-[#3d5575] to-[#7e94ad] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 items-center mt-4 md:mt-0">
             {/* Text */}
             <motion.div
               {...heroLeft}
-              className="text-center md:text-left order-2 md:order-1"
+              className="text-center md:text-left order-2 md:order-1 -mt-[55px] md:mt-0 relative z-10"
             >
               <p className="text-white/70 font-medium text-xs tracking-widest uppercase mb-2 hidden md:block">
                 Assemblies of God &middot; Leitchfield, Kentucky
@@ -235,29 +238,24 @@ export default function HomePage() {
       </section>
 
       {/* Trust Strip */}
-      <section className="bg-white py-12 md:py-16" aria-label="Our values">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {values.map((value, index) => {
-              const Icon = value.icon;
-              return (
+      <section className="bg-white py-16 md:py-24" aria-label="Our values">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 md:divide-x divide-brand-primary/10">
+            {values.map((value, index) => (
               <motion.div
                 key={value.title}
                 {...slideUp(index * 0.1)}
-                className="text-center px-4"
+                className="py-8 md:py-2 md:px-10 first:md:pl-0 last:md:pr-0 border-b md:border-b-0 border-brand-primary/10 last:border-b-0"
               >
-                <div className="w-12 h-12 rounded-full bg-brand-accent/10 flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-6 h-6 text-brand-accent" aria-hidden="true" />
-                </div>
-                <h2 className="font-serif text-xl font-bold text-brand-primary mb-2">
+                <span className="block h-px w-10 bg-brand-accent/60 mb-5" aria-hidden="true" />
+                <h2 className="font-serif text-xl md:text-2xl font-bold text-brand-primary mb-3 tracking-tight">
                   {value.title}
                 </h2>
-                <p className="text-brand-primary/70 text-sm leading-relaxed">
+                <p className="text-brand-primary/65 text-sm leading-relaxed">
                   {value.description}
                 </p>
               </motion.div>
-              );
-            })}
+            ))}
           </div>
         </div>
       </section>
@@ -286,40 +284,48 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            {serviceTimes.map((day, dayIndex) => (
-              <motion.div
-                key={day.day}
-                {...slideUp(dayIndex * 0.1)}
-                className="bg-white rounded-2xl p-8 shadow-sm"
-              >
-                <h3 className="font-serif text-2xl font-bold text-brand-primary mb-6 flex items-center gap-2">
-                  <Clock className="w-6 h-6 text-brand-accent" aria-hidden="true" />
-                  {day.day}
-                </h3>
-                <ul className="space-y-4">
-                  {day.services.map((service) => {
-                    const Icon = service.icon;
-                    return (
-                      <li key={service.name} className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-brand-accent/10 flex items-center justify-center shrink-0">
-                          <Icon className="w-5 h-5 text-brand-accent" aria-hidden="true" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-brand-primary">
+          <motion.div
+            {...slideUp()}
+            className="max-w-3xl mx-auto bg-white rounded-2xl border border-brand-primary/5 shadow-[0_1px_2px_rgba(27,42,74,0.04)] overflow-hidden"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-brand-primary/10">
+              {serviceTimes.map((day) => (
+                <div key={day.day} className="p-8 md:p-10">
+                  <div className="flex items-baseline justify-between mb-6">
+                    <h3 className="font-serif text-xl font-bold text-brand-primary tracking-tight">
+                      {day.day}
+                    </h3>
+                    <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-brand-primary/40">
+                      Weekly
+                    </span>
+                  </div>
+                  <ul className="divide-y divide-brand-primary/5">
+                    {day.services.map((service) => {
+                      const Icon = service.icon;
+                      return (
+                        <li
+                          key={service.name}
+                          className="flex items-center gap-4 py-3 first:pt-0 last:pb-0"
+                        >
+                          <Icon
+                            className="w-4 h-4 text-brand-primary/40 shrink-0"
+                            aria-hidden="true"
+                            strokeWidth={1.5}
+                          />
+                          <p className="flex-1 text-sm text-brand-primary">
                             {service.name}
                           </p>
-                          <p className="text-brand-primary/65 text-sm">
+                          <p className="text-sm text-brand-primary/60 tabular-nums tracking-tight">
                             {service.time}
                           </p>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -330,7 +336,6 @@ export default function HomePage() {
             <motion.div
               {...slideLeft}
             >
-              <img src="/dove-logo.webp" alt="" aria-hidden="true" width={40} height={40} className="w-10 h-10 opacity-15 mb-3" />
               <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
                 About Us
               </p>
@@ -376,45 +381,75 @@ export default function HomePage() {
       </section>
 
       {/* Ministries Overview */}
-      <section className="py-16 md:py-24 grid-pattern" aria-labelledby="ministries-heading">
-        <div className="max-w-4xl mx-auto px-4">
+      <section className="relative py-16 md:py-24 grid-pattern overflow-hidden" aria-labelledby="ministries-heading">
+        <img
+          src="/dove-logo.webp"
+          alt=""
+          aria-hidden="true"
+          width={600}
+          height={600}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-auto md:top-auto md:translate-x-0 md:translate-y-0 md:-left-20 md:bottom-8 w-[440px] md:w-[520px] h-auto opacity-[0.04] md:opacity-[0.06] pointer-events-none select-none"
+          loading="lazy"
+        />
+        <div className="relative max-w-2xl mx-auto px-4">
           <motion.div
             {...slideUp()}
-            className="text-center mb-10"
+            className="flex items-end justify-between mb-8 md:mb-10 gap-6"
           >
-            <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
-              Get Involved
-            </p>
-            <h2 id="ministries-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary">
-              Our Ministries
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {ministries.map((ministry, index) => {
-              const Icon = ministry.icon;
-              return (
-                <motion.a
-                  key={ministry.title}
-                  href="/ministries"
-                  {...slideUp(index * 0.1)}
-                  className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow text-center group"
-                >
-                  <div className="w-12 h-12 rounded-full bg-brand-accent/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-accent/20 transition-colors">
-                    <Icon className="w-6 h-6 text-brand-accent" aria-hidden="true" />
-                  </div>
-                  <h3 className="font-serif text-base font-bold text-brand-primary">
-                    {ministry.title}
-                  </h3>
-                </motion.a>
-              );
-            })}
-          </div>
-
-          <div className="text-center mt-8">
+            <div>
+              <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-brand-primary/50 mb-2">
+                Get Involved
+              </p>
+              <h2 id="ministries-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight">
+                Our Ministries
+              </h2>
+            </div>
             <a
               href="/ministries"
-              className="inline-flex items-center gap-2 text-brand-accent font-medium hover:gap-3 transition-all underline underline-offset-4 decoration-brand-accent/30 hover:decoration-brand-accent"
+              className="hidden md:inline-flex items-center gap-1.5 text-sm text-brand-primary/60 hover:text-brand-accent transition-colors shrink-0 pb-1"
+            >
+              View all
+              <ChevronRight className="w-4 h-4" aria-hidden="true" />
+            </a>
+          </motion.div>
+
+          <motion.div
+            {...slideUp(0.1)}
+            className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16"
+          >
+            {ministries.map((ministry, index) => (
+              <a
+                key={ministry.title}
+                href={ministry.href}
+                className={`group block ${index % 2 === 1 ? "md:mt-10" : ""}`}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-[11px] font-medium tracking-[0.2em] uppercase text-brand-primary/40">
+                    Ministry
+                  </span>
+                  <span className="h-px flex-1 bg-brand-primary/10" aria-hidden="true" />
+                </div>
+                <h3 className="font-serif italic text-3xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors">
+                  {ministry.title}
+                </h3>
+                <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">
+                  {ministry.description}
+                </p>
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/60 group-hover:text-brand-accent transition-colors">
+                  <span className="relative">
+                    Learn more
+                    <span className="absolute left-0 right-0 -bottom-0.5 h-px bg-current origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  </span>
+                  <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                </span>
+              </a>
+            ))}
+          </motion.div>
+
+          <div className="md:hidden mt-6 text-center">
+            <a
+              href="/ministries"
+              className="inline-flex items-center gap-1.5 text-sm text-brand-primary/60 hover:text-brand-accent transition-colors"
             >
               View all ministries
               <ChevronRight className="w-4 h-4" aria-hidden="true" />
@@ -510,11 +545,11 @@ export default function HomePage() {
             />
           </motion.div>
 
-          {/* Desktop: play photos + logo in middle */}
-          <div className="hidden md:flex justify-between items-center mb-4">
+          {/* Desktop: two play photos */}
+          <div className="hidden md:grid grid-cols-2 gap-4 mb-4">
             <motion.div
               {...scaleIn()}
-              className="overflow-hidden rounded-xl w-[30%] aspect-[3/4] cursor-pointer"
+              className="overflow-hidden rounded-xl aspect-[4/3] cursor-pointer"
               role="button"
               tabIndex={0}
               aria-label="View enlarged: Children's Christmas play at New Life Assembly"
@@ -524,31 +559,16 @@ export default function HomePage() {
               <img
                 src="/gallery-christmas-play-angels.webp"
                 alt="Children's Christmas play at New Life Assembly"
-                width={300}
-                height={400}
+                width={600}
+                height={450}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 loading="lazy"
               />
             </motion.div>
 
             <motion.div
-              {...scaleIn(0.1)}
-              className="flex items-center justify-center w-[25%]"
-            >
-              <img
-                src="/new-life-assembly-logo.webp"
-                alt=""
-                aria-hidden="true"
-                width={200}
-                height={100}
-                className="w-full opacity-15"
-                loading="lazy"
-              />
-            </motion.div>
-
-            <motion.div
               {...scaleIn(0.05)}
-              className="overflow-hidden rounded-xl w-[30%] aspect-[3/4] cursor-pointer"
+              className="overflow-hidden rounded-xl aspect-[4/3] cursor-pointer"
               role="button"
               tabIndex={0}
               aria-label="View enlarged: Kids performing in Christmas play at New Life Assembly"
@@ -630,32 +650,41 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-brand-primary" aria-labelledby="testimonials-heading">
-        <div className="max-w-4xl mx-auto px-4">
-          <motion.div
+      <section className="relative py-20 md:py-32 bg-brand-primary overflow-hidden" aria-labelledby="testimonials-heading">
+        <span
+          aria-hidden="true"
+          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 font-serif text-[22rem] md:text-[30rem] leading-none text-white/[0.04] select-none pointer-events-none"
+        >
+          &ldquo;
+        </span>
+        <div className="relative max-w-4xl mx-auto px-6">
+          <motion.p
             {...slideUp()}
-            className="text-center mb-12"
+            className="text-[11px] font-medium tracking-[0.25em] uppercase text-brand-accent text-center mb-10"
           >
-            <h2 id="testimonials-heading" className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
-              From Our Church Family
-            </h2>
-          </motion.div>
+            <span id="testimonials-heading">From Our Church Family</span>
+          </motion.p>
 
-          <div className="flex justify-center">
-            {testimonials.map((testimonial, index) => (
-              <motion.article
-                key={testimonial.author}
-                {...slideUp(index * 0.1)}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 max-w-lg w-full"
-              >
-                <Quote className="w-8 h-8 text-brand-accent mb-4" aria-hidden="true" />
-                <p className="text-white/90 leading-relaxed mb-6 italic">
+          {testimonials.map((testimonial, index) => (
+            <motion.figure
+              key={testimonial.author}
+              {...slideUp(index * 0.1)}
+              className="text-center"
+            >
+              <blockquote>
+                <p className="font-serif italic text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-10">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
-                <p className="text-brand-accent font-medium">{testimonial.author}</p>
-              </motion.article>
-            ))}
-          </div>
+              </blockquote>
+              <figcaption className="flex items-center justify-center gap-4 text-white/60">
+                <span className="h-px w-10 bg-white/30" aria-hidden="true" />
+                <span className="text-sm font-medium tracking-wider uppercase">
+                  {testimonial.author}
+                </span>
+                <span className="h-px w-10 bg-white/30" aria-hidden="true" />
+              </figcaption>
+            </motion.figure>
+          ))}
         </div>
       </section>
 

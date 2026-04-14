@@ -137,6 +137,17 @@ export default function Navbar() {
         aria-modal="true"
         aria-label="Site navigation"
       >
+        {/* Dove watermark */}
+        <img
+          src="/dove-logo.webp"
+          alt=""
+          aria-hidden="true"
+          width={600}
+          height={600}
+          className="absolute bottom-48 right-6 w-[180px] h-auto opacity-[0.06] pointer-events-none select-none"
+          loading="lazy"
+        />
+
         {/* Decorative orbs */}
         <span
           aria-hidden="true"
@@ -188,10 +199,16 @@ export default function Navbar() {
               <Phone className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
               <span>(270) 200-3422 <span className="text-brand-primary/50 text-xs ml-1">· Pastor Tony</span></span>
             </a>
-            <p className="flex items-center gap-3 text-brand-primary/75">
+            <a
+              href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-brand-primary/75 hover:text-brand-accent transition-colors"
+              aria-label="Open directions to 47 Embry Acres Dr, Leitchfield, KY in Google Maps"
+            >
               <MapPin className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
               47 Embry Acres Dr, Leitchfield, KY
-            </p>
+            </a>
           </div>
         </div>
       </div>

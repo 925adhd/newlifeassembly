@@ -86,10 +86,10 @@ export default function AboutPage() {
               {...slideLeft}
             >
               <img
-                src="/pastor-tony-closeup.webp"
+                src="/pastor-tony-redmon.webp"
                 alt="Pastor Tony Redmon preaching at New Life Assembly of God in Leitchfield, Kentucky"
-                width={640}
-                height={480}
+                width={1920}
+                height={1440}
                 className="rounded-2xl shadow-lg w-full"
                 loading="lazy"
               />

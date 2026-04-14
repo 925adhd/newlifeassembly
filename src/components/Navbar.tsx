@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, MapPin } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -28,13 +28,43 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  // Close menu on Escape
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [isOpen]);
+
   return (
     <>
     <div aria-hidden="true" className="h-16 md:h-20" />
     <nav
-      className={`fixed top-0 left-0 right-0 z-[9999] bg-white transform-gpu will-change-transform transition-shadow duration-300 ${
-        scrolled ? "shadow-sm" : ""
+      className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ${
+        isOpen
+          ? "bg-[rgba(255,253,248,0.72)]"
+          : scrolled
+            ? "bg-[rgba(255,255,255,0.7)] shadow-[0_1px_0_rgba(27,42,74,0.06)]"
+            : "bg-[rgba(255,255,255,0.55)]"
       }`}
+      style={{
+        backdropFilter: "blur(24px) saturate(110%) brightness(106%)",
+        WebkitBackdropFilter: "blur(24px) saturate(110%) brightness(106%)",
+      }}
       role="navigation"
       aria-label="Main navigation"
     >
@@ -92,44 +122,90 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      {isOpen && (
-        <div id="mobile-menu" className="md:hidden bg-white border-t border-brand-primary/10 animate-[fadeSlideDown_400ms_cubic-bezier(0.16,1,0.3,1)]">
-          <div className="px-4 py-4 space-y-1">
-            {navLinks.map((link, i) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                style={{ animation: `fadeSlideDown 500ms ${i * 60}ms cubic-bezier(0.16, 1, 0.3, 1) backwards` }}
-                className="tap block px-4 py-3 rounded-lg text-brand-primary/80 hover:bg-brand-accent/5 hover:text-brand-accent font-medium transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href="/contact"
-              onClick={() => setIsOpen(false)}
-              style={{ animation: `fadeSlideDown 500ms ${navLinks.length * 60}ms cubic-bezier(0.16, 1, 0.3, 1) backwards` }}
-              className="tap block text-center bg-brand-accent text-white px-4 py-3 rounded-lg font-medium mt-2 transition-colors hover:bg-brand-accent/90"
-            >
-              Visit Us
-            </a>
-          </div>
-        </div>
-      )}
-
     </nav>
 
-    {/* Sticky mobile CTA — appears after scrolling past hero */}
+    {/* Mobile Navigation — full-screen glass overlay */}
+    {isOpen && (
+      <div
+        id="mobile-menu"
+        className="md:hidden fixed inset-0 top-16 z-[9998] bg-[rgba(255,253,248,0.72)] flex flex-col animate-[fadeIn_300ms_cubic-bezier(0.16,1,0.3,1)]"
+        style={{
+          backdropFilter: "blur(40px) saturate(110%) brightness(108%)",
+          WebkitBackdropFilter: "blur(40px) saturate(110%) brightness(108%)",
+        }}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site navigation"
+      >
+        {/* Decorative orbs */}
+        <span
+          aria-hidden="true"
+          className="orb orb-float w-[320px] h-[320px] -top-20 -right-20 pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(37,99,171,0.18) 0%, rgba(37,99,171,0) 70%)" }}
+        />
+        <span
+          aria-hidden="true"
+          className="orb orb-float w-[280px] h-[280px] bottom-40 -left-16 pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(125,148,173,0.22) 0%, rgba(125,148,173,0) 70%)", animationDelay: "-5s" }}
+        />
+
+        {/* Nav links — big serif italic, centered */}
+        <div className="relative flex-1 flex flex-col justify-center px-8 gap-1">
+          {navLinks.map((link, i) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              style={{ animation: `fadeSlideRight 600ms ${120 + i * 80}ms cubic-bezier(0.16, 1, 0.3, 1) backwards` }}
+              className="tap group block font-serif italic font-bold text-brand-primary leading-none py-4 text-4xl sm:text-5xl"
+            >
+              <span className="inline-block transition-transform duration-500 group-hover:translate-x-2 group-active:translate-x-2">
+                {link.label}
+              </span>
+              <span className="block h-px w-0 bg-brand-accent/50 mt-3 transition-all duration-500 group-hover:w-20 group-active:w-20" />
+            </a>
+          ))}
+        </div>
+
+        {/* Contact block at bottom */}
+        <div
+          className="relative border-t border-white/40 bg-[rgba(255,255,255,0.25)] px-8 py-6"
+          style={{ animation: `fadeSlideUp 600ms ${180 + navLinks.length * 80 + 80}ms cubic-bezier(0.16, 1, 0.3, 1) backwards` }}
+        >
+          <a
+            href="/contact"
+            onClick={() => setIsOpen(false)}
+            className="tap group block bg-brand-accent hover:bg-brand-accent/90 text-white text-center py-4 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2 w-full mb-5"
+          >
+            Plan Your Visit
+            <span aria-hidden="true" className="transition-transform duration-500 group-hover:translate-x-0.5">→</span>
+          </a>
+          <div className="space-y-2.5 text-sm">
+            <a
+              href="tel:+12702003422"
+              className="flex items-center gap-3 text-brand-primary/75 hover:text-brand-accent transition-colors"
+            >
+              <Phone className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
+              <span>(270) 200-3422 <span className="text-brand-primary/50 text-xs ml-1">· Pastor Tony</span></span>
+            </a>
+            <p className="flex items-center gap-3 text-brand-primary/75">
+              <MapPin className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" />
+              47 Embry Acres Dr, Leitchfield, KY
+            </p>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* Sticky mobile CTA — appears after scrolling past hero, hidden when menu open */}
     <a
       href="tel:+12702003422"
       className={`tap md:hidden fixed bottom-6 right-6 z-50 bg-brand-accent text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_24px_-4px_rgba(37,99,171,0.5)] hover:bg-brand-accent/90 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        pastHero ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-75 translate-y-2 pointer-events-none"
+        pastHero && !isOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-75 translate-y-2 pointer-events-none"
       }`}
       aria-label="Call Pastor Tony Redmon"
-      aria-hidden={!pastHero}
-      tabIndex={pastHero ? 0 : -1}
+      aria-hidden={!pastHero || isOpen}
+      tabIndex={pastHero && !isOpen ? 0 : -1}
     >
       <Phone className="w-6 h-6" />
     </a>

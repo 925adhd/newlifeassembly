@@ -169,7 +169,7 @@ export default function HomePage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative pt-4 md:pt-12 pb-16 md:pb-16 bg-gradient-to-br from-brand-primary via-[#2d3f5e] to-[#1B4D8A] overflow-hidden gradient-mesh">
+      <section className="relative pt-4 md:pt-12 pb-16 md:pb-16 bg-gradient-to-r from-brand-primary via-[#3d5575] to-[#7e94ad] overflow-hidden gradient-mesh">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 items-center mt-4 md:mt-0">
             {/* Text */}
@@ -190,16 +190,17 @@ export default function HomePage() {
               <div className="flex flex-row items-center md:items-start justify-center md:justify-start gap-3">
                 <a
                   href="/contact"
-                  className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg transition-colors inline-flex items-center gap-2 group"
+                  className="tap group relative bg-brand-accent text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg inline-flex items-center gap-2 shadow-[0_4px_14px_-4px_rgba(37,99,171,0.5)] hover:shadow-[0_18px_36px_-8px_rgba(37,99,171,0.7)] hover:-translate-y-1 hover:bg-brand-accent/95 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 >
-                  Plan Your Visit
-                  <ChevronRight className="w-4 h-4 md:w-5 md:h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
+                  <span className="relative z-10">Plan Your Visit</span>
+                  <ChevronRight className="relative z-10 w-4 h-4 md:w-5 md:h-5 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
                 </a>
                 <a
                   href="/watch"
-                  className="tap border-2 border-white/30 hover:border-white/60 text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg transition-colors"
+                  className="tap group relative border-2 border-white/30 text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg overflow-hidden hover:border-white hover:-translate-y-1 hover:text-brand-primary transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 >
-                  Watch a Service
+                  <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true" />
+                  <span className="relative z-10">Watch a Service</span>
                 </a>
               </div>
             </motion.div>
@@ -293,30 +294,6 @@ export default function HomePage() {
 
       {/* Ministries Overview */}
       <section className="relative py-16 md:py-24 bg-white overflow-hidden" aria-labelledby="ministries-heading">
-        {/* Floating decorative orbs */}
-        <span
-          aria-hidden="true"
-          className="orb orb-float w-[480px] h-[480px] top-10 -right-20 md:right-10"
-          style={{ background: "radial-gradient(circle, rgba(37,99,171,0.22) 0%, rgba(37,99,171,0) 70%)" }}
-        />
-        <span
-          aria-hidden="true"
-          className="orb orb-float w-[400px] h-[400px] bottom-10 -left-20 md:left-10"
-          style={{
-            background: "radial-gradient(circle, rgba(125,148,173,0.28) 0%, rgba(125,148,173,0) 70%)",
-            animationDelay: "-4s",
-            animationDuration: "16s",
-          }}
-        />
-        <span
-          aria-hidden="true"
-          className="orb orb-float w-[260px] h-[260px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{
-            background: "radial-gradient(circle, rgba(196,30,58,0.10) 0%, rgba(196,30,58,0) 70%)",
-            animationDelay: "-8s",
-            animationDuration: "20s",
-          }}
-        />
         <img
           src="/dove-logo.webp"
           alt=""
@@ -348,7 +325,7 @@ export default function HomePage() {
             </a>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 md:gap-y-16">
             {ministries.map((ministry, index) => (
               <motion.div
                 key={ministry.title}

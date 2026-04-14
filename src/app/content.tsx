@@ -300,7 +300,7 @@ export default function HomePage() {
           aria-hidden="true"
           width={600}
           height={600}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-auto md:top-auto md:translate-x-0 md:translate-y-0 md:-left-20 md:bottom-8 w-[440px] md:w-[520px] h-auto opacity-[0.04] md:opacity-[0.06] pointer-events-none select-none"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-auto md:top-auto md:translate-x-0 md:translate-y-0 md:-left-20 md:bottom-8 w-[440px] md:w-[520px] h-auto opacity-[0.03] md:opacity-[0.04] pointer-events-none select-none"
           loading="lazy"
         />
         <div className="relative max-w-2xl mx-auto px-4">

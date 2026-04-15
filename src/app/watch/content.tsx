@@ -60,7 +60,7 @@ export default function WatchPage() {
               Watch Online
             </p>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.2] md:leading-[1.15] mb-3 md:mb-6">
-              Watch With Us
+              Past Services
             </h1>
             <p className="text-white/75 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
               Missed a Sunday? Catch up on past services here — and find more

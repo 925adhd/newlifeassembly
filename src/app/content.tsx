@@ -191,12 +191,12 @@ export default function HomePage() {
             {/* Text */}
             <motion.div
               {...heroContainer}
-              className="text-center md:text-left order-2 md:order-1 -mt-[55px] md:mt-0 relative z-10"
+              className="text-center md:text-left order-2 md:order-1 -mt-[50px] md:mt-0 relative z-10"
             >
               <motion.p {...heroChild} className="text-white/60 md:text-white/70 font-medium text-[10px] md:text-xs tracking-[0.2em] md:tracking-widest uppercase mb-3 md:mb-2">
                 Assemblies of God &middot; Leitchfield, Kentucky
               </motion.p>
-              <motion.h1 {...heroChild} className="font-serif text-3xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.15] mb-3 italic [text-shadow:0_4px_12px_rgba(0,0,0,0.35)]">
+              <motion.h1 {...heroChild} className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.2] md:leading-[1.15] mb-3 italic [text-shadow:0_4px_12px_rgba(0,0,0,0.35)]">
                 Welcome to New Life Assembly of God
               </motion.h1>
               <motion.p {...heroChild} className="text-white/80 text-sm md:text-xl max-w-lg mb-6 leading-relaxed md:mx-0 mx-auto">
@@ -256,7 +256,7 @@ export default function HomePage() {
             <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
               Join Us
             </p>
-            <h2 id="service-times-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
+            <h2 id="service-times-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight mb-4">
               When We Gather
             </h2>
             <p className="text-brand-primary/70 max-w-xl mx-auto">
@@ -373,7 +373,7 @@ export default function HomePage() {
                     className="group block tap"
                   >
                     <span className="block h-px w-10 bg-brand-primary/15 mb-4 transition-all duration-500 group-hover:w-16 group-hover:bg-brand-accent" aria-hidden="true" />
-                    <h3 className="font-serif italic text-3xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors duration-500">
+                    <h3 className="font-serif italic text-2xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.1] md:leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors duration-500">
                       {ministry.title}
                     </h3>
                     <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">
@@ -439,7 +439,7 @@ export default function HomePage() {
               <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
                 Life at New Life
               </p>
-              <h2 id="life-heading" className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary mb-6 leading-[1.1]">
+              <h2 id="life-heading" className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary tracking-tight mb-6 leading-[1.1]">
                 Growing Together in Faith
               </h2>
               <p className="text-brand-primary/75 leading-relaxed mb-4">
@@ -476,7 +476,7 @@ export default function HomePage() {
             <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
               Moments Together
             </p>
-            <h2 id="gallery-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary">
+            <h2 id="gallery-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight">
               Events &amp; Activities
             </h2>
           </motion.div>
@@ -664,7 +664,7 @@ export default function HomePage() {
             <p className="relative text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
               We&apos;d Love to Meet You
             </p>
-            <h2 id="cta-heading" className="relative font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
+            <h2 id="cta-heading" className="relative font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight mb-4">
               Plan Your Visit
             </h2>
             <p className="text-brand-primary/70 max-w-lg mx-auto mb-8">

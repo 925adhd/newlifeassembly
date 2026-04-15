@@ -10,6 +10,29 @@
   --color-brand-accent-dark: #1B4D8A;
   --color-brand-red: #C41E3A;
   --color-brand-warm: #F8F6F1;
+
+  /* Signature gold — swap the two lines below to A/B test variants:
+     Variant A — Honey (current):  #E8B86C / #F0C57F
+     Variant B — Deeper bronze:    #D4A24C / #DFB063
+     Variant C — Burnished honey:  #C9954A / #D4A55B */
+  --color-brand-gold: #E8B86C;
+  --color-brand-gold-hover: #F0C57F;
+}
+
+@layer components {
+  .btn-gold {
+    background-color: var(--color-brand-gold);
+    color: var(--color-brand-primary);
+    font-weight: 600;
+    box-shadow: 0 4px 14px -4px color-mix(in srgb, var(--color-brand-gold) 55%, transparent);
+    transition: background-color 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-gold:hover {
+    background-color: var(--color-brand-gold-hover);
+    box-shadow: 0 18px 36px -8px color-mix(in srgb, var(--color-brand-gold) 75%, transparent);
+  }
 }
 
 @layer base {

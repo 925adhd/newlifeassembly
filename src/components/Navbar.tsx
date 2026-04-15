@@ -104,7 +104,7 @@ export default function Navbar() {
             ))}
             <a
               href="/contact"
-              className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-colors"
+              className="tap btn-gold px-5 py-2.5 rounded-lg text-sm hover:-translate-y-0.5"
             >
               Visit Us
             </a>
@@ -192,7 +192,7 @@ export default function Navbar() {
           <a
             href="/contact"
             onClick={() => setIsOpen(false)}
-            className="tap group block bg-brand-accent hover:bg-brand-accent/90 text-white text-center py-4 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2 w-full mb-5"
+            className="tap group block btn-gold text-center py-4 rounded-lg inline-flex items-center justify-center gap-2 w-full mb-5"
           >
             Plan Your Visit
             <span aria-hidden="true" className="transition-transform duration-500 group-hover:translate-x-0.5">→</span>

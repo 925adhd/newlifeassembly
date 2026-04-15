@@ -11,18 +11,21 @@ import {
   Users,
   Baby,
   Music2,
-  Sun,
   ChevronRight,
   X,
 } from "lucide-react";
 import Tilt from "@/components/Tilt";
 
-const serviceTimes = [
+const serviceTimes: {
+  day: string;
+  services: { name: string; time: string; icon: typeof Church }[];
+  note?: string;
+}[] = [
   {
     day: "Sunday",
     services: [
-      { name: "Sunday School", time: "10:00 AM", icon: Church },
-      { name: "Sunday Morning Service", time: "11:00 AM", icon: Sun },
+      { name: "Sunday School", time: "10:00 AM", icon: BookOpen },
+      { name: "Sunday Morning Service", time: "11:00 AM", icon: Church },
       { name: "Children's Church", time: "11:30 AM", icon: Baby },
     ],
   },
@@ -31,6 +34,7 @@ const serviceTimes = [
     services: [
       { name: "Bible Study", time: "6:30 PM", icon: BookOpen },
     ],
+    note: "Casual setting · drop in any week — no prior study required.",
   },
 ];
 
@@ -68,7 +72,7 @@ const ministries = [
 const testimonials = [
   {
     quote: "An amazing church with an amazing pastor.",
-    author: "E Howe",
+    author: "E. Howe",
   },
 ];
 
@@ -131,8 +135,13 @@ export default function HomePage() {
   const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
   const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: -32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
   const slideRight = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: 32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, delay, ease } };
-  const heroLeft = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: -32 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.9, ease } };
-  const heroRight = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: 32 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.9, delay: 0.15, ease } };
+  const heroContainer = prefersReducedMotion
+    ? { initial: "hidden" as const, animate: "visible" as const, variants: { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4 } } } }
+    : { initial: "hidden" as const, animate: "visible" as const, variants: { hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } } } };
+  const heroChild = prefersReducedMotion
+    ? { variants: { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4 } } } }
+    : { variants: { hidden: { opacity: 0, x: -28 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease } } } };
+  const heroRight = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: 32 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.9, delay: 0.25, ease } };
   const scaleIn = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, scale: 0.96 }, whileInView: { opacity: 1, scale: 1 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.7, delay, ease } };
 
   return (
@@ -181,23 +190,23 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 items-center mt-4 md:mt-0">
             {/* Text */}
             <motion.div
-              {...heroLeft}
+              {...heroContainer}
               className="text-center md:text-left order-2 md:order-1 -mt-[55px] md:mt-0 relative z-10"
             >
-              <p className="text-white/70 font-medium text-xs tracking-widest uppercase mb-2 hidden md:block">
+              <motion.p {...heroChild} className="text-white/60 md:text-white/70 font-medium text-[10px] md:text-xs tracking-[0.2em] md:tracking-widest uppercase mb-3 md:mb-2">
                 Assemblies of God &middot; Leitchfield, Kentucky
-              </p>
-              <h1 className="font-serif text-3xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.15] mb-3 italic [text-shadow:0_4px_12px_rgba(0,0,0,0.3),0_1px_3px_rgba(0,0,0,0.4)]">
+              </motion.p>
+              <motion.h1 {...heroChild} className="font-serif text-3xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.15] mb-3 italic [text-shadow:0_4px_12px_rgba(0,0,0,0.35)]">
                 Welcome to New Life Assembly of God
-              </h1>
-              <p className="text-white/80 text-sm md:text-xl max-w-lg mb-6 leading-relaxed md:mx-0 mx-auto">
+              </motion.h1>
+              <motion.p {...heroChild} className="text-white/80 text-sm md:text-xl max-w-lg mb-6 leading-relaxed md:mx-0 mx-auto">
                 A welcoming church family in Leitchfield, KY where you can
                 experience God&apos;s love, grow in faith, and find your purpose.
-              </p>
-              <div className="flex flex-row items-center md:items-start justify-center md:justify-start gap-3">
+              </motion.p>
+              <motion.div {...heroChild} className="flex flex-row items-center md:items-start justify-center md:justify-start gap-3">
                 <a
                   href="/contact"
-                  className="tap group relative bg-brand-accent text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg inline-flex items-center gap-2 shadow-[0_4px_14px_-4px_rgba(37,99,171,0.5)] hover:shadow-[0_18px_36px_-8px_rgba(37,99,171,0.7)] hover:-translate-y-1 hover:bg-brand-accent/95 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  className="tap group relative btn-gold px-5 py-3 md:px-8 md:py-4 rounded-lg text-sm md:text-lg inline-flex items-center gap-2 hover:-translate-y-1"
                 >
                   <span className="relative z-10">Plan Your Visit</span>
                   <ChevronRight className="relative z-10 w-4 h-4 md:w-5 md:h-5 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
@@ -209,7 +218,7 @@ export default function HomePage() {
                   <span className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true" />
                   <span className="relative z-10">Watch a Service</span>
                 </a>
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Church Photo */}
@@ -244,11 +253,11 @@ export default function HomePage() {
             {...slideUp()}
             className="text-center mb-12"
           >
-            <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+            <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
               Join Us
             </p>
             <h2 id="service-times-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
-              Service Times
+              When We Gather
             </h2>
             <p className="text-brand-primary/70 max-w-xl mx-auto">
               We&apos;d love to see you this week. All services are open to
@@ -257,20 +266,16 @@ export default function HomePage() {
           </motion.div>
 
           <motion.div
-            {...slideUp()}
+            {...scaleIn()}
             className="max-w-3xl mx-auto bg-white rounded-2xl border border-brand-primary/5 shadow-[0_1px_2px_rgba(27,42,74,0.04)] overflow-hidden"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-brand-primary/10">
+            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-brand-primary/10 items-stretch">
               {serviceTimes.map((day) => (
-                <div key={day.day} className="p-8 md:p-10">
-                  <div className="flex items-baseline justify-between mb-6">
-                    <h3 className="font-serif text-xl font-bold text-brand-primary tracking-tight">
-                      {day.day}
-                    </h3>
-                    <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-brand-primary/40">
-                      Weekly
-                    </span>
-                  </div>
+                <div key={day.day} className="p-8 md:p-10 flex flex-col">
+                  <span className="block h-px w-10 bg-brand-accent mb-5" aria-hidden="true" />
+                  <h3 className="font-serif text-2xl md:text-3xl font-bold text-brand-primary tracking-tight mb-6">
+                    {day.day}
+                  </h3>
                   <ul className="divide-y divide-brand-primary/5">
                     {day.services.map((service) => {
                       const Icon = service.icon;
@@ -294,8 +299,29 @@ export default function HomePage() {
                       );
                     })}
                   </ul>
+                  {day.note && (
+                    <p className="mt-5 pt-5 border-t border-brand-primary/5 text-xs text-brand-primary/55 italic leading-relaxed">
+                      {day.note}
+                    </p>
+                  )}
                 </div>
               ))}
+            </div>
+            <div className="border-t border-brand-primary/10 bg-brand-warm/40 px-6 md:px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-2 text-sm text-brand-primary/75">
+                <MapPin className="w-4 h-4 text-brand-accent shrink-0" aria-hidden="true" strokeWidth={1.75} />
+                <span>47 Embry Acres Dr, Leitchfield, KY</span>
+              </div>
+              <a
+                href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-accent hover:text-brand-accent-dark transition-colors"
+                aria-label="Open directions to 47 Embry Acres Dr, Leitchfield, KY in Google Maps"
+              >
+                Get directions
+                <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+              </a>
             </div>
           </motion.div>
         </div>
@@ -312,7 +338,7 @@ export default function HomePage() {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-auto md:top-auto md:translate-x-0 md:translate-y-0 md:-left-20 md:bottom-8 w-[440px] md:w-[520px] h-auto opacity-[0.03] md:opacity-[0.04] pointer-events-none select-none"
           loading="lazy"
         />
-        <div className="relative max-w-2xl mx-auto px-4">
+        <div className="relative max-w-4xl mx-auto px-4">
           <motion.div
             {...slideUp()}
             className="flex items-end justify-between mb-8 md:mb-10 gap-6"
@@ -321,7 +347,7 @@ export default function HomePage() {
               <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-brand-primary/50 mb-2">
                 Get Involved
               </p>
-              <h2 id="ministries-heading" className="font-serif text-xl md:text-3xl font-medium text-brand-primary/80 tracking-tight">
+              <h2 id="ministries-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight">
                 Our Ministries
               </h2>
             </div>
@@ -376,13 +402,23 @@ export default function HomePage() {
       </section>
 
       {/* Baptism / Life at New Life */}
-      <section className="py-16 md:py-24 grid-pattern" aria-labelledby="life-heading">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="relative py-16 md:py-24 grid-pattern overflow-hidden" aria-labelledby="life-heading">
+        <span
+          aria-hidden="true"
+          className="absolute right-0 bottom-4 md:right-8 md:bottom-12 font-serif italic text-[10rem] md:text-[18rem] leading-none text-brand-primary/[0.04] select-none pointer-events-none z-0"
+        >
+          Faith.
+        </span>
+        <div className="relative z-10 max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
               {...slideLeft}
-              className="order-1 lg:order-1"
+              className="order-1 lg:order-1 relative max-w-md mx-auto lg:mx-0"
             >
+              <span
+                aria-hidden="true"
+                className="absolute -top-3 -left-3 md:-top-4 md:-left-4 right-6 bottom-6 border-2 border-brand-accent/40 rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl pointer-events-none"
+              />
               <img
                 src="/new-life-assembly-baptism-960.webp"
                 srcSet="/new-life-assembly-baptism-480.webp 480w, /new-life-assembly-baptism-960.webp 960w"
@@ -390,19 +426,20 @@ export default function HomePage() {
                 alt="Outdoor baptism at New Life Assembly of God"
                 width={600}
                 height={550}
-                className="rounded-2xl shadow-lg w-full max-w-md mx-auto"
+                className="relative w-full rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl shadow-xl"
                 loading="lazy"
               />
             </motion.div>
 
             <motion.div
               {...slideRight()}
-              className="order-2 lg:order-2"
+              className="order-2 lg:order-2 relative"
             >
-              <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+              <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
+              <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
                 Life at New Life
               </p>
-              <h2 id="life-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-6">
+              <h2 id="life-heading" className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary mb-6 leading-[1.1]">
                 Growing Together in Faith
               </h2>
               <p className="text-brand-primary/75 leading-relaxed mb-4">
@@ -418,7 +455,7 @@ export default function HomePage() {
               </p>
               <a
                 href="/contact#get-in-touch"
-                className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center gap-2 group"
+                className="tap group relative btn-gold px-6 py-3 rounded-lg inline-flex items-center gap-2 hover:-translate-y-0.5"
               >
                 Get Connected
                 <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
@@ -436,7 +473,7 @@ export default function HomePage() {
             {...slideUp()}
             className="text-center mb-10"
           >
-            <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+            <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
               Moments Together
             </p>
             <h2 id="gallery-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary">
@@ -459,7 +496,7 @@ export default function HomePage() {
               alt="Christmas nativity play at New Life Assembly"
               width={1200}
               height={400}
-              className="w-full h-40 md:h-64 object-cover hover:scale-[1.03] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+              className="w-full h-40 md:h-64 object-cover hover:scale-[1.03] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
               loading="lazy"
             />
           </motion.div>
@@ -480,7 +517,7 @@ export default function HomePage() {
                 alt="Children's Christmas play at New Life Assembly"
                 width={600}
                 height={450}
-                className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 loading="lazy"
               />
             </motion.div>
@@ -499,7 +536,7 @@ export default function HomePage() {
                 alt="Kids performing in Christmas play at New Life Assembly"
                 width={300}
                 height={400}
-                className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 loading="lazy"
               />
             </motion.div>
@@ -526,27 +563,27 @@ export default function HomePage() {
                   alt={photo.alt}
                   width={300}
                   height={300}
-                  className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
                   loading="lazy"
                 />
               </motion.div>
             ))}
           </div>
 
-          {/* Mobile: simple grid */}
-          <div className="grid grid-cols-3 gap-3 md:hidden">
+          {/* Mobile: editorial collage — vary sizes for visual rhythm */}
+          <div className="grid grid-cols-3 grid-flow-dense auto-rows-[6rem] gap-3 md:hidden">
             {[
-              { src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly" },
-              { src: "/gallery-christmas-play-kids.webp", alt: "Kids performing in Christmas play at New Life Assembly" },
-              { src: "/gallery-egg-hunt.webp", alt: "Easter egg hunt at New Life Assembly" },
-              { src: "/gallery-egg-hunt-kid.webp", alt: "Child with Easter eggs at New Life Assembly" },
-              { src: "/gallery-vbs-group.webp", alt: "VBS kids group photo at New Life Assembly" },
-              { src: "/gallery-vbs-crafts.webp", alt: "VBS crafts and activities at New Life Assembly" },
+              { src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly", span: "col-span-2 row-span-2" },
+              { src: "/gallery-christmas-play-kids.webp", alt: "Kids performing in Christmas play at New Life Assembly", span: "row-span-2" },
+              { src: "/gallery-egg-hunt.webp", alt: "Easter egg hunt at New Life Assembly", span: "" },
+              { src: "/gallery-egg-hunt-kid.webp", alt: "Child with Easter eggs at New Life Assembly", span: "" },
+              { src: "/gallery-vbs-group.webp", alt: "VBS kids group photo at New Life Assembly", span: "col-span-2" },
+              { src: "/gallery-vbs-crafts.webp", alt: "VBS crafts and activities at New Life Assembly", span: "" },
             ].map((photo, index) => (
               <motion.div
                 key={photo.src}
                 {...scaleIn(index * 0.05)}
-                className="overflow-hidden rounded-xl aspect-square cursor-pointer tap lift"
+                className={`overflow-hidden rounded-xl cursor-pointer tap lift ${photo.span}`}
                 role="button"
                 tabIndex={0}
                 aria-label={`View enlarged: ${photo.alt}`}
@@ -558,7 +595,7 @@ export default function HomePage() {
                   alt={photo.alt}
                   width={300}
                   height={300}
-                  className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
                   loading="lazy"
                 />
               </motion.div>
@@ -612,12 +649,22 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-4">
           <motion.div
             {...slideUp()}
-            className="bg-white rounded-3xl p-8 md:p-12 shadow-sm text-center"
+            className="relative bg-gradient-to-b from-white via-white to-brand-warm/40 rounded-3xl p-8 md:p-14 shadow-[0_2px_8px_rgba(27,42,74,0.04),0_24px_48px_-24px_rgba(27,42,74,0.12)] text-center overflow-hidden border border-brand-primary/[0.04]"
           >
-            <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+            <img
+              src="/dove-logo.webp"
+              alt=""
+              aria-hidden="true"
+              width={120}
+              height={120}
+              className="hidden md:block absolute right-8 bottom-8 w-20 h-auto opacity-[0.08] pointer-events-none select-none"
+              loading="lazy"
+            />
+            <span className="relative block h-px w-12 bg-brand-accent mx-auto mb-5" aria-hidden="true" />
+            <p className="relative text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
               We&apos;d Love to Meet You
             </p>
-            <h2 id="cta-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
+            <h2 id="cta-heading" className="relative font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
               Plan Your Visit
             </h2>
             <p className="text-brand-primary/70 max-w-lg mx-auto mb-8">
@@ -629,7 +676,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <a
                 href="/contact"
-                className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2 group"
+                className="tap group relative btn-gold px-8 py-4 rounded-lg text-lg inline-flex items-center gap-2 hover:-translate-y-0.5"
               >
                 Plan Your Visit
                 <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />

@@ -27,7 +27,11 @@
       "Bash(rm -f IMG_3356.JPG church.jpg)",
       "Bash(ls IMG_3356* church.jpg)",
       "Bash(node -e 'const sharp=require\\('\\\\''sharp'\\\\''\\); sharp\\('\\\\''__TRACKED_VAR__'\\\\''\\).metadata\\(\\).then\\(m=>console.log\\(m.width+'\\\\''x'\\\\''+m.height\\)\\)')",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(node scripts/generate-responsive-images.mjs)",
+      "Bash(ls -la public/*-480.webp public/*-960.webp public/*-1600.webp)",
+      "Bash(git commit -m ' *)",
+      "Bash(xargs wc *)"
     ]
   }
 }

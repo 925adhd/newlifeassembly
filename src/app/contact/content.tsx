@@ -101,7 +101,7 @@ export default function ContactPage() {
           <motion.div
             {...fadeIn}
           >
-            <p className="text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
+            <p className="hidden md:block text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
               We&apos;d Love to Meet You
             </p>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -122,7 +122,7 @@ export default function ContactPage() {
             {...slideUp()}
             className="text-center mb-12"
           >
-            <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+            <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               First Time?
             </p>
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">

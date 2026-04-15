@@ -213,7 +213,7 @@ export default function VideoExperienceSection({
       />
       <div className="relative max-w-6xl mx-auto px-4 md:px-8">
         {eyebrow && (
-          <p className="text-brand-accent text-xs md:text-sm tracking-widest uppercase font-medium mb-3">
+          <p className="hidden md:block text-brand-accent text-xs md:text-sm tracking-widest uppercase font-medium mb-3">
             {eyebrow}
           </p>
         )}

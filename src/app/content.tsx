@@ -168,8 +168,16 @@ export default function HomePage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative pt-4 md:pt-12 pb-16 md:pb-16 bg-gradient-to-r from-brand-primary via-[#3d5575] to-[#7e94ad] overflow-hidden gradient-mesh">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-4 md:pt-12 pb-16 md:pb-16 -mb-px bg-gradient-to-r from-brand-primary via-[#3d5575] to-[#7e94ad] overflow-hidden gradient-mesh">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 inset-x-0 h-64 md:h-96 z-[1]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to bottom, rgba(248,246,241,0) 0%, rgba(248,246,241,0.08) 25%, rgba(248,246,241,0.3) 55%, rgba(248,246,241,0.7) 78%, rgba(248,246,241,1) 94%, rgba(248,246,241,1) 100%)",
+          }}
+        />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 items-center mt-4 md:mt-0">
             {/* Text */}
             <motion.div
@@ -196,9 +204,9 @@ export default function HomePage() {
                 </a>
                 <a
                   href="/watch"
-                  className="tap group relative border-2 border-white/30 text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg overflow-hidden hover:border-white hover:-translate-y-1 hover:text-brand-primary transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  className="tap group relative border-2 border-white/40 bg-white/10 backdrop-blur-sm text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg overflow-hidden hover:border-white hover:-translate-y-1 hover:text-brand-primary transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 >
-                  <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true" />
+                  <span className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true" />
                   <span className="relative z-10">Watch a Service</span>
                 </a>
               </div>
@@ -236,7 +244,7 @@ export default function HomePage() {
             {...slideUp()}
             className="text-center mb-12"
           >
-            <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+            <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               Join Us
             </p>
             <h2 id="service-times-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
@@ -391,7 +399,7 @@ export default function HomePage() {
               {...slideRight()}
               className="order-2 lg:order-2"
             >
-              <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+              <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
                 Life at New Life
               </p>
               <h2 id="life-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-6">
@@ -428,7 +436,7 @@ export default function HomePage() {
             {...slideUp()}
             className="text-center mb-10"
           >
-            <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+            <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               Moments Together
             </p>
             <h2 id="gallery-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary">
@@ -606,7 +614,7 @@ export default function HomePage() {
             {...slideUp()}
             className="bg-white rounded-3xl p-8 md:p-12 shadow-sm text-center"
           >
-            <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+            <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               We&apos;d Love to Meet You
             </p>
             <h2 id="cta-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">

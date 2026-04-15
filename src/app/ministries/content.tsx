@@ -114,7 +114,7 @@ export default function MinistriesPage() {
           <motion.div
             {...fadeIn}
           >
-            <p className="text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
+            <p className="hidden md:block text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
               Get Involved
             </p>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">

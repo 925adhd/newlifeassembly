@@ -64,7 +64,7 @@
 
 .grid-pattern {
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(27, 42, 74, 0.05) 1px, transparent 0);
+    radial-gradient(circle at 16px 16px, rgba(27, 42, 74, 0.05) 1px, transparent 0);
   background-size: 32px 32px;
 }
 
@@ -258,14 +258,16 @@
 @media (min-width: 768px) {
   .hero-img-mask {
     mask-image:
-      linear-gradient(to right, transparent, black 12%),
+      linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 10%, rgba(0,0,0,0.8) 22%, black 32%),
+      linear-gradient(to left, transparent, black 20%),
       linear-gradient(to top, transparent, black 12%),
-      linear-gradient(to bottom, transparent, black 8%);
+      linear-gradient(to bottom, transparent, black 15%);
     mask-composite: intersect;
     -webkit-mask-image:
-      linear-gradient(to right, transparent, black 12%),
+      linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 10%, rgba(0,0,0,0.8) 22%, black 32%),
+      linear-gradient(to left, transparent, black 20%),
       linear-gradient(to top, transparent, black 12%),
-      linear-gradient(to bottom, transparent, black 8%);
+      linear-gradient(to bottom, transparent, black 15%);
     -webkit-mask-composite: source-in;
   }
 }

@@ -67,7 +67,7 @@ export default function AboutPage() {
           <motion.div
             {...fadeIn}
           >
-            <p className="text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
+            <p className="hidden md:block text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
               About Us
             </p>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -103,7 +103,7 @@ export default function AboutPage() {
             <motion.div
               {...slideRight}
             >
-              <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+              <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
                 Our Pastor
               </p>
               <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-6">
@@ -141,7 +141,7 @@ export default function AboutPage() {
             {...slideUp()}
             className="text-center mb-12"
           >
-            <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+            <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               Who We Are
             </p>
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-6">
@@ -190,7 +190,7 @@ export default function AboutPage() {
             {...slideUp()}
             className="text-center mb-12"
           >
-            <p className="text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+            <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
               Our Beliefs
             </p>
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">

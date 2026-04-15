@@ -6,83 +6,98 @@ import {
   Clock,
 } from "lucide-react";
 
-const ministries = [
+type Ministry = {
+  title: string;
+  time: string;
+  image?: string;
+  images?: string[];
+  description: string;
+  details: string[];
+};
+
+const ministryGroups: { title: string; ministries: Ministry[] }[] = [
   {
-    title: "Sunday Worship",
-    time: "Sundays at 11:00 AM",
-    image: "/tony-preaching.webp",
-    description:
-      "Our Sunday morning worship service is the heartbeat of New Life Assembly. Experience Spirit-filled praise and worship, heartfelt prayer, and powerful teaching from God's Word. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
-    details: [
-      "Live worship with our praise band",
-      "Biblical, practical teaching from Pastor Tony Redmon",
-      "Prayer ministry and altar time",
-      "A welcoming atmosphere for everyone",
+    title: "Sundays",
+    ministries: [
+      {
+        title: "Sunday Worship",
+        time: "Sundays at 11:00 AM",
+        image: "/tony-preaching.webp",
+        description:
+          "Our Sunday morning worship service is the heartbeat of New Life Assembly. Experience Spirit-filled praise and worship, heartfelt prayer, and powerful teaching from God's Word. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
+        details: [
+          "Live worship with our praise band",
+          "Teaching from Pastor Tony Redmon",
+          "Prayer ministry and altar time",
+        ],
+      },
+      {
+        title: "Sunday School",
+        time: "Sundays at 10:00 AM",
+        image: "/sunday-school.webp",
+        description:
+          "Start your Sunday with in-depth Bible study in a small group setting. Our Sunday School classes are designed for adults and provide an opportunity to dig deeper into Scripture, ask questions, and build relationships with fellow believers.",
+        details: [
+          "In-depth Bible study and discussion",
+          "Adult small-group setting",
+        ],
+      },
+      {
+        title: "Children's Church",
+        time: "Sundays at 11:30 AM",
+        image: "/childrens-church.webp",
+        description:
+          "We believe in investing in the next generation. Children's Church at New Life Assembly provides a fun, safe, and engaging environment where kids can learn about God's love through age-appropriate lessons, crafts, games, and worship.",
+        details: [
+          "Safe, supervised environment",
+          "Age-appropriate Bible lessons",
+          "Crafts, games, and worship",
+        ],
+      },
     ],
   },
   {
-    title: "Sunday School",
-    time: "Sundays at 10:00 AM",
-    image: "/sunday-school.webp",
-    description:
-      "Start your Sunday with in-depth Bible study in a small group setting. Our Sunday School classes are designed for adults and provide an opportunity to dig deeper into Scripture, ask questions, and build relationships with fellow believers.",
-    details: [
-      "Age-appropriate classes",
-      "In-depth Bible study and discussion",
-      "Fellowship and relationship building",
-      "A great way to start your Sunday",
+    title: "Midweek",
+    ministries: [
+      {
+        title: "Bible Study",
+        time: "Wednesdays at 6:30 PM",
+        image: "/bible-study.webp",
+        description:
+          "Our midweek Bible study is a time to go deeper into God's Word in a more intimate setting. Led by Pastor Tony, these sessions focus on practical application of Scripture for everyday life. It's a great way to recharge and refocus during the week.",
+        details: [
+          "Verse-by-verse Bible study",
+          "Practical life application",
+          "Open to all ages",
+        ],
+      },
     ],
   },
   {
-    title: "Children's Church",
-    time: "Sundays at 11:30 AM",
-    image: "/childrens-church.webp",
-    description:
-      "We believe in investing in the next generation. Children's Church at New Life Assembly provides a fun, safe, and engaging environment where kids can learn about God's love through age-appropriate lessons, crafts, games, and worship.",
-    details: [
-      "Safe, supervised environment",
-      "Age-appropriate Bible lessons",
-      "Fun activities, crafts, and games",
-      "Builds a foundation of faith",
-    ],
-  },
-  {
-    title: "Bible Study",
-    time: "Wednesdays at 6:30 PM",
-    image: "/bible-study.webp",
-    description:
-      "Our midweek Bible study is a time to go deeper into God's Word in a more intimate setting. Led by Pastor Tony, these sessions focus on practical application of Scripture for everyday life. It's a great way to recharge and refocus during the week.",
-    details: [
-      "Verse-by-verse Bible study",
-      "Practical life application",
-      "Prayer and fellowship",
-      "Open to all ages and backgrounds",
-    ],
-  },
-  {
-    title: "Outreach",
-    time: "Year-round",
-    image: "/new-life-assembly-community-outreach.webp",
-    description:
-      "New Life Assembly is committed to serving the Leitchfield and Grayson County community. From serving free hot chocolate on the town square at Christmas to service projects throughout the year, we strive to be the hands and feet of Jesus in our neighborhood.",
-    details: [
-      "Community service projects",
-      "Special outreach events",
-      "Serving those in need",
-      "Being the hands and feet of Jesus",
-    ],
-  },
-  {
-    title: "Fellowship",
-    time: "Various times",
-    images: ["/new-life-assembly-community-dinner.webp", "/new-life-assembly-community-dinner-2.webp"],
-    description:
-      "Building meaningful relationships is at the core of who we are. From community dinners to fellowship events, we create opportunities for people to connect, share life together, and grow in faith outside of Sunday services.",
-    details: [
-      "Regular fellowship events",
-      "Building meaningful relationships",
-      "Life-sharing and encouragement",
-      "Growing together in community",
+    title: "In the Community",
+    ministries: [
+      {
+        title: "Outreach",
+        time: "Year-round",
+        image: "/new-life-assembly-community-outreach.webp",
+        description:
+          "New Life Assembly is committed to serving the Leitchfield and Grayson County community. From serving free hot chocolate on the town square at Christmas to service projects throughout the year, we strive to be the hands and feet of Jesus in our neighborhood.",
+        details: [
+          "Christmas town square outreach",
+          "Year-round service projects",
+        ],
+      },
+      {
+        title: "Fellowship",
+        time: "Various times",
+        images: ["/new-life-assembly-community-dinner.webp", "/new-life-assembly-community-dinner-2.webp"],
+        description:
+          "Building meaningful relationships is at the core of who we are. From community dinners to fellowship events, we create opportunities for people to connect, share life together, and grow in faith outside of Sunday services.",
+        details: [
+          "Community dinners",
+          "Fellowship events throughout the year",
+        ],
+      },
     ],
   },
 ];
@@ -114,10 +129,10 @@ export default function MinistriesPage() {
           <motion.div
             {...fadeIn}
           >
-            <p className="hidden md:block text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
+            <p className="text-white/70 md:text-white/90 font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3 md:mb-4">
               Get Involved
             </p>
-            <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-6">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.2] md:leading-[1.15] mb-3 md:mb-6">
               Our Ministries
             </h1>
             <p className="text-white/80 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
@@ -128,120 +143,141 @@ export default function MinistriesPage() {
         </div>
       </section>
 
-      {/* Ministries List */}
+      {/* Ministries List — grouped */}
       <section className="py-16 md:py-24">
-        <div className="max-w-6xl mx-auto px-4 space-y-12">
-          {ministries.map((ministry, index) => {
-            const slug = ministry.title
-              .toLowerCase()
-              .replace(/['&]/g, "")
-              .replace(/\s+/g, "-");
-            return (
-              <motion.article
-                key={ministry.title}
-                id={slug}
-                {...slideUp(index * 0.05)}
-                className="bg-white rounded-2xl p-8 md:p-10 shadow-[0_1px_2px_rgba(27,42,74,0.04)] scroll-mt-24 lift"
+        <div className="max-w-6xl mx-auto px-4">
+          {ministryGroups.map((group, groupIndex) => (
+            <div key={group.title}>
+              {/* Group divider */}
+              <motion.div
+                {...slideUp()}
+                className={`text-center ${groupIndex === 0 ? "mb-10 md:mb-14" : "my-12 md:my-20"}`}
               >
-                <div className="mb-8">
-                  <span className="block h-px w-10 bg-brand-accent/60 mb-5" aria-hidden="true" />
-                  <h2 className="font-serif italic text-4xl md:text-5xl font-bold text-brand-primary tracking-tight leading-[1.05] mb-4">
-                    {ministry.title}
+                <div className="inline-flex items-center gap-4">
+                  <span className="h-px w-10 md:w-16 bg-brand-primary/15" aria-hidden="true" />
+                  <h2 className="text-brand-primary font-medium text-xs md:text-sm tracking-[0.3em] uppercase">
+                    {group.title}
                   </h2>
-                  <p className="text-brand-accent font-medium text-xs tracking-[0.2em] uppercase inline-flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" aria-hidden="true" />
-                    {ministry.time}
-                  </p>
+                  <span className="h-px w-10 md:w-16 bg-brand-primary/15" aria-hidden="true" />
                 </div>
+              </motion.div>
 
-                {"images" in ministry && ministry.images ? (
-                  <>
-                    {/* Mobile: show first image on top */}
-                    <img
-                      src={ministry.images[0]}
-                      alt={`${ministry.title} at New Life Assembly of God`}
-                      width={400}
-                      height={300}
-                      className="w-full rounded-xl object-cover mb-4 md:hidden"
-                      loading="lazy"
-                    />
-
-                    <p className="text-brand-primary/75 leading-relaxed mb-4">
-                      {ministry.description}
-                    </p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                      {ministry.details.map((detail) => (
-                        <li
-                          key={detail}
-                          className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
-                        >
-                          {detail}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Desktop: show both images */}
-                    <div className="hidden md:grid grid-cols-2 gap-4">
-                      {ministry.images.map((img: string) => (
-                        <img
-                          key={img}
-                          src={img}
-                          alt={`${ministry.title} at New Life Assembly of God`}
-                          width={400}
-                          height={300}
-                          className="w-full rounded-xl object-cover"
-                          loading="lazy"
-                        />
-                      ))}
-                    </div>
-                  </>
-                ) : ("image" in ministry && ministry.image ? (
-                  <div className="flex flex-col md:flex-row gap-6 mb-6">
-                    <img
-                      src={ministry.image}
-                      alt={`${ministry.title} at New Life Assembly of God`}
-                      width={400}
-                      height={300}
-                      className="w-full md:w-96 rounded-xl shrink-0 object-cover order-1 md:order-2"
-                      loading="lazy"
-                    />
-                    <div className="flex-1 order-2 md:order-1">
-                      <p className="text-brand-primary/75 leading-relaxed mb-8">
-                        {ministry.description}
-                      </p>
-                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
-                        {ministry.details.map((detail) => (
-                          <li
-                            key={detail}
-                            className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
-                          >
-                            {detail}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <p className="text-brand-primary/75 leading-relaxed mb-6">
-                      {ministry.description}
-                    </p>
-
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {ministry.details.map((detail) => (
-                    <li
-                      key={detail}
-                      className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
+              <div className="space-y-12">
+                {group.ministries.map((ministry, ministryIndex) => {
+                  const slug = ministry.title
+                    .toLowerCase()
+                    .replace(/['&]/g, "")
+                    .replace(/\s+/g, "-");
+                  const reversed = ministryIndex % 2 === 1;
+                  return (
+                    <motion.article
+                      key={ministry.title}
+                      id={slug}
+                      {...slideUp(ministryIndex * 0.05)}
+                      className="bg-white rounded-2xl p-8 md:p-10 shadow-[0_1px_2px_rgba(27,42,74,0.04)] scroll-mt-24"
                     >
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
-                  </>
-                ))}
-              </motion.article>
-            );
-          })}
+                      <div className="mb-8">
+                        <span className="block h-px w-10 bg-brand-accent/60 mb-5" aria-hidden="true" />
+                        <h3 className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary tracking-tight leading-[1.1] md:leading-[1.05] mb-4">
+                          {ministry.title}
+                        </h3>
+                        <p className="text-brand-accent font-medium text-xs tracking-[0.2em] uppercase inline-flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+                          {ministry.time}
+                        </p>
+                      </div>
+
+                      {ministry.images ? (
+                        <>
+                          {/* Mobile: show first image on top */}
+                          <img
+                            src={ministry.images[0]}
+                            alt={`${ministry.title} at New Life Assembly of God`}
+                            width={400}
+                            height={300}
+                            className="w-full rounded-xl object-cover mb-4 md:hidden"
+                            loading="lazy"
+                          />
+
+                          <p className="text-brand-primary/75 leading-relaxed mb-4">
+                            {ministry.description}
+                          </p>
+                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                            {ministry.details.map((detail) => (
+                              <li
+                                key={detail}
+                                className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
+                              >
+                                {detail}
+                              </li>
+                            ))}
+                          </ul>
+
+                          {/* Desktop: show both images */}
+                          <div className="hidden md:grid grid-cols-2 gap-4">
+                            {ministry.images.map((img) => (
+                              <img
+                                key={img}
+                                src={img}
+                                alt={`${ministry.title} at New Life Assembly of God`}
+                                width={400}
+                                height={300}
+                                className="w-full rounded-xl object-cover"
+                                loading="lazy"
+                              />
+                            ))}
+                          </div>
+                        </>
+                      ) : ministry.image ? (
+                        <div className="flex flex-col md:flex-row gap-6 mb-6">
+                          <img
+                            src={ministry.image}
+                            alt={`${ministry.title} at New Life Assembly of God`}
+                            width={400}
+                            height={300}
+                            className={`w-full md:w-96 rounded-xl shrink-0 object-cover order-1 ${reversed ? "md:order-1" : "md:order-2"}`}
+                            loading="lazy"
+                          />
+                          <div className={`flex-1 order-2 ${reversed ? "md:order-2" : "md:order-1"}`}>
+                            <p className="text-brand-primary/75 leading-relaxed mb-8">
+                              {ministry.description}
+                            </p>
+                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
+                              {ministry.details.map((detail) => (
+                                <li
+                                  key={detail}
+                                  className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
+                                >
+                                  {detail}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <p className="text-brand-primary/75 leading-relaxed mb-6">
+                            {ministry.description}
+                          </p>
+
+                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {ministry.details.map((detail) => (
+                              <li
+                                key={detail}
+                                className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
+                              >
+                                {detail}
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </motion.article>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -251,7 +287,7 @@ export default function MinistriesPage() {
           <motion.div
             {...slideUp()}
           >
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
               Ready to Get Connected?
             </h2>
             <p className="text-white/80 max-w-lg mx-auto mb-8">
@@ -260,7 +296,7 @@ export default function MinistriesPage() {
             </p>
             <a
               href="/contact"
-              className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2 group"
+              className="tap group btn-gold px-8 py-4 rounded-lg text-lg inline-flex items-center gap-2 hover:-translate-y-0.5"
             >
               Plan Your Visit
               <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />

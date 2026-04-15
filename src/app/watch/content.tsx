@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { ExternalLink } from "lucide-react";
+import { ChevronRight, ExternalLink } from "lucide-react";
 import VideoExperienceSection, {
   type Video,
 } from "@/components/VideoExperienceSection";
@@ -55,15 +55,16 @@ export default function WatchPage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center md:pt-8">
           <motion.div {...fadeIn}>
-            <p className="text-white/80 font-medium text-[11px] md:text-sm tracking-[0.25em] uppercase mb-2 md:mb-4">
+            <span className="block h-px w-12 bg-white/40 mx-auto mb-5" aria-hidden="true" />
+            <p className="text-white/80 font-medium text-[10px] md:text-sm tracking-[0.25em] uppercase mb-3 md:mb-4">
               Watch Online
             </p>
-            <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-6">
-              Past Services
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.2] md:leading-[1.15] mb-3 md:mb-6">
+              Watch With Us
             </h1>
             <p className="text-white/75 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
-              Missed a Sunday? Catch up on past services from New Life Assembly
-              of God.
+              Missed a Sunday? Catch up on past services here — and find more
+              videos and updates on our Facebook page.
             </p>
           </motion.div>
         </div>
@@ -83,27 +84,43 @@ export default function WatchPage() {
         kind="Worship"
       />
 
-      {/* Follow on Facebook */}
-      <section className="py-16 md:py-20 bg-brand-primary">
+      {/* Conversion CTA — bridge from "watched online" to "visit in person" */}
+      <section className="relative py-16 md:py-24 bg-brand-primary overflow-hidden aurora">
         <motion.div
           {...slideUp}
-          className="max-w-3xl mx-auto px-4 text-center"
+          className="relative z-10 max-w-3xl mx-auto px-4 text-center"
         >
-          <p className="text-white/70 mb-4">
-            Follow us on Facebook for live services and updates
+          <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
+            Continue The Journey
           </p>
-          <a
-            href="https://www.facebook.com/newlifeagleitchfield"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tap bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center gap-2 group"
-          >
-            Follow on Facebook
-            <ExternalLink
-              className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              aria-hidden="true"
-            />
-          </a>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
+            Join Us This Sunday
+          </h2>
+          <p className="text-white/80 max-w-lg mx-auto mb-8">
+            Online is a great start. Worshiping in person is even better —
+            we&apos;d love to meet you and welcome you to the family.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a
+              href="/contact"
+              className="tap group btn-gold px-8 py-4 rounded-lg text-lg inline-flex items-center gap-2 hover:-translate-y-0.5"
+            >
+              Plan Your Visit
+              <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
+            </a>
+            <a
+              href="https://www.facebook.com/newlifeagleitchfield"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tap group relative border-2 border-white/40 bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-medium text-lg overflow-hidden hover:border-white hover:-translate-y-0.5 hover:text-brand-primary transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            >
+              <span className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true" />
+              <span className="relative z-10 inline-flex items-center gap-2">
+                Follow on Facebook
+                <ExternalLink className="w-5 h-5" aria-hidden="true" />
+              </span>
+            </a>
+          </div>
         </motion.div>
       </section>
     </>

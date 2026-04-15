@@ -56,8 +56,10 @@ function VideoCard({
       onClick={onSelect}
       aria-label={`Watch ${kind.toLowerCase()} from ${video.date}`}
       aria-pressed={active}
-      className={`group relative shrink-0 w-60 md:w-72 snap-start rounded-xl md:rounded-2xl overflow-hidden bg-black/40 text-left border-2 transition-[border-color,background-color] duration-300 focus-visible:outline-none focus-visible:border-brand-accent ${
-        active ? "border-brand-accent" : "border-white/10 hover:border-white/30"
+      className={`group relative shrink-0 w-60 md:w-72 snap-start rounded-xl md:rounded-2xl overflow-hidden bg-black/40 text-left border-2 transition-[border-color,background-color,box-shadow] duration-300 focus-visible:outline-none focus-visible:border-brand-accent ${
+        active
+          ? "border-brand-accent shadow-[0_0_0_1px_rgba(37,99,171,0.4),0_12px_32px_-12px_rgba(37,99,171,0.55)]"
+          : "border-white/10 hover:border-white/30"
       }`}
     >
       <div className="relative aspect-video">
@@ -78,7 +80,7 @@ function VideoCard({
             Now Playing
           </div>
         )}
-        <div className="absolute inset-x-0 bottom-0 p-4 transition-transform duration-300 ease-out group-hover:-translate-y-1">
+        <div className="absolute inset-x-0 bottom-0 p-4">
           {video.label && (
             <p className="text-brand-accent text-xs font-medium tracking-widest uppercase mb-1">
               {video.label}
@@ -213,11 +215,11 @@ export default function VideoExperienceSection({
       />
       <div className="relative max-w-6xl mx-auto px-4 md:px-8">
         {eyebrow && (
-          <p className="hidden md:block text-brand-accent text-xs md:text-sm tracking-widest uppercase font-medium mb-3">
+          <p className="text-brand-accent text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase font-medium mb-3">
             {eyebrow}
           </p>
         )}
-        <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 md:mb-10">
+        <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-8 md:mb-10">
           {title}
         </h2>
         <AnimatePresence mode="wait">

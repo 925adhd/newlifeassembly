@@ -101,15 +101,16 @@ export default function ContactPage() {
           <motion.div
             {...fadeIn}
           >
-            <p className="hidden md:block text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
+            <span className="block h-px w-12 bg-white/40 mx-auto mb-5" aria-hidden="true" />
+            <p className="text-white/70 md:text-white/90 font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3 md:mb-4">
               We&apos;d Love to Meet You
             </p>
-            <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-6">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.2] md:leading-[1.15] mb-3 md:mb-6">
               Plan Your Visit
             </h1>
             <p className="text-white/80 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
-              Whether it&apos;s your first time or you&apos;re coming back, you
-              are always welcome at New Life Assembly of God.
+              Whether it&apos;s your first Sunday or you&apos;re coming back,
+              you&apos;re always welcome at New Life Assembly. Come as you are.
             </p>
           </motion.div>
         </div>
@@ -120,32 +121,39 @@ export default function ContactPage() {
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
             {...slideUp()}
-            className="text-center mb-12"
+            className="text-center mb-12 md:mb-16"
           >
-            <p className="hidden md:block text-brand-accent font-medium text-sm tracking-widest uppercase mb-2">
+            <span className="block h-px w-12 bg-brand-accent mx-auto mb-5" aria-hidden="true" />
+            <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
               First Time?
             </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary mb-4">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight mb-4">
               What to Expect
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16 max-w-4xl mx-auto">
             {whatToExpect.map((item, index) => (
               <motion.div
                 key={item.title}
                 {...slideUp(index * 0.1)}
-                className="text-center p-6"
+                className="grid grid-cols-[auto_1fr] gap-5 md:gap-6 items-start"
               >
-                <div className="w-10 h-10 rounded-full bg-brand-accent text-white flex items-center justify-center mx-auto mb-4 font-bold">
-                  {index + 1}
+                <span
+                  aria-hidden="true"
+                  className="font-serif italic text-5xl md:text-6xl text-brand-accent/35 leading-none tabular-nums select-none"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <span className="block h-px w-8 bg-brand-accent/50 mb-3" aria-hidden="true" />
+                  <h3 className="font-serif italic text-2xl md:text-3xl font-bold text-brand-primary tracking-tight leading-[1.1] mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-brand-primary/70 text-sm md:text-base leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-                <h3 className="font-serif text-lg font-bold text-brand-primary mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-brand-primary/70 text-sm leading-relaxed">
-                  {item.description}
-                </p>
               </motion.div>
             ))}
           </div>
@@ -155,7 +163,7 @@ export default function ContactPage() {
       {/* Contact Info + Form */}
       <section id="get-in-touch" className="py-16 md:py-24 grid-pattern scroll-mt-20">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 md:mb-20">
             {/* Left Column - Info */}
             <motion.div
               {...slideLeft}
@@ -174,12 +182,16 @@ export default function ContactPage() {
                 />
               </div>
 
-              <h2 className="font-serif text-3xl font-bold text-brand-primary mb-8">
+              <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
+              <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
+                Reach Out
+              </p>
+              <h2 className="font-serif italic text-3xl md:text-4xl font-bold text-brand-primary tracking-tight leading-[1.1] mb-8">
                 Get in Touch
               </h2>
 
               {/* Church from Road - desktop after service times */}
-              <div className="hidden md:block rounded-2xl overflow-hidden shadow-sm mb-8">
+              <div className="hidden md:block rounded-2xl overflow-hidden shadow-sm mb-10">
                 <img
                   src="/church-exterior-960.webp"
                   srcSet="/church-exterior-480.webp 480w, /church-exterior-960.webp 960w, /church-exterior-1600.webp 1600w"
@@ -192,101 +204,83 @@ export default function ContactPage() {
                 />
               </div>
 
-              {/* Contact Details */}
-              <div className="space-y-6 mb-10">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center shrink-0">
-                    <Phone className="w-6 h-6 text-brand-accent" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-lg font-bold text-brand-primary">
-                      Pastor Tony Redmon
-                    </h3>
+              {/* Contact Details — editorial list */}
+              <div className="divide-y divide-brand-primary/10 border-y border-brand-primary/10 mb-10">
+                <div className="py-5 grid grid-cols-[auto_1fr] gap-4 items-center">
+                  <Phone className="w-5 h-5 text-brand-accent shrink-0" aria-hidden="true" strokeWidth={1.75} />
+                  <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                    <div>
+                      <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-primary/50 mb-0.5">
+                        Pastor
+                      </p>
+                      <p className="font-serif text-lg font-bold text-brand-primary leading-tight">
+                        Pastor Tony Redmon
+                      </p>
+                    </div>
                     <a
                       href="tel:+12702003422"
-                      className="text-brand-accent underline underline-offset-2"
+                      className="text-brand-accent font-medium hover:text-brand-accent-dark transition-colors tabular-nums tracking-tight"
                     >
                       (270) 200-3422
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center shrink-0">
-                    <Phone className="w-6 h-6 text-brand-accent" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-lg font-bold text-brand-primary">
-                      Church Office
-                    </h3>
+                <div className="py-5 grid grid-cols-[auto_1fr] gap-4 items-center">
+                  <Phone className="w-5 h-5 text-brand-accent shrink-0" aria-hidden="true" strokeWidth={1.75} />
+                  <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                    <div>
+                      <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-primary/50 mb-0.5">
+                        Office
+                      </p>
+                      <p className="font-serif text-lg font-bold text-brand-primary leading-tight">
+                        Church Office
+                      </p>
+                    </div>
                     <a
                       href="tel:+12708680369"
-                      className="text-brand-accent underline underline-offset-2"
+                      className="text-brand-accent font-medium hover:text-brand-accent-dark transition-colors tabular-nums tracking-tight"
                     >
                       (270) 868-0369
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center shrink-0">
-                    <MapPin className="w-6 h-6 text-brand-accent" aria-hidden="true" />
-                  </div>
+                <div className="py-5 grid grid-cols-[auto_1fr] gap-4 items-start">
+                  <MapPin className="w-5 h-5 text-brand-accent shrink-0 mt-1" aria-hidden="true" strokeWidth={1.75} />
                   <div>
-                    <h3 className="font-serif text-lg font-bold text-brand-primary">
-                      Location
-                    </h3>
-                    <p className="text-brand-primary/70">
+                    <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-primary/50 mb-0.5">
+                      Visit
+                    </p>
+                    <p className="font-serif text-lg font-bold text-brand-primary leading-tight mb-2">
                       47 Embry Acres Dr<br />Leitchfield, KY 42754
                     </p>
+                    <a
+                      href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-accent hover:text-brand-accent-dark transition-colors"
+                    >
+                      Get directions
+                      <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+                    </a>
                   </div>
                 </div>
               </div>
 
-              {/* Service Times */}
-              <div className="bg-white rounded-2xl p-8 shadow-sm">
-                <h3 className="font-serif text-xl font-bold text-brand-primary mb-6 flex items-center gap-2">
-                  <Clock className="w-6 h-6 text-brand-accent" aria-hidden="true" />
-                  Service Times
-                </h3>
-                <ul className="space-y-4">
-                  {serviceTimes.map((service) => (
-                    <li
-                      key={service.name}
-                      className="flex items-center justify-between border-b border-brand-primary/5 pb-3 last:border-0 last:pb-0"
-                    >
-                      <span className="font-medium text-brand-primary">
-                        {service.name}
-                      </span>
-                      <span className="text-brand-accent font-medium">
-                        {service.time}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
 
-              {/* Google Maps Embed */}
-              <div className="mt-8 rounded-2xl overflow-hidden shadow-sm">
-                <iframe
-                  title="New Life Assembly of God location on Google Maps"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.0!2d-86.2883226!3d37.5088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886f4b96e2b5d627%3A0x7068670081ffda4c!2sNew%20Life%20Assembly%20of%20God!5e0!3m2!1sen!2sus!4v1700000000000"
-                  width="100%"
-                  height="300"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
             </motion.div>
 
             {/* Right Column - Form */}
             <motion.div
               {...slideRight}
             >
-              <div className="bg-white rounded-2xl p-8 md:p-10 shadow-sm">
-                <h2 className="font-serif text-2xl font-bold text-brand-primary mb-2">
+              <div className="bg-white rounded-2xl p-8 md:p-10 shadow-sm border border-brand-primary/5">
+                <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
+                <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
+                  Drop Us a Line
+                </p>
+                <h2 className="font-serif italic text-2xl md:text-3xl font-bold text-brand-primary tracking-tight leading-[1.1] mb-3">
                   Send Us a Message
                 </h2>
                 <p className="text-brand-primary/70 text-sm mb-8">
@@ -307,11 +301,10 @@ export default function ContactPage() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* TODO: Replace with real Web3Forms access key */}
                     <input
                       type="hidden"
                       name="access_key"
-                      value="YOUR_WEB3FORMS_KEY"
+                      value="3fed5e9f-7550-4979-b5f7-535e075deff6"
                     />
                     <input
                       type="hidden"
@@ -414,7 +407,7 @@ export default function ContactPage() {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="tap w-full bg-brand-accent hover:bg-brand-accent/90 disabled:bg-brand-accent/50 disabled:cursor-not-allowed text-white px-6 py-4 rounded-lg font-medium text-lg transition-colors inline-flex items-center justify-center gap-2"
+                        className="tap btn-gold w-full px-6 py-4 rounded-lg text-lg inline-flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                       >
                         {loading ? (
                           "Sending..."
@@ -431,6 +424,70 @@ export default function ContactPage() {
               </div>
             </motion.div>
           </div>
+
+          {/* Service Times — horizontal full width */}
+          <motion.div
+            {...slideUp()}
+            className="bg-white rounded-2xl p-8 md:p-10 shadow-sm border border-brand-primary/5 mb-8 md:mb-10"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 md:mb-8">
+              <div>
+                <span className="block h-px w-10 bg-brand-accent mb-3" aria-hidden="true" />
+                <h3 className="font-serif text-xl md:text-2xl font-bold text-brand-primary tracking-tight flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-brand-accent" aria-hidden="true" strokeWidth={1.75} />
+                  Service Times
+                </h3>
+              </div>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-brand-primary/45">
+                All services open to everyone
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-6">
+              {serviceTimes.map((service, i) => (
+                <div
+                  key={service.name}
+                  className={`md:px-6 md:first:pl-0 md:last:pr-0 ${i > 0 ? "md:border-l md:border-brand-primary/10" : ""}`}
+                >
+                  <p className="font-serif text-base md:text-lg font-bold text-brand-primary leading-tight mb-1">
+                    {service.name}
+                  </p>
+                  <p className="text-brand-accent text-sm tabular-nums tracking-tight">
+                    {service.time}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Google Maps — full width below the grid */}
+          <motion.div
+            {...slideUp()}
+            className="rounded-2xl overflow-hidden shadow-sm border border-brand-primary/5 mb-16 md:mb-20"
+          >
+            <iframe
+              title="New Life Assembly of God location on Google Maps"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.0!2d-86.2883226!3d37.5088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886f4b96e2b5d627%3A0x7068670081ffda4c!2sNew%20Life%20Assembly%20of%20God!5e0!3m2!1sen!2sus!4v1700000000000"
+              style={{ border: 0, display: "block" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-72 md:h-[420px] w-full"
+            />
+          </motion.div>
+
+          {/* Warm closing sign-off */}
+          <motion.div
+            {...slideUp(0.1)}
+            className="text-center max-w-2xl mx-auto"
+          >
+            <span className="block h-px w-12 bg-brand-accent mx-auto mb-6" aria-hidden="true" />
+            <p className="font-serif italic text-2xl md:text-3xl text-brand-primary/85 leading-snug mb-3">
+              We can&apos;t wait to meet you.
+            </p>
+            <p className="text-brand-primary/55 text-[11px] tracking-[0.2em] uppercase">
+              — Pastor Tony &amp; the New Life family
+            </p>
+          </motion.div>
         </div>
       </section>
     </>

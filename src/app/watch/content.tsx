@@ -41,7 +41,7 @@ export default function WatchPage() {
     <>
       {/* Hero */}
       <section className="relative py-8 md:py-24 bg-brand-primary overflow-hidden gradient-mesh">
-        <div className="absolute inset-0 opacity-25 md:opacity-40">
+        <div className="absolute inset-0 opacity-40 hidden md:block">
           <img
             src="/new-life-assembly-worship-service-1600.webp"
             srcSet="/new-life-assembly-worship-service-480.webp 480w, /new-life-assembly-worship-service-960.webp 960w, /new-life-assembly-worship-service-1600.webp 1600w"
@@ -53,7 +53,6 @@ export default function WatchPage() {
             height={600}
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-primary/60 via-black/40 to-brand-primary/80 md:bg-black/35 md:bg-none" aria-hidden="true" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center md:pt-8">
           <motion.div {...fadeIn}>
             <p className="text-white/80 font-medium text-[11px] md:text-sm tracking-[0.25em] uppercase mb-2 md:mb-4">

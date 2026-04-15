@@ -206,7 +206,7 @@ export default function VideoExperienceSection({
   if (!active) return null;
 
   return (
-    <section className="relative py-14 md:py-20 bg-gradient-to-b from-slate-950 to-black overflow-hidden">
+    <section className="relative py-14 md:py-20 bg-gradient-to-b from-[#0a1328] via-[#070e1f] to-[#050916] overflow-hidden aurora">
       <div
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,88,152,0.22),transparent_60%)]"
         aria-hidden="true"

@@ -83,7 +83,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-10 md:py-24 bg-brand-primary overflow-hidden">
+      <section className="relative py-8 md:py-24 bg-brand-primary overflow-hidden">
         <div className="absolute inset-0 opacity-40 hidden md:block">
           <img
             src="/churchfromroad-1600.webp"
@@ -97,17 +97,17 @@ export default function ContactPage() {
           />
         </div>
         <div className="absolute inset-0 bg-black/35 hidden md:block" aria-hidden="true" />
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center pt-8">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center md:pt-8">
           <motion.div
             {...fadeIn}
           >
             <p className="hidden md:block text-white/90 font-medium text-sm tracking-widest uppercase mb-4">
               We&apos;d Love to Meet You
             </p>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-6">
               Plan Your Visit
             </h1>
-            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+            <p className="text-white/80 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
               Whether it&apos;s your first time or you&apos;re coming back, you
               are always welcome at New Life Assembly of God.
             </p>

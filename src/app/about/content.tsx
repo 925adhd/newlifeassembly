@@ -82,10 +82,9 @@ export default function AboutPage() {
                 className="absolute -top-3 -left-3 md:-top-4 md:-left-4 right-6 bottom-6 border-2 border-brand-accent/40 rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl pointer-events-none"
               />
               <img
-                src="/pastor-tony-redmon-960.webp"
-                srcSet="/pastor-tony-redmon-480.webp 480w, /pastor-tony-redmon-960.webp 960w, /pastor-tony-redmon-1600.webp 1600w"
+                src="/pastor-tony-portrait.jpg"
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                alt="Pastor Tony Redmon preaching at New Life Assembly of God in Leitchfield, Kentucky"
+                alt="Pastor Tony Redmon at New Life Assembly of God in Leitchfield, Kentucky"
                 width={1920}
                 height={1440}
                 className="relative w-full rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl shadow-xl"

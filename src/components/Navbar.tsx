@@ -230,7 +230,7 @@ export default function Navbar() {
     {pathname !== "/watch" && (
       <a
         href="tel:+12702003422"
-        className={`tap md:hidden fixed bottom-6 right-6 z-50 bg-brand-gold hover:bg-brand-gold-hover text-brand-primary w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_24px_-4px_color-mix(in_srgb,var(--color-brand-gold)_60%,transparent)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`tap md:hidden fixed bottom-6 right-6 z-50 bg-brand-gold hover:bg-brand-gold-hover text-brand-primary w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_20px_-6px_rgba(0,0,0,0.35)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           pastHero && !isOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-75 translate-y-2 pointer-events-none"
         }`}
         aria-label="Call Pastor Tony Redmon"

@@ -257,28 +257,19 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-16 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10 md:gap-y-12 max-w-4xl mx-auto">
             {beliefs.map((belief, index) => (
               <motion.div
                 key={belief.title}
                 {...slideUp(index * 0.1)}
-                className="grid grid-cols-[auto_1fr] gap-5 md:gap-6 items-start"
+                className="border-t border-brand-primary/15 pt-5"
               >
-                <span
-                  aria-hidden="true"
-                  className="font-serif italic text-5xl md:text-6xl text-brand-accent/35 leading-none tabular-nums select-none"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <span className="block h-px w-8 bg-brand-accent/50 mb-3" aria-hidden="true" />
-                  <h3 className="font-serif italic text-2xl md:text-3xl font-bold text-brand-primary tracking-tight leading-[1.1] mb-3">
-                    {belief.title}
-                  </h3>
-                  <p className="text-brand-primary/70 text-sm md:text-base leading-relaxed">
-                    {belief.description}
-                  </p>
-                </div>
+                <h3 className="font-serif text-xl md:text-2xl font-bold text-brand-primary tracking-tight leading-[1.2] mb-3">
+                  {belief.title}
+                </h3>
+                <p className="text-brand-primary/70 text-sm md:text-base leading-relaxed">
+                  {belief.description}
+                </p>
               </motion.div>
             ))}
           </div>

@@ -85,9 +85,7 @@ export default function AboutPage() {
                 src="/pastor-tony-portrait.jpg"
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 alt="Pastor Tony Redmon at New Life Assembly of God in Leitchfield, Kentucky"
-                width={1920}
-                height={1440}
-                className="relative w-full rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl shadow-xl"
+                className="relative w-full h-auto rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl shadow-xl"
                 loading="lazy"
               />
             </motion.div>

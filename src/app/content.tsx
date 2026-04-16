@@ -570,20 +570,20 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Mobile: editorial collage — vary sizes for visual rhythm */}
-          <div className="grid grid-cols-3 grid-flow-dense auto-rows-[6rem] gap-3 md:hidden">
+          {/* Mobile: balanced 3-col square grid — compact */}
+          <div className="grid grid-cols-3 gap-2 md:hidden">
             {[
-              { src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly", span: "col-span-2 row-span-2" },
-              { src: "/gallery-christmas-play-kids.webp", alt: "Kids performing in Christmas play at New Life Assembly", span: "row-span-2" },
-              { src: "/gallery-egg-hunt.webp", alt: "Easter egg hunt at New Life Assembly", span: "" },
-              { src: "/gallery-egg-hunt-kid.webp", alt: "Child with Easter eggs at New Life Assembly", span: "" },
-              { src: "/gallery-vbs-group.webp", alt: "VBS kids group photo at New Life Assembly", span: "col-span-2" },
-              { src: "/gallery-vbs-crafts.webp", alt: "VBS crafts and activities at New Life Assembly", span: "" },
+              { src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly" },
+              { src: "/gallery-christmas-play-kids.webp", alt: "Kids performing in Christmas play at New Life Assembly" },
+              { src: "/gallery-egg-hunt.webp", alt: "Easter egg hunt at New Life Assembly" },
+              { src: "/gallery-egg-hunt-kid.webp", alt: "Child with Easter eggs at New Life Assembly" },
+              { src: "/gallery-vbs-group.webp", alt: "VBS kids group photo at New Life Assembly" },
+              { src: "/gallery-vbs-crafts.webp", alt: "VBS crafts and activities at New Life Assembly" },
             ].map((photo, index) => (
               <motion.div
                 key={photo.src}
                 {...scaleIn(index * 0.05)}
-                className={`overflow-hidden rounded-xl cursor-pointer tap lift ${photo.span}`}
+                className="overflow-hidden rounded-xl aspect-square cursor-pointer tap lift"
                 role="button"
                 tabIndex={0}
                 aria-label={`View enlarged: ${photo.alt}`}

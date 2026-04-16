@@ -21,13 +21,13 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
     ministries: [
       {
         title: "Sunday Worship",
-        time: "Sundays at 11:00 AM",
+        time: "Sundays at 10:30 AM",
         image: "/pastor-tony-portrait.jpg",
         description:
-          "Our Sunday morning worship service is the heartbeat of New Life Assembly. Experience Spirit-filled praise and worship, heartfelt prayer, and powerful teaching from God's Word. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
+          "Our Sunday morning service is the heartbeat of New Life Assembly. We open with Spirit-filled praise and worship at 10:30, followed by heartfelt prayer and a powerful message from Pastor Tony at 11:00. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
         details: [
-          "Live worship with our praise band",
-          "Teaching from Pastor Tony Redmon",
+          "Praise & worship at 10:30 AM",
+          "Preaching at 11:00 AM",
           "Prayer ministry and altar time",
         ],
       },

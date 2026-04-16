@@ -102,7 +102,7 @@ export default function PrayerPage() {
   return (
     <>
       {/* Hero — sanctuary night sky */}
-      <section className="relative pt-10 md:pt-16 pb-24 md:pb-28 bg-brand-primary overflow-hidden aurora">
+      <section className="relative pt-10 md:pt-16 pb-24 md:pb-32 -mb-px bg-brand-primary overflow-hidden aurora">
         <img
           src="/dove-logo.webp"
           alt=""
@@ -156,10 +156,14 @@ export default function PrayerPage() {
           </motion.div>
         </div>
 
-        {/* Bottom fade into next section */}
+        {/* Bottom fade into next section — smooth ease curve */}
         <div
           aria-hidden="true"
-          className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-b from-transparent to-brand-warm pointer-events-none"
+          className="pointer-events-none absolute bottom-0 inset-x-0 h-40 md:h-64 z-[1]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to bottom, rgba(248,246,241,0) 0%, rgba(248,246,241,0.015) 12%, rgba(248,246,241,0.05) 22%, rgba(248,246,241,0.1) 32%, rgba(248,246,241,0.18) 42%, rgba(248,246,241,0.3) 52%, rgba(248,246,241,0.44) 62%, rgba(248,246,241,0.6) 72%, rgba(248,246,241,0.76) 82%, rgba(248,246,241,0.9) 90%, rgba(248,246,241,0.98) 96%, rgba(248,246,241,1) 100%)",
+          }}
         />
       </section>
 

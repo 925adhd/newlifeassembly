@@ -9,6 +9,7 @@ const navLinks = [
   { label: "About", href: "/about" },
   { label: "Ministries", href: "/ministries" },
   { label: "Watch", href: "/watch" },
+  { label: "Prayer", href: "/prayer" },
 ];
 
 export default function Navbar() {

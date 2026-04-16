@@ -109,7 +109,7 @@ export default function PrayerPage() {
           aria-hidden="true"
           width={600}
           height={600}
-          className="hidden md:block absolute top-[20px] right-10 w-[260px] h-auto opacity-[0.1] pointer-events-none select-none"
+          className="hidden md:block absolute top-[20px] right-10 w-[260px] h-auto opacity-[0.13] pointer-events-none select-none"
           loading="lazy"
         />
         <span

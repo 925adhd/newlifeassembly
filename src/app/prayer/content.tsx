@@ -170,11 +170,10 @@ export default function PrayerPage() {
       {/* The form — prayer wall */}
       <section
         id="prayer-form"
-        className="py-16 md:py-24 grid-pattern scroll-mt-20"
+        className="pt-4 md:pt-8 pb-16 md:pb-24 grid-pattern scroll-mt-20"
       >
         <div className="max-w-3xl mx-auto px-4">
-          <motion.div {...slideUp()} className="text-center mb-10 md:mb-12">
-            <span className="block h-px w-12 bg-brand-gold mx-auto mb-5" aria-hidden="true" />
+          <motion.div {...slideUp()} className="text-center mb-6 md:mb-8">
             <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
               The prayer wall
             </p>

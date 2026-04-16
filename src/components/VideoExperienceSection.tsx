@@ -196,11 +196,13 @@ export default function VideoExperienceSection({
   eyebrow,
   videos,
   kind,
+  decor,
 }: {
   title: string;
   eyebrow?: string;
   videos: Video[];
   kind: "Sermon" | "Worship";
+  decor?: string;
 }) {
   const [activeId, setActiveId] = useState<string>(videos[0]?.id ?? "");
   const active = videos.find((v) => v.id === activeId) ?? videos[0];
@@ -208,18 +210,38 @@ export default function VideoExperienceSection({
   if (!active) return null;
 
   return (
-    <section className="relative py-14 md:py-20 bg-gradient-to-b from-[#0a1328] via-[#070e1f] to-[#050916] overflow-hidden aurora">
+    <section className="relative py-16 md:py-24 bg-gradient-to-b from-[#0a1328] via-[#070e1f] to-[#050916] overflow-hidden aurora gradient-mesh">
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,88,152,0.22),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,88,152,0.28),transparent_65%)]"
         aria-hidden="true"
       />
+      <span
+        aria-hidden="true"
+        className="orb orb-float absolute w-[420px] h-[420px] -top-24 -right-28 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(232,184,108,0.16) 0%, rgba(232,184,108,0) 70%)",
+        }}
+      />
+      {decor && (
+        <span
+          aria-hidden="true"
+          className="absolute right-0 bottom-4 md:right-8 md:bottom-10 font-serif italic text-[7rem] md:text-[16rem] leading-none text-white/[0.05] select-none pointer-events-none z-0"
+        >
+          {decor}
+        </span>
+      )}
       <div className="relative max-w-6xl mx-auto px-4 md:px-8">
+        <span
+          aria-hidden="true"
+          className="block h-px w-12 bg-brand-gold/70 mb-5"
+        />
         {eyebrow && (
-          <p className="text-brand-accent text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase font-medium mb-3">
+          <p className="text-brand-gold text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase font-medium mb-3">
             {eyebrow}
           </p>
         )}
-        <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-8 md:mb-10">
+        <h2 className="font-serif italic text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-8 md:mb-12 [text-shadow:0_4px_24px_rgba(0,0,0,0.35)]">
           {title}
         </h2>
         <AnimatePresence mode="wait">

@@ -143,26 +143,64 @@ export default function MinistriesPage() {
         </div>
       </section>
 
-      {/* Ministries List — grouped */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-6xl mx-auto px-4">
-          {ministryGroups.map((group, groupIndex) => (
-            <div key={group.title}>
-              {/* Group divider */}
-              <motion.div
-                {...slideUp()}
-                className={`text-center ${groupIndex === 0 ? "mb-10 md:mb-14" : "my-12 md:my-20"}`}
-              >
-                <div className="inline-flex items-center gap-4">
-                  <span className="h-px w-10 md:w-16 bg-brand-primary/15" aria-hidden="true" />
-                  <h2 className="text-brand-primary font-medium text-xs md:text-sm tracking-[0.3em] uppercase">
-                    {group.title}
-                  </h2>
-                  <span className="h-px w-10 md:w-16 bg-brand-primary/15" aria-hidden="true" />
-                </div>
+      {/* Ministries List — grouped into editorial chapters */}
+      {ministryGroups.map((group, groupIndex) => {
+        const groupTones: { bg: string; accent: string; ornament: string }[] = [
+          {
+            bg: "var(--color-brand-warm)",
+            accent: "rgba(37,99,171,0.12)",
+            ornament: "rgba(232,184,108,0.22)",
+          },
+          {
+            bg: "var(--color-brand-cream-deep)",
+            accent: "rgba(232,184,108,0.28)",
+            ornament: "rgba(37,99,171,0.12)",
+          },
+          {
+            bg: "var(--color-brand-warm)",
+            accent: "rgba(125,148,173,0.18)",
+            ornament: "rgba(232,184,108,0.22)",
+          },
+        ];
+        const tone = groupTones[groupIndex % groupTones.length];
+        return (
+          <section
+            key={group.title}
+            className="relative py-16 md:py-24 overflow-hidden"
+            style={{ backgroundColor: tone.bg }}
+          >
+            <span
+              aria-hidden="true"
+              className="orb orb-float absolute w-[420px] h-[420px] -top-24 -right-28 pointer-events-none"
+              style={{
+                background: `radial-gradient(circle, ${tone.ornament} 0%, transparent 70%)`,
+              }}
+            />
+            <span
+              aria-hidden="true"
+              className="orb orb-float absolute w-[360px] h-[360px] -bottom-32 -left-24 pointer-events-none"
+              style={{
+                background: `radial-gradient(circle, ${tone.accent} 0%, transparent 70%)`,
+                animationDelay: "-6s",
+              }}
+            />
+
+            <div className="relative max-w-6xl mx-auto px-4">
+              <motion.div {...slideUp()} className="mb-12 md:mb-16 max-w-2xl">
+                <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
+                <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
+                  {group.title}
+                </p>
+                <h2 className="font-serif italic text-3xl md:text-5xl lg:text-[3.5rem] font-bold text-brand-primary tracking-tight leading-[1.05]">
+                  {group.title === "Sundays"
+                    ? "On the Lord's Day."
+                    : group.title === "Midweek"
+                    ? "Gathered mid-week."
+                    : "Out in the community."}
+                </h2>
               </motion.div>
 
-              <div className="space-y-12">
+              <div className="space-y-10 md:space-y-12">
                 {group.ministries.map((ministry, ministryIndex) => {
                   const slug = ministry.title
                     .toLowerCase()
@@ -174,8 +212,13 @@ export default function MinistriesPage() {
                       key={ministry.title}
                       id={slug}
                       {...slideUp(ministryIndex * 0.05)}
-                      className="bg-white rounded-2xl p-8 md:p-10 shadow-[0_1px_2px_rgba(27,42,74,0.04)] scroll-mt-24"
+                      className="relative bg-white rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(27,42,74,0.04),0_24px_48px_-32px_rgba(27,42,74,0.12)] scroll-mt-24"
                     >
+                      <span
+                        aria-hidden="true"
+                        className="block h-[3px] w-full bg-gradient-to-r from-brand-gold via-brand-gold-hover to-brand-gold"
+                      />
+                      <div className="p-8 md:p-10">
                       <div className="mb-8">
                         <span className="block h-px w-10 bg-brand-accent/60 mb-5" aria-hidden="true" />
                         <h3 className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary tracking-tight leading-[1.1] md:leading-[1.05] mb-4">
@@ -272,14 +315,15 @@ export default function MinistriesPage() {
                           </ul>
                         </>
                       )}
+                      </div>
                     </motion.article>
                   );
                 })}
               </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
+        );
+      })}
 
       {/* CTA */}
       <section className="relative py-16 md:py-24 bg-brand-primary overflow-hidden aurora">

@@ -70,7 +70,7 @@ export default function AboutPage() {
       </section>
 
       {/* Pastor Section */}
-      <section className="relative py-12 md:py-24 bg-white overflow-hidden">
+      <section className="relative py-12 md:py-24 bg-brand-warm overflow-hidden">
         <div className="relative z-10 max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
@@ -135,63 +135,111 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Church */}
-      <section className="py-16 md:py-24 grid-pattern">
-        <div className="max-w-4xl mx-auto px-4">
-          <motion.div
-            {...slideUp()}
-            className="text-center mb-12"
-          >
-            <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
+      {/* Our Church — editorial spread */}
+      <section
+        className="relative py-20 md:py-32 overflow-hidden"
+        style={{ backgroundColor: "var(--color-brand-cream-deep)" }}
+      >
+        {/* Warm atmospheric glows */}
+        <span
+          aria-hidden="true"
+          className="orb orb-float absolute w-[420px] h-[420px] -top-24 -right-32 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(232,184,108,0.28) 0%, rgba(232,184,108,0) 70%)",
+          }}
+        />
+        <span
+          aria-hidden="true"
+          className="orb orb-float absolute w-[360px] h-[360px] -bottom-32 -left-24 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(37,99,171,0.12) 0%, rgba(37,99,171,0) 70%)",
+            animationDelay: "-6s",
+          }}
+        />
+
+        {/* Word watermark */}
+        <span
+          aria-hidden="true"
+          className="hidden md:block absolute md:right-8 md:top-12 font-serif italic md:text-[15rem] leading-none text-brand-primary/[0.05] select-none pointer-events-none z-0"
+        >
+          Family.
+        </span>
+
+        <div className="relative max-w-5xl mx-auto px-4">
+          <motion.div {...slideUp()} className="mb-12 md:mb-16 max-w-2xl">
+            <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
+            <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
               Who We Are
             </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight mb-6">
-              A Church That Feels Like Family
+            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-brand-primary tracking-tight leading-[1.05]">
+              A church that<br className="hidden md:block" /> feels like{" "}
+              <span className="italic">family.</span>
             </h2>
           </motion.div>
 
-          <motion.div
-            {...slideUp()}
-            className="bg-white rounded-2xl p-8 md:p-12 shadow-sm"
+          {/* Lede — large italic serif setting the tone */}
+          <motion.p
+            {...slideUp(0.05)}
+            className="relative font-serif italic text-xl md:text-2xl lg:text-[1.75rem] text-brand-primary/85 leading-[1.45] max-w-3xl mb-14 md:mb-20 pl-6 md:pl-8 border-l-2 border-brand-gold"
           >
-            <p className="text-brand-primary/75 leading-relaxed mb-4 first-letter:font-serif first-letter:text-5xl md:first-letter:text-6xl first-letter:font-bold first-letter:text-brand-accent first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:leading-[0.9]">
-              New Life Assembly of God is part of the Assemblies of God
-              fellowship — one of the largest Pentecostal denominations in the
-              world. Located in Leitchfield, Kentucky, in the heart of Grayson
-              County, we are a community of believers who are passionate about
-              worship, prayer, and sharing the Gospel.
-            </p>
-            <p className="text-brand-primary/75 leading-relaxed mb-4">
-              Our church is known for warm, Spirit-filled worship services that
-              blend contemporary praise with timeless hymns. We believe that
-              church should be a place where people from all walks of life can
-              come together, experience God&apos;s presence, and grow in their
+            New Life Assembly of God is part of the Assemblies of God
+            fellowship — one of the largest Pentecostal denominations in the
+            world. In the heart of Grayson County, we are a community of
+            believers passionate about worship, prayer, and sharing the
+            Gospel.
+          </motion.p>
+
+          {/* Body in two editorial columns on desktop */}
+          <motion.div
+            {...slideUp(0.1)}
+            className="max-w-3xl md:columns-2 md:gap-12 md:[column-rule:1px_solid_rgba(27,42,74,0.08)]"
+          >
+            <p className="text-brand-primary/75 leading-relaxed mb-5 break-inside-avoid">
+              Our church is known for warm, Spirit-filled worship services
+              that blend contemporary praise with timeless hymns. Church
+              should be a place where people from all walks of life can come
+              together, experience God&apos;s presence, and grow in their
               relationship with Him.
             </p>
-            <p
-              aria-hidden="true"
-              className="font-serif italic text-2xl md:text-3xl text-brand-primary/85 my-10 md:my-14 text-center leading-snug max-w-xl mx-auto"
-            >
-              Where people from all walks of life come together.
-            </p>
-            <p className="text-brand-primary/75 leading-relaxed mb-4">
+            <p className="text-brand-primary/75 leading-relaxed mb-5 break-inside-avoid">
               From Sunday School to midweek Bible study, from children&apos;s
-              ministry to community outreach, every ministry at New Life is
-              designed to help people take their next step in faith. We
-              celebrate baptisms, pray for healing, and believe in the
-              life-changing power of the Holy Spirit.
+              ministry to community outreach, every ministry is designed to
+              help people take their next step in faith. We celebrate
+              baptisms, pray for healing, and believe in the life-changing
+              power of the Holy Spirit.
             </p>
-            <p className="text-brand-primary/75 leading-relaxed">
-              No matter where you are on your spiritual journey, there&apos;s a
-              place for you at New Life Assembly of God. Come as you are —
+            <p className="text-brand-primary/75 leading-relaxed break-inside-avoid">
+              No matter where you are on your spiritual journey, there&apos;s
+              a place for you at New Life Assembly of God. Come as you are —
               you&apos;ll leave transformed.
             </p>
           </motion.div>
+
+          {/* Centered editorial pullquote with gold rules on both sides */}
+          <motion.figure
+            {...slideUp(0.15)}
+            className="mt-16 md:mt-24 max-w-3xl mx-auto text-center"
+          >
+            <div className="flex items-center justify-center gap-5 mb-6" aria-hidden="true">
+              <span className="h-px w-16 md:w-24 bg-brand-gold" />
+              <span className="text-brand-gold text-xs tracking-[0.4em] uppercase">
+                ✦
+              </span>
+              <span className="h-px w-16 md:w-24 bg-brand-gold" />
+            </div>
+            <blockquote>
+              <p className="font-serif italic text-2xl md:text-4xl text-brand-primary/90 leading-[1.2] tracking-tight">
+                &ldquo;Where people from all walks of life come together.&rdquo;
+              </p>
+            </blockquote>
+          </motion.figure>
         </div>
       </section>
 
       {/* What We Believe */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-brand-warm">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
             {...slideUp()}

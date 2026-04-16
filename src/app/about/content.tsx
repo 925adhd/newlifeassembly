@@ -179,16 +179,18 @@ export default function AboutPage() {
             </h2>
           </motion.div>
 
-          {/* Lede — large italic serif setting the tone */}
+          {/* Lede — italic opener, roman body */}
           <motion.p
             {...slideUp(0.05)}
-            className="relative font-serif italic text-xl md:text-2xl lg:text-[1.75rem] text-brand-primary/85 leading-[1.45] max-w-3xl mb-14 md:mb-20 pl-6 md:pl-8 border-l-2 border-brand-gold"
+            className="relative font-serif text-xl md:text-2xl lg:text-[1.75rem] text-brand-primary/85 leading-[1.45] max-w-3xl mb-14 md:mb-20 pl-6 md:pl-8 border-l-2 border-brand-gold"
           >
-            New Life Assembly of God is part of the Assemblies of God
-            fellowship — one of the largest Pentecostal denominations in the
-            world. In the heart of Grayson County, we are a community of
-            believers passionate about worship, prayer, and sharing the
-            Gospel.
+            <span className="italic">
+              New Life Assembly of God is part of the Assemblies of God
+              fellowship — one of the largest Pentecostal denominations in
+              the world.
+            </span>{" "}
+            In the heart of Grayson County, we are a community of believers
+            passionate about worship, prayer, and sharing the Gospel.
           </motion.p>
 
           {/* Body in two editorial columns on desktop */}

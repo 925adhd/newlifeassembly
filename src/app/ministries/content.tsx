@@ -22,7 +22,7 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
       {
         title: "Sunday Worship",
         time: "Sundays at 11:00 AM",
-        image: "/tony-preaching.webp",
+        image: "/pastor-tony-portrait.jpg",
         description:
           "Our Sunday morning worship service is the heartbeat of New Life Assembly. Experience Spirit-filled praise and worship, heartfelt prayer, and powerful teaching from God's Word. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
         details: [

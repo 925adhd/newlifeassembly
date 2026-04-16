@@ -188,9 +188,6 @@ export default function MinistriesPage() {
             <div className="relative max-w-6xl mx-auto px-4">
               <motion.div {...slideUp()} className="mb-12 md:mb-16 max-w-2xl">
                 <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
-                <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
-                  {group.title}
-                </p>
                 <h2 className="font-serif italic text-3xl md:text-5xl lg:text-[3.5rem] font-bold text-brand-primary tracking-tight leading-[1.05]">
                   {group.title === "Sundays"
                     ? "On the Lord's Day."

@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
 
 export type Video = {
   id: string;
@@ -33,6 +33,17 @@ declare global {
     fbAsyncInit?: () => void;
   }
 }
+
+// Facebook's player hides its own fullscreen button on phones, so the main
+// player gets ours there. Element fullscreen isn't available on iPhone Safari,
+// where the button simply doesn't render.
+const subscribeFullscreen = (onChange: () => void) => {
+  document.addEventListener("fullscreenchange", onChange);
+  return () => document.removeEventListener("fullscreenchange", onChange);
+};
+const getFullscreenElement = () => document.fullscreenElement;
+const getCanFullscreen = () => document.fullscreenEnabled;
+const noop = () => () => {};
 
 // Every mounted player, so starting one can pause the rest
 const livePlayers = new Map<string, FbPlayer>();
@@ -71,6 +82,26 @@ function MainVideoPlayer({
   const [loaded, setLoaded] = useState(false);
   // Facebook never finished loading (blocked, offline, etc.): offer a direct link instead
   const [failed, setFailed] = useState(false);
+  // After a tap on the player, show our spinner until Facebook reports it's playing,
+  // so a slow first start reads as "loading" rather than a dead black screen.
+  // (Facebook doesn't send buffering events, so the tap is detected via window blur.)
+  const [starting, setStarting] = useState(false);
+  const canFullscreen = useSyncExternalStore(noop, getCanFullscreen, () => false);
+  const fullscreenEl = useSyncExternalStore(subscribeFullscreen, getFullscreenElement, () => null);
+  const isFullscreen = fullscreenEl?.getAttribute("data-player-host") === playerId;
+
+  const toggleFullscreen = async () => {
+    const host = hostRef.current;
+    if (!host) return;
+    if (isFullscreen) {
+      await document.exitFullscreen().catch(() => {});
+      return;
+    }
+    await host.requestFullscreen().catch(() => {});
+    // Turn phones sideways where the browser allows it (Android Chrome)
+    const orientation = screen.orientation as ScreenOrientation & { lock?: (o: string) => Promise<void> };
+    await orientation.lock?.("landscape").catch(() => {});
+  };
   // Kept in a ref so a new callback doesn't reload the player
   const onPlayingChangeRef = useRef(onPlayingChange);
   useEffect(() => {
@@ -87,15 +118,37 @@ function MainVideoPlayer({
       livePlayers.set(playerId, player);
       subs.push(
         player.subscribe("startedPlaying", () => {
+          playing = true;
+          setLoaded(true);
+          setStarting(false);
+          clearTimeout(startTimer);
           onPlayingChangeRef.current(true);
           livePlayers.forEach((other, id) => {
             if (id !== playerId) other.pause();
           });
         }),
-        player.subscribe("paused", () => onPlayingChangeRef.current(false)),
-        player.subscribe("finishedPlaying", () => onPlayingChangeRef.current(false)),
+        player.subscribe("paused", () => {
+          playing = false;
+          onPlayingChangeRef.current(false);
+        }),
+        player.subscribe("finishedPlaying", () => {
+          playing = false;
+          onPlayingChangeRef.current(false);
+        }),
       );
     };
+
+    // A tap inside the cross-origin player moves focus into its iframe
+    let playing = false;
+    let startTimer: ReturnType<typeof setTimeout> | undefined;
+    const onWindowBlur = () => {
+      const iframe = hostRef.current?.querySelector("iframe");
+      if (!iframe || document.activeElement !== iframe || playing) return;
+      setStarting(true);
+      clearTimeout(startTimer);
+      startTimer = setTimeout(() => setStarting(false), 12000);
+    };
+    window.addEventListener("blur", onWindowBlur);
     // Hide the spinner only once Facebook's iframe has finished loading (its
     // "ready" event fires earlier, while the frame is still black), plus a beat
     // for the poster to paint. A long fallback keeps it from spinning forever.
@@ -123,6 +176,8 @@ function MainVideoPlayer({
     return () => {
       cancelled = true;
       sdk?.Event.unsubscribe("xfbml.ready", onReady);
+      window.removeEventListener("blur", onWindowBlur);
+      clearTimeout(startTimer);
       subs.forEach((sub) => sub?.release());
       observer.disconnect();
       clearTimeout(revealTimer);
@@ -134,9 +189,10 @@ function MainVideoPlayer({
   return (
     <div
       ref={hostRef}
+      data-player-host={playerId}
       aria-label={`${kind} from New Life Assembly of God, ${video.date}`}
       role="region"
-      className="relative aspect-video w-full rounded-2xl md:rounded-3xl overflow-hidden bg-black shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] ring-1 ring-white/10 [&_.fb-video]:!absolute [&_.fb-video]:!inset-0 [&_span]:!w-full [&_span]:!h-full [&_iframe]:!w-full [&_iframe]:!h-full"
+      className="relative aspect-video w-full rounded-2xl md:rounded-3xl overflow-hidden bg-black shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] ring-1 ring-white/10 [&_.fb-video]:!absolute [&_.fb-video]:!inset-0 [&_span]:!w-full [&_span]:!h-full [&_iframe]:!w-full [&_iframe]:!h-full [&:fullscreen]:rounded-none portrait:[&:fullscreen_.fb-video]:![inset:auto_0] portrait:[&:fullscreen_.fb-video]:![top:50%] portrait:[&:fullscreen_.fb-video]:![transform:translateY(-50%)] portrait:[&:fullscreen_.fb-video]:![height:auto] portrait:[&:fullscreen_.fb-video]:![aspect-ratio:16/9]"
     >
       <div
         key={video.id}
@@ -147,11 +203,31 @@ function MainVideoPlayer({
         data-show-text="false"
         data-allowfullscreen="true"
       />
+      {loaded && canFullscreen && (
+        <button
+          type="button"
+          onClick={toggleFullscreen}
+          aria-label={isFullscreen ? "Exit full screen" : "Watch full screen"}
+          className="[@media(hover:hover)]:hidden absolute top-3 left-3 z-20 w-10 h-10 rounded-full bg-black/55 text-white flex items-center justify-center backdrop-blur-sm active:scale-95 transition-transform"
+        >
+          {isFullscreen ? (
+            <Minimize2 className="w-5 h-5" aria-hidden="true" />
+          ) : (
+            <Maximize2 className="w-5 h-5" aria-hidden="true" />
+          )}
+        </button>
+      )}
+      {loaded && starting && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/40 pointer-events-none" role="status" aria-label="Loading video">
+          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border-[3px] border-white/20 border-t-brand-gold animate-spin" />
+        </div>
+      )}
       {/* Loading overlay: the video's thumbnail, dimmed, with a spinner until Facebook's player is ready */}
       <div
         aria-hidden={loaded}
         className={`absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-500 ${
-          loaded ? "opacity-0 pointer-events-none" : "opacity-100"
+          loaded ? "opacity-0" : "opacity-100"
+        } ${failed ? "" : "pointer-events-none"
         }`}
       >
         <img

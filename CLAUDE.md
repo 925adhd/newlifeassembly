@@ -10,10 +10,10 @@
 - Deployed on GitHub Pages / Vercel
 
 ## Structure
-- app/ — pages and layouts
-- src/components/ — reusable UI components
-- public/ — static assets (images, sitemap, robots.txt)
-- client-info/ — original client files (gitignored)
+- app/: pages and layouts
+- src/components/: reusable UI components
+- public/: static assets (images, sitemap, robots.txt)
+- client-info/: original client files (gitignored)
 
 ## Git Rules
 - Do NOT commit or push without asking

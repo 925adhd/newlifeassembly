@@ -3,9 +3,6 @@
 import { useState, type FormEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
-  HandHeart,
-  ShieldCheck,
-  Flame,
   Send,
   CheckCircle,
   AlertCircle,
@@ -21,30 +18,6 @@ const categories = [
   { value: "Other", label: "Something else" },
 ] as const;
 
-const pillars = [
-  {
-    icon: ShieldCheck,
-    eyebrow: "Held in confidence",
-    title: "Between you and the pastor",
-    body:
-      "Mark your request confidential and it stays with Pastor Tony. Otherwise it joins our church prayer circle — names and details always handled with care.",
-  },
-  {
-    icon: Flame,
-    eyebrow: "Brought to the altar",
-    title: "Lifted up Wednesday nights",
-    body:
-      "Every request is read aloud and prayed over during our Wednesday evening service. You don't have to be here — we carry you with us.",
-  },
-  {
-    icon: HandHeart,
-    eyebrow: "Personally read",
-    title: "Pastor Tony reads each one",
-    body:
-      "No auto-reply, no form letter. Pastor Tony reads every note that comes in and will reach out personally if you ask him to.",
-  },
-];
-
 export default function PrayerPage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
@@ -54,12 +27,12 @@ export default function PrayerPage() {
   const ease = [0.16, 1, 0.3, 1] as const;
 
   const fadeIn = prefersReducedMotion
-    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } }
+    ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } }
     : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
 
   const slideUp = (delay = 0) =>
     prefersReducedMotion
-      ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } }
+      ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } }
       : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -101,8 +74,8 @@ export default function PrayerPage() {
 
   return (
     <>
-      {/* Hero — sanctuary night sky */}
-      <section className="relative pt-10 md:pt-16 pb-24 md:pb-32 -mb-px bg-brand-primary overflow-hidden aurora">
+      {/* Hero: sanctuary night sky */}
+      <section className="relative pt-10 md:pt-16 pb-20 md:pb-28 -mb-px bg-brand-primary overflow-hidden aurora">
         <img
           src="/dove-logo.webp"
           alt=""
@@ -134,32 +107,13 @@ export default function PrayerPage() {
               stand with you in prayer, quietly and without condition.
             </p>
 
-            {/* Compact trust strip */}
-            <ul className="mt-6 md:mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-white/80">
-              {pillars.map((pillar) => {
-                const Icon = pillar.icon;
-                return (
-                  <li
-                    key={pillar.eyebrow}
-                    className="inline-flex items-center gap-2 text-[11px] md:text-xs font-medium tracking-[0.15em] uppercase"
-                  >
-                    <Icon
-                      className="w-4 h-4 text-brand-gold shrink-0"
-                      aria-hidden="true"
-                      strokeWidth={1.75}
-                    />
-                    {pillar.eyebrow}
-                  </li>
-                );
-              })}
-            </ul>
           </motion.div>
         </div>
 
-        {/* Bottom fade into next section — smooth ease curve */}
+        {/* Bottom fade into next section: smooth ease curve */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-0 inset-x-0 h-40 md:h-64 z-[1]"
+          className="pointer-events-none absolute bottom-0 inset-x-0 h-24 md:h-40 z-[1]"
           style={{
             backgroundImage:
               "linear-gradient(to bottom, rgba(248,246,241,0) 0%, rgba(248,246,241,0.015) 12%, rgba(248,246,241,0.05) 22%, rgba(248,246,241,0.1) 32%, rgba(248,246,241,0.18) 42%, rgba(248,246,241,0.3) 52%, rgba(248,246,241,0.44) 62%, rgba(248,246,241,0.6) 72%, rgba(248,246,241,0.76) 82%, rgba(248,246,241,0.9) 90%, rgba(248,246,241,0.98) 96%, rgba(248,246,241,1) 100%)",
@@ -167,21 +121,16 @@ export default function PrayerPage() {
         />
       </section>
 
-      {/* The form — prayer wall */}
+      {/* The form: the hero's heading introduces it, so the card rises into the fade */}
       <section
         id="prayer-form"
-        className="pt-4 md:pt-8 pb-16 md:pb-24 grid-pattern scroll-mt-20"
+        aria-labelledby="prayer-form-heading"
+        className="relative z-10 -mt-12 md:-mt-20 pb-16 md:pb-24 grid-pattern scroll-mt-20"
       >
+        <h2 id="prayer-form-heading" className="sr-only">
+          Leave a prayer request
+        </h2>
         <div className="max-w-3xl mx-auto px-4">
-          <motion.div {...slideUp()} className="text-center mb-6 md:mb-8">
-            <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
-              The prayer wall
-            </p>
-            <h2 className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary tracking-tight leading-[1.1]">
-              Leave your request
-            </h2>
-          </motion.div>
-
           <motion.div {...slideUp(0.1)}>
             <div className="relative bg-white rounded-2xl shadow-sm border border-brand-primary/5 overflow-hidden">
               {/* Gold signature stripe */}
@@ -369,7 +318,7 @@ export default function PrayerPage() {
                         </span>
                         <span className="block text-xs text-brand-primary/60 leading-relaxed">
                           Check this and your request won&apos;t be shared with
-                          the church prayer circle — only Pastor Tony will
+                          the church prayer circle. Only Pastor Tony will
                           read it.
                         </span>
                       </span>
@@ -410,7 +359,7 @@ export default function PrayerPage() {
         </div>
       </section>
 
-      {/* Closing — "You are carried" */}
+      {/* Closing: "You are carried" */}
       <section className="relative py-16 md:py-24 bg-white overflow-hidden">
         <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">
           <motion.div {...slideUp()}>
@@ -430,7 +379,7 @@ export default function PrayerPage() {
               href="tel:+12702003422"
               className="tap btn-gold mt-8 inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-base"
             >
-              Call Pastor Tony — (270) 200-3422
+              Call Pastor Tony at (270) 200-3422
             </a>
           </motion.div>
         </div>

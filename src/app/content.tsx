@@ -14,7 +14,7 @@ import {
   ChevronRight,
   X,
 } from "lucide-react";
-import Tilt from "@/components/Tilt";
+import UpcomingEvents from "@/components/UpcomingEvents";
 
 const serviceTimes: {
   day: string;
@@ -34,7 +34,7 @@ const serviceTimes: {
     services: [
       { name: "Bible Study", time: "6:30 PM", icon: BookOpen },
     ],
-    note: "Casual setting · drop in any week — no prior study required.",
+    note: "Casual setting · drop in any week, no prior study required.",
   },
 ];
 
@@ -132,17 +132,17 @@ export default function HomePage() {
   const ease = [0.16, 1, 0.3, 1] as const;
   const fade = prefersReducedMotion ? {} : { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0.25, ease } };
   const fadeScale = prefersReducedMotion ? {} : { initial: { scale: 0.92, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.92, opacity: 0 }, transition: { duration: 0.3, ease } };
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
-  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: -32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
-  const slideRight = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: 32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, delay, ease } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
+  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: -32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
+  const slideRight = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: 32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, delay, ease } };
   const heroContainer = prefersReducedMotion
     ? { initial: "hidden" as const, animate: "visible" as const, variants: { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4 } } } }
     : { initial: "hidden" as const, animate: "visible" as const, variants: { hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } } } };
   const heroChild = prefersReducedMotion
-    ? { variants: { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4 } } } }
+    ? { variants: { hidden: { opacity: 0 }, visible: { opacity: 1, x: 0, transition: { duration: 0.4, x: { duration: 0 } } } } }
     : { variants: { hidden: { opacity: 0, x: -28 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease } } } };
-  const heroRight = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: 32 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.9, delay: 0.25, ease } };
-  const scaleIn = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, scale: 0.96 }, whileInView: { opacity: 1, scale: 1 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.7, delay, ease } };
+  const heroRight = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: 32 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.9, delay: 0.25, ease } };
+  const scaleIn = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, scale: 0.96 }, whileInView: { opacity: 1, scale: 1 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.7, delay, ease } };
 
   return (
     <>
@@ -261,7 +261,7 @@ export default function HomePage() {
             </h2>
             <p className="text-brand-primary/70 max-w-xl mx-auto">
               We&apos;d love to see you this week. All services are open to
-              everyone — come as you are.
+              everyone. Come as you are.
             </p>
           </motion.div>
 
@@ -327,6 +327,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Upcoming Events: hides itself when nothing is scheduled */}
+      <UpcomingEvents />
+
       {/* Ministries Overview */}
       <section className="relative py-16 md:py-24 bg-white overflow-hidden" aria-labelledby="ministries-heading">
         <img
@@ -367,24 +370,22 @@ export default function HomePage() {
                 {...slideUp(index * 0.12)}
                 className={index % 2 === 1 ? "md:mt-10" : ""}
               >
-                <Tilt max={5} scale={1.01}>
-                  <a
-                    href={ministry.href}
-                    className="group block tap"
-                  >
-                    <span className="block h-px w-10 bg-brand-primary/15 mb-4 transition-all duration-500 group-hover:w-16 group-hover:bg-brand-accent" aria-hidden="true" />
-                    <h3 className="font-serif italic text-2xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.1] md:leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors duration-500">
-                      {ministry.title}
-                    </h3>
-                    <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">
-                      {ministry.description}
-                    </p>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/60 group-hover:text-brand-accent transition-colors duration-500">
-                      <span className="link-underline">Learn more</span>
-                      <ChevronRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
-                    </span>
-                  </a>
-                </Tilt>
+                <a
+                  href={ministry.href}
+                  className="group block tap"
+                >
+                  <span className="block h-px w-10 bg-brand-primary/15 mb-4 transition-all duration-500 group-hover:w-16 group-hover:bg-brand-accent" aria-hidden="true" />
+                  <h3 className="font-serif italic text-2xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.1] md:leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors duration-500">
+                    {ministry.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">
+                    {ministry.description}
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/60 group-hover:text-brand-accent transition-colors duration-500">
+                    <span className="link-underline">Learn more</span>
+                    <ChevronRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
+                  </span>
+                </a>
               </motion.div>
             ))}
           </div>
@@ -444,7 +445,7 @@ export default function HomePage() {
               </h2>
               <p className="text-brand-primary/75 leading-relaxed mb-4">
                 At New Life Assembly, we celebrate every step of your spiritual
-                journey — from your first visit to water baptism and beyond. Our
+                journey, from your first visit to water baptism and beyond. Our
                 church is a place where real life change happens through the
                 power of God.
               </p>
@@ -570,7 +571,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Mobile: balanced 3-col square grid — compact */}
+          {/* Mobile: balanced 3-col square grid: compact */}
           <div className="grid grid-cols-3 gap-2 md:hidden">
             {[
               { src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly" },
@@ -605,45 +606,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="relative py-20 md:py-32 bg-brand-primary overflow-hidden aurora" aria-labelledby="testimonials-heading">
-        <span
-          aria-hidden="true"
-          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 font-serif text-[22rem] md:text-[30rem] leading-none text-white/[0.04] select-none pointer-events-none z-0"
-        >
-          &ldquo;
-        </span>
-        <div className="relative z-10 max-w-4xl mx-auto px-6">
-          <motion.p
-            {...slideUp()}
-            className="text-[11px] font-medium tracking-[0.25em] uppercase text-brand-accent text-center mb-10"
-          >
-            <span id="testimonials-heading">From Our Church Family</span>
-          </motion.p>
-
-          {testimonials.map((testimonial, index) => (
-            <motion.figure
-              key={testimonial.author}
-              {...slideUp(index * 0.1)}
-              className="text-center"
-            >
-              <blockquote>
-                <p className="font-serif italic text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-10">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </p>
-              </blockquote>
-              <figcaption className="flex items-center justify-center gap-4 text-white/60">
-                <span className="h-px w-10 bg-white/30" aria-hidden="true" />
-                <span className="text-sm font-medium tracking-wider uppercase">
-                  {testimonial.author}
-                </span>
-                <span className="h-px w-10 bg-white/30" aria-hidden="true" />
-              </figcaption>
-            </motion.figure>
-          ))}
-        </div>
-      </section>
-
       {/* Contact / CTA Section */}
       <section className="py-16 md:py-24" id="contact" aria-labelledby="cta-heading">
         <div className="max-w-4xl mx-auto px-4">
@@ -667,11 +629,25 @@ export default function HomePage() {
             <h2 id="cta-heading" className="relative font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight mb-4">
               Plan Your Visit
             </h2>
-            <p className="text-brand-primary/70 max-w-lg mx-auto mb-8">
+            <p className="text-brand-primary/70 max-w-lg mx-auto mb-6">
               Have questions? Want to know what to expect on your first visit?
-              We&apos;re here to help. Reach out or just show up — you&apos;re
+              We&apos;re here to help. Reach out or just show up. You&apos;re
               always welcome.
             </p>
+
+            {/* A word from a member: replaces the old full-width testimonial band */}
+            {testimonials.map((testimonial) => (
+              <figure key={testimonial.author} className="relative max-w-md mx-auto mb-8">
+                <blockquote>
+                  <p className="font-serif italic text-lg md:text-xl text-brand-primary/85 leading-snug">
+                    &ldquo;{testimonial.quote}&rdquo;
+                  </p>
+                </blockquote>
+                <figcaption className="mt-2 text-brand-primary/65 text-xs font-medium tracking-[0.2em] uppercase">
+                  {testimonial.author}
+                </figcaption>
+              </figure>
+            ))}
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <a

@@ -3,6 +3,8 @@ import { Phone, MapPin, Clock } from "lucide-react";
 const quickLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Beliefs", href: "/beliefs" },
+  { label: "Leadership", href: "/leadership" },
   { label: "Ministries", href: "/ministries" },
   { label: "Prayer", href: "/prayer" },
   { label: "Contact", href: "/contact" },
@@ -46,19 +48,19 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
                 <Clock className="w-3.5 h-3.5 text-brand-accent shrink-0" aria-hidden="true" />
-                <span className="text-white/90">Sunday School — <span className="text-white/65">10:00 AM</span></span>
+                <span className="text-white/90">Sunday School: <span className="text-white/65">10:00 AM</span></span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock className="w-3.5 h-3.5 text-brand-accent shrink-0" aria-hidden="true" />
-                <span className="text-white/90">Sunday Service — <span className="text-white/65">11:00 AM</span></span>
+                <span className="text-white/90">Sunday Service: <span className="text-white/65">11:00 AM</span></span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock className="w-3.5 h-3.5 text-brand-accent shrink-0" aria-hidden="true" />
-                <span className="text-white/90">Children&apos;s Church — <span className="text-white/65">11:30 AM</span></span>
+                <span className="text-white/90">Children&apos;s Church: <span className="text-white/65">11:30 AM</span></span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock className="w-3.5 h-3.5 text-brand-accent shrink-0" aria-hidden="true" />
-                <span className="text-white/90">Wed Bible Study — <span className="text-white/65">6:30 PM</span></span>
+                <span className="text-white/90">Wed Bible Study: <span className="text-white/65">6:30 PM</span></span>
               </li>
             </ul>
           </div>

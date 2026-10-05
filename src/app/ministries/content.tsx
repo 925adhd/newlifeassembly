@@ -20,18 +20,6 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
     title: "Sundays",
     ministries: [
       {
-        title: "Sunday Worship",
-        time: "Sundays at 10:30 AM",
-        image: "/pastor-tony-portrait.jpg",
-        description:
-          "Our Sunday morning service is the heartbeat of New Life Assembly. We open with Spirit-filled praise and worship at 10:30, followed by heartfelt prayer and a powerful message from Pastor Tony at 11:00. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
-        details: [
-          "Praise & worship at 10:30 AM",
-          "Preaching at 11:00 AM",
-          "Prayer ministry and altar time",
-        ],
-      },
-      {
         title: "Sunday School",
         time: "Sundays at 10:00 AM",
         image: "/sunday-school.webp",
@@ -40,6 +28,18 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
         details: [
           "In-depth Bible study and discussion",
           "Adult small-group setting",
+        ],
+      },
+      {
+        title: "Sunday Worship",
+        time: "Sundays at 11:00 AM",
+        image: "/pastor-tony-portrait.jpg",
+        description:
+          "Our Sunday morning service is the heartbeat of New Life Assembly. We open with Spirit-filled praise and worship at 11:00, followed right after by heartfelt prayer and a powerful message from Pastor Tony at 11:30. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
+        details: [
+          "Praise & worship at 11:00 AM",
+          "Preaching at 11:30 AM",
+          "Prayer ministry and altar time",
         ],
       },
       {
@@ -88,14 +88,26 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
         ],
       },
       {
+        title: "Women's Ministries",
+        time: "Monthly, dates vary",
+        description:
+          "Women's Ministries is a place for women of every age and season of life to grow in faith and friendship. Through Bible study, prayer, and time together, we encourage one another, share life's joys and burdens, and find ways to serve our church and community. We gather once a month, so reach out and we'll let you know when we're meeting next.",
+        details: [
+          "Meets once a month",
+          "Bible study and prayer",
+          "Encouragement and friendship",
+          "Serving our church and community",
+        ],
+      },
+      {
         title: "Fellowship",
-        time: "Various times",
+        time: "Every quarter",
         images: ["/new-life-assembly-community-dinner.webp", "/new-life-assembly-community-dinner-2.webp"],
         description:
           "Building meaningful relationships is at the core of who we are. From community dinners to fellowship events, we create opportunities for people to connect, share life together, and grow in faith outside of Sunday services.",
         details: [
-          "Community dinners",
-          "Fellowship events throughout the year",
+          "Fellowship dinners every quarter",
+          "Newcomers always welcome",
         ],
       },
     ],
@@ -105,8 +117,8 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
 export default function MinistriesPage() {
   const prefersReducedMotion = useReducedMotion();
   const ease = [0.16, 1, 0.3, 1] as const;
-  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
 
   return (
     <>
@@ -143,7 +155,7 @@ export default function MinistriesPage() {
         </div>
       </section>
 
-      {/* Ministries List — grouped into editorial chapters */}
+      {/* Ministries List: grouped into editorial chapters */}
       {ministryGroups.map((group, groupIndex) => {
         const groupTones: { bg: string; accent: string; ornament: string }[] = [
           {
@@ -166,7 +178,7 @@ export default function MinistriesPage() {
         return (
           <section
             key={group.title}
-            className="relative py-16 md:py-24 overflow-hidden"
+            className="relative pt-10 pb-16 md:pt-16 md:pb-24 overflow-hidden"
             style={{ backgroundColor: tone.bg }}
           >
             <span
@@ -186,15 +198,12 @@ export default function MinistriesPage() {
             />
 
             <div className="relative max-w-6xl mx-auto px-4">
-              <motion.div {...slideUp()} className="mb-12 md:mb-16 max-w-2xl">
-                <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
-                <h2 className="font-serif italic text-3xl md:text-5xl lg:text-[3.5rem] font-bold text-brand-primary tracking-tight leading-[1.05]">
-                  {group.title === "Sundays"
-                    ? "On the Lord's Day."
-                    : group.title === "Midweek"
-                    ? "Gathered mid-week."
-                    : "Out in the community."}
+              {/* Quiet divider label: separates the groups without competing with the card titles */}
+              <motion.div {...slideUp()} className="flex items-center gap-4 mb-8 md:mb-12">
+                <h2 className="font-sans text-brand-accent font-medium text-xs md:text-sm tracking-[0.2em] uppercase shrink-0">
+                  {group.title}
                 </h2>
+                <span className="h-px flex-1 bg-brand-accent/25" aria-hidden="true" />
               </motion.div>
 
               <div className="space-y-10 md:space-y-12">
@@ -246,7 +255,7 @@ export default function MinistriesPage() {
                             {ministry.details.map((detail) => (
                               <li
                                 key={detail}
-                                className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
+                                className="text-brand-primary/70 text-sm leading-relaxed before:content-[''] before:inline-block before:align-middle before:w-3 before:h-px before:mr-2 before:bg-brand-accent/60"
                               >
                                 {detail}
                               </li>
@@ -286,7 +295,7 @@ export default function MinistriesPage() {
                               {ministry.details.map((detail) => (
                                 <li
                                   key={detail}
-                                  className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
+                                  className="text-brand-primary/70 text-sm leading-relaxed before:content-[''] before:inline-block before:align-middle before:w-3 before:h-px before:mr-2 before:bg-brand-accent/60"
                                 >
                                   {detail}
                                 </li>
@@ -304,7 +313,7 @@ export default function MinistriesPage() {
                             {ministry.details.map((detail) => (
                               <li
                                 key={detail}
-                                className="text-brand-primary/70 text-sm leading-relaxed before:content-['—'] before:mr-2 before:text-brand-accent/60"
+                                className="text-brand-primary/70 text-sm leading-relaxed before:content-[''] before:inline-block before:align-middle before:w-3 before:h-px before:mr-2 before:bg-brand-accent/60"
                               >
                                 {detail}
                               </li>

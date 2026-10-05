@@ -11,30 +11,158 @@ export type Video = {
   thumbnail: string;
 };
 
-function buildFacebookEmbed(id: string) {
-  return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
-    `https://www.facebook.com/reel/${id}`,
-  )}&show_text=false&width=1280&autoplay=true&mute=1`;
+// The main players use Facebook's player SDK so the page can control them: when
+// one video starts playing, every other player on the page pauses. (Facebook's
+// player can't start itself with sound, so visitors press play; audio is on.)
+type FbPlayer = {
+  pause: () => void;
+  subscribe: (event: string, cb: () => void) => { release: () => void } | undefined;
+};
+type FbReadyMsg = { type: string; id: string; instance: FbPlayer };
+type FbSdk = {
+  init: (opts: { xfbml: boolean; version: string }) => void;
+  XFBML: { parse: (el?: Element) => void };
+  Event: {
+    subscribe: (event: string, cb: (msg: FbReadyMsg) => void) => void;
+    unsubscribe: (event: string, cb: (msg: FbReadyMsg) => void) => void;
+  };
+};
+declare global {
+  interface Window {
+    FB?: FbSdk;
+    fbAsyncInit?: () => void;
+  }
+}
+
+// Every mounted player, so starting one can pause the rest
+const livePlayers = new Map<string, FbPlayer>();
+
+let fbSdkPromise: Promise<FbSdk> | null = null;
+function loadFacebookSdk(): Promise<FbSdk> {
+  if (fbSdkPromise) return fbSdkPromise;
+  fbSdkPromise = new Promise((resolve) => {
+    if (window.FB) return resolve(window.FB);
+    window.fbAsyncInit = () => {
+      window.FB!.init({ xfbml: false, version: "v19.0" });
+      resolve(window.FB!);
+    };
+    const script = document.createElement("script");
+    script.src = "https://connect.facebook.net/en_US/sdk.js";
+    script.async = true;
+    script.defer = true;
+    script.crossOrigin = "anonymous";
+    document.body.appendChild(script);
+  });
+  return fbSdkPromise;
 }
 
 function MainVideoPlayer({
   video,
   kind,
+  onPlayingChange,
 }: {
   video: Video;
   kind: "Sermon" | "Worship";
+  onPlayingChange: (playing: boolean) => void;
 }) {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const playerId = `fb-player-${video.id}`;
+  // Our own loading state; the parent keys this component by video, so it resets per video
+  const [loaded, setLoaded] = useState(false);
+  // Kept in a ref so a new callback doesn't reload the player
+  const onPlayingChangeRef = useRef(onPlayingChange);
+  useEffect(() => {
+    onPlayingChangeRef.current = onPlayingChange;
+  }, [onPlayingChange]);
+
+  useEffect(() => {
+    let cancelled = false;
+    let sdk: FbSdk | null = null;
+    const subs: ({ release: () => void } | undefined)[] = [];
+    const onReady = (msg: FbReadyMsg) => {
+      if (msg.type !== "video" || msg.id !== playerId) return;
+      const player = msg.instance;
+      livePlayers.set(playerId, player);
+      subs.push(
+        player.subscribe("startedPlaying", () => {
+          onPlayingChangeRef.current(true);
+          livePlayers.forEach((other, id) => {
+            if (id !== playerId) other.pause();
+          });
+        }),
+        player.subscribe("paused", () => onPlayingChangeRef.current(false)),
+        player.subscribe("finishedPlaying", () => onPlayingChangeRef.current(false)),
+      );
+    };
+    // Hide the spinner only once Facebook's iframe has finished loading (its
+    // "ready" event fires earlier, while the frame is still black), plus a beat
+    // for the poster to paint. A long fallback keeps it from spinning forever.
+    let revealTimer: ReturnType<typeof setTimeout> | undefined;
+    const reveal = (delay: number) => {
+      clearTimeout(revealTimer);
+      revealTimer = setTimeout(() => setLoaded(true), delay);
+    };
+    const fallbackTimer = setTimeout(() => setLoaded(true), 25000);
+    const observer = new MutationObserver(() => {
+      const iframe = hostRef.current?.querySelector("iframe");
+      if (!iframe) return;
+      observer.disconnect();
+      iframe.addEventListener("load", () => reveal(700), { once: true });
+    });
+    if (hostRef.current) observer.observe(hostRef.current, { childList: true, subtree: true });
+
+    loadFacebookSdk().then((fb) => {
+      if (cancelled || !hostRef.current) return;
+      sdk = fb;
+      fb.Event.subscribe("xfbml.ready", onReady);
+      fb.XFBML.parse(hostRef.current);
+    });
+    return () => {
+      cancelled = true;
+      sdk?.Event.unsubscribe("xfbml.ready", onReady);
+      subs.forEach((sub) => sub?.release());
+      observer.disconnect();
+      clearTimeout(revealTimer);
+      clearTimeout(fallbackTimer);
+      livePlayers.delete(playerId);
+    };
+  }, [playerId]);
+
   return (
-    <div className="relative aspect-video w-full rounded-2xl md:rounded-3xl overflow-hidden bg-black shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] ring-1 ring-white/10">
-      <iframe
+    <div
+      ref={hostRef}
+      aria-label={`${kind} from New Life Assembly of God, ${video.date}`}
+      role="region"
+      className="relative aspect-video w-full rounded-2xl md:rounded-3xl overflow-hidden bg-black shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] ring-1 ring-white/10 [&_.fb-video]:!absolute [&_.fb-video]:!inset-0 [&_span]:!w-full [&_span]:!h-full [&_iframe]:!w-full [&_iframe]:!h-full"
+    >
+      <div
         key={video.id}
-        src={buildFacebookEmbed(video.id)}
-        className="absolute inset-0 w-full h-full"
-        style={{ border: "none" }}
-        allowFullScreen
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-        title={`${kind} from New Life Assembly of God — ${video.date}`}
+        id={playerId}
+        className="fb-video"
+        data-href={`https://www.facebook.com/reel/${video.id}`}
+        data-width="auto"
+        data-show-text="false"
+        data-allowfullscreen="true"
       />
+      {/* Loading overlay: the video's thumbnail, dimmed, with a spinner until Facebook's player is ready */}
+      <div
+        aria-hidden={loaded}
+        className={`absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-500 ${
+          loaded ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+      >
+        <img
+          src={video.thumbnail}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover scale-105 blur-sm brightness-50"
+        />
+        <div className="relative flex flex-col items-center gap-3" role="status">
+          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border-[3px] border-white/20 border-t-brand-gold animate-spin" />
+          <p className="text-white/80 text-xs md:text-sm font-medium tracking-[0.2em] uppercase">
+            Loading video
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -42,11 +170,13 @@ function MainVideoPlayer({
 function VideoCard({
   video,
   active,
+  playing,
   onSelect,
   kind,
 }: {
   video: Video;
   active: boolean;
+  playing: boolean;
   onSelect: () => void;
   kind: "Sermon" | "Worship";
 }) {
@@ -75,7 +205,8 @@ function VideoCard({
             active ? "opacity-100" : "opacity-80 group-hover:opacity-95"
           }`}
         />
-        {active && (
+        {/* Only once the big player is actually playing */}
+        {active && playing && (
           <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-brand-accent text-white text-[10px] font-semibold tracking-widest uppercase shadow-md">
             Now Playing
           </div>
@@ -98,11 +229,13 @@ function VideoCard({
 function VideoRail({
   videos,
   activeId,
+  playing,
   onSelect,
   kind,
 }: {
   videos: Video[];
   activeId: string;
+  playing: boolean;
   onSelect: (id: string) => void;
   kind: "Sermon" | "Worship";
 }) {
@@ -147,6 +280,7 @@ function VideoRail({
             key={video.id}
             video={video}
             active={video.id === activeId}
+            playing={playing}
             onSelect={() => onSelect(video.id)}
             kind={kind}
           />
@@ -205,6 +339,7 @@ export default function VideoExperienceSection({
   decor?: string;
 }) {
   const [activeId, setActiveId] = useState<string>(videos[0]?.id ?? "");
+  const [isPlaying, setIsPlaying] = useState(false);
   const active = videos.find((v) => v.id === activeId) ?? videos[0];
 
   if (!active) return null;
@@ -252,7 +387,7 @@ export default function VideoExperienceSection({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <MainVideoPlayer video={active} kind={kind} />
+            <MainVideoPlayer key={active.id} video={active} kind={kind} onPlayingChange={setIsPlaying} />
             <figcaption className="mt-4 md:mt-5 text-white/80">
               <p className="font-serif text-lg md:text-xl font-bold text-white">
                 {active.label ? `${active.label} ${kind}` : `Sunday ${kind}`} — {active.date}
@@ -269,7 +404,11 @@ export default function VideoExperienceSection({
           <VideoRail
             videos={videos}
             activeId={active.id}
-            onSelect={setActiveId}
+            playing={isPlaying}
+            onSelect={(id) => {
+              setIsPlaying(false);
+              setActiveId(id);
+            }}
             kind={kind}
           />
         </div>

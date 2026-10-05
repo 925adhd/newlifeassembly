@@ -3,36 +3,13 @@
 import { motion, useReducedMotion } from "motion/react";
 import { ChevronRight } from "lucide-react";
 
-const beliefs = [
-  {
-    title: "The Bible",
-    description:
-      "We believe the Bible is the inspired, infallible Word of God — the authority for all faith and conduct.",
-  },
-  {
-    title: "Salvation",
-    description:
-      "We believe salvation is available to all through faith in Jesus Christ — His death, burial, and resurrection.",
-  },
-  {
-    title: "The Holy Spirit",
-    description:
-      "We believe in the baptism of the Holy Spirit, empowering believers for service and daily living.",
-  },
-  {
-    title: "The Trinity",
-    description:
-      "We believe in one God, eternally existing in three persons — Father, Son, and Holy Spirit — equal in power and glory.",
-  },
-];
-
 export default function AboutPage() {
   const prefersReducedMotion = useReducedMotion();
   const ease = [0.16, 1, 0.3, 1] as const;
-  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
-  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: -32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
-  const slideRight = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: 32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
+  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: -32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
+  const slideRight = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: 32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
 
   return (
     <>
@@ -59,7 +36,7 @@ export default function AboutPage() {
               About Us
             </p>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.2] md:leading-[1.15] mb-3 md:mb-6">
-              Rooted in Faith
+              A church that feels like <span className="italic">family.</span>
             </h1>
             <p className="text-white/80 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
               New Life Assembly of God has been serving the Leitchfield,
@@ -69,77 +46,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Pastor Section */}
-      <section className="relative py-12 md:py-24 bg-brand-warm overflow-hidden">
-        <div className="relative z-10 max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
-              {...slideLeft}
-              className="relative max-w-md mx-auto lg:mx-0 w-full"
-            >
-              <span
-                aria-hidden="true"
-                className="absolute -top-3 -left-3 md:-top-4 md:-left-4 right-6 bottom-6 border-2 border-brand-accent/40 rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl pointer-events-none"
-              />
-              <img
-                src="/pastor-tony-redmon-960.webp"
-                srcSet="/pastor-tony-redmon-480.webp 480w, /pastor-tony-redmon-960.webp 960w, /pastor-tony-redmon-1600.webp 1600w"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                alt="Pastor Tony Redmon preaching at New Life Assembly of God in Leitchfield, Kentucky"
-                width={1920}
-                height={1440}
-                className="relative w-full rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl shadow-xl"
-                loading="lazy"
-              />
-            </motion.div>
-
-            <motion.div
-              {...slideRight}
-              className="relative"
-            >
-              <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
-              <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
-                Our Pastor
-              </p>
-              <h2 className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary tracking-tight leading-[1.1] mb-6">
-                Pastor Tony Redmon
-              </h2>
-              <p className="text-brand-primary/75 leading-relaxed mb-6">
-                Pastor Tony Redmon leads New Life Assembly of God with a heart
-                for people and a passion for God&apos;s Word. His dedication to
-                biblical teaching and genuine care for the congregation has made
-                New Life a place where people feel truly at home.
-              </p>
-              <div className="my-8 pl-5 border-l-2 border-brand-accent/40">
-                <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-accent mb-2">
-                  His vision
-                </p>
-                <p className="font-serif italic text-xl md:text-2xl text-brand-primary/85 leading-snug">
-                  That every person in Leitchfield would experience the new life
-                  that comes through a relationship with Jesus Christ.
-                </p>
-              </div>
-              <p className="text-brand-primary/75 leading-relaxed mb-4">
-                Under his leadership, New Life Assembly has become known as a
-                welcoming, Spirit-filled church where lives are being
-                transformed through the power of the Gospel.
-              </p>
-              <p className="text-brand-primary/75 leading-relaxed">
-                Whether through Sunday morning worship, Wednesday evening Bible
-                study, or personal ministry, Pastor Tony is committed to helping
-                people grow in their faith and discover God&apos;s purpose for
-                their lives.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Church — editorial spread */}
-      <section
-        className="relative py-20 md:py-32 overflow-hidden"
-        style={{ backgroundColor: "var(--color-brand-cream-deep)" }}
-      >
+      {/* Our Church: editorial spread (the hero H1 introduces it, so no second heading) */}
+      <section className="relative py-14 md:py-24 overflow-hidden bg-brand-warm" aria-label="Who we are">
         {/* Warm atmospheric glows */}
         <span
           aria-hidden="true"
@@ -159,39 +67,47 @@ export default function AboutPage() {
           }}
         />
 
-        {/* Word watermark */}
-        <span
-          aria-hidden="true"
-          className="hidden md:block absolute md:right-8 md:top-12 font-serif italic md:text-[15rem] leading-none text-brand-primary/[0.05] select-none pointer-events-none z-0"
-        >
-          Family.
-        </span>
-
         <div className="relative max-w-5xl mx-auto px-4">
-          <motion.div {...slideUp()} className="mb-12 md:mb-16 max-w-2xl">
-            <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
-            <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
-              Who We Are
-            </p>
-            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-brand-primary tracking-tight leading-[1.05]">
-              A church that<br className="hidden md:block" /> feels like{" "}
-              <span className="italic">family.</span>
-            </h2>
-          </motion.div>
-
-          {/* Lede — italic opener, roman body */}
+          {/* Lede: italic opener, roman body */}
           <motion.p
             {...slideUp(0.05)}
-            className="relative font-serif text-xl md:text-2xl lg:text-[1.75rem] text-brand-primary/85 leading-[1.45] max-w-3xl mb-14 md:mb-20 pl-6 md:pl-8 border-l-2 border-brand-gold"
+            className="relative font-serif text-xl md:text-2xl lg:text-[1.75rem] text-brand-primary/85 leading-[1.45] max-w-3xl mb-5 pl-6 md:pl-8 border-l-2 border-brand-gold"
           >
             <span className="italic">
               New Life Assembly of God is part of the Assemblies of God
-              fellowship — one of the largest Pentecostal denominations in
+              fellowship, one of the largest Pentecostal denominations in
               the world.
             </span>{" "}
             In the heart of Grayson County, we are a community of believers
             passionate about worship, prayer, and sharing the Gospel.
           </motion.p>
+          <motion.div {...slideUp(0.08)} className="pl-6 md:pl-8 mb-14 md:mb-20 flex items-center gap-5 md:gap-6">
+            {/* Official AG mark, shown unaltered to signal affiliation */}
+            <a
+              href="https://ag.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 opacity-90 hover:opacity-100 transition-opacity"
+            >
+              <img
+                src="/assemblies-of-god-logo-120.webp"
+                srcSet="/assemblies-of-god-logo-120.webp 1x, /assemblies-of-god-logo-240.webp 2x"
+                alt="Assemblies of God (opens ag.org in a new tab)"
+                width={120}
+                height={73}
+                className="h-9 md:h-11 w-auto"
+                loading="lazy"
+              />
+            </a>
+            <span className="h-8 w-px bg-brand-primary/15" aria-hidden="true" />
+            <a
+              href="/beliefs"
+              className="group inline-flex items-center gap-1.5 text-brand-accent font-medium text-sm md:text-base hover:text-brand-accent-dark transition-colors"
+            >
+              Read what we believe
+              <ChevronRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
+            </a>
+          </motion.div>
 
           {/* Body in two editorial columns on desktop */}
           <motion.div
@@ -240,40 +156,67 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* What We Believe */}
-      <section className="py-16 md:py-24 bg-brand-warm">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div
-            {...slideUp()}
-            className="text-center mb-12"
-          >
-            <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
-              Our Beliefs
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight mb-4">
-              What We Believe
-            </h2>
-            <p className="text-brand-primary/70 max-w-xl mx-auto">
-              As an Assemblies of God church, we hold to the core tenets of the
-              Christian faith.
-            </p>
-          </motion.div>
+      {/* Pastor Section */}
+      <section
+        className="relative py-12 md:py-24 overflow-hidden"
+        style={{ backgroundColor: "var(--color-brand-cream-deep)" }}
+      >
+        <div className="relative z-10 max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <motion.div
+              {...slideLeft}
+              className="relative max-w-md mx-auto lg:mx-0 w-full"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute -top-3 -left-3 md:-top-4 md:-left-4 right-6 bottom-6 border-2 border-brand-accent/40 rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl pointer-events-none"
+              />
+              <img
+                src="/pastor-tony-redmon-960.webp"
+                srcSet="/pastor-tony-redmon-480.webp 480w, /pastor-tony-redmon-960.webp 960w, /pastor-tony-redmon-1600.webp 1600w"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                alt="Pastor Tony Redmon preaching at New Life Assembly of God in Leitchfield, Kentucky"
+                width={1920}
+                height={1440}
+                className="relative w-full rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl shadow-xl"
+                loading="lazy"
+              />
+            </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10 md:gap-y-12 max-w-4xl mx-auto">
-            {beliefs.map((belief, index) => (
-              <motion.div
-                key={belief.title}
-                {...slideUp(index * 0.1)}
-                className="border-t border-brand-primary/15 pt-5"
-              >
-                <h3 className="font-serif text-xl md:text-2xl font-bold text-brand-primary tracking-tight leading-[1.2] mb-3">
-                  {belief.title}
-                </h3>
-                <p className="text-brand-primary/70 text-sm md:text-base leading-relaxed">
-                  {belief.description}
+            <motion.div
+              {...slideRight}
+              className="relative"
+            >
+              <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
+              <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
+                Our Pastor
+              </p>
+              <h2 className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary tracking-tight leading-[1.1] mb-6">
+                Pastor Tony Redmon
+              </h2>
+              <p className="text-brand-primary/75 leading-relaxed">
+                Pastor Tony has a heart for people and a passion for God&apos;s
+                Word. More than anything, he wants everyone who walks through
+                our doors to find a church home where they are known, cared
+                for, and growing in their faith.
+              </p>
+              <div className="my-8 pl-5 border-l-2 border-brand-accent/40">
+                <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-accent mb-2">
+                  His vision
                 </p>
-              </motion.div>
-            ))}
+                <p className="font-serif italic text-xl md:text-2xl text-brand-primary/85 leading-snug">
+                  That every person in Leitchfield would experience the new life
+                  that comes through a relationship with Jesus Christ.
+                </p>
+              </div>
+              <a
+                href="/leadership"
+                className="tap group inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-brand-primary/20 text-brand-primary font-medium hover:border-brand-accent hover:text-brand-accent transition-colors"
+              >
+                Meet our leadership
+                <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
+              </a>
+            </motion.div>
           </div>
         </div>
       </section>

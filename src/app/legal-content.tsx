@@ -79,7 +79,7 @@ interface LegalContentProps {
 export default function LegalContent({ type }: LegalContentProps) {
   const data = legalData[type];
   const prefersReducedMotion = useReducedMotion();
-  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } } : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.3, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
 
   return (
     <section className="py-24 md:py-32">

@@ -31,10 +31,10 @@ export default function WatchPage() {
   const prefersReducedMotion = useReducedMotion();
   const ease = [0.16, 1, 0.3, 1] as const;
   const fadeIn = prefersReducedMotion
-    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } }
+    ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } }
     : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
   const slideUp = prefersReducedMotion
-    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } }
+    ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } }
     : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, ease } };
 
   return (
@@ -63,7 +63,7 @@ export default function WatchPage() {
               Past Services
             </h1>
             <p className="text-white/75 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
-              Missed a Sunday? Catch up on past services here — and find more
+              Missed a Sunday? Catch up on past services here and find more
               videos and updates on our Facebook page.
             </p>
           </motion.div>
@@ -84,7 +84,7 @@ export default function WatchPage() {
         kind="Worship"
       />
 
-      {/* Conversion CTA — bridge from "watched online" to "visit in person" */}
+      {/* Conversion CTA: bridge from "watched online" to "visit in person" */}
       <section className="relative py-16 md:py-24 bg-brand-primary overflow-hidden aurora">
         <motion.div
           {...slideUp}
@@ -97,8 +97,8 @@ export default function WatchPage() {
             Join Us This Sunday
           </h2>
           <p className="text-white/80 max-w-lg mx-auto mb-8">
-            Online is a great start. Worshiping in person is even better —
-            we&apos;d love to meet you and welcome you to the family.
+            Online is a great start. Worshiping in person is even better.
+            We&apos;d love to meet you and welcome you to the family.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a

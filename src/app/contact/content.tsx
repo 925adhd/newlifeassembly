@@ -10,7 +10,9 @@ import {
   Send,
   CheckCircle,
   AlertCircle,
+  ChevronDown,
 } from "lucide-react";
+import { faqs } from "./faqs";
 
 const serviceTimes = [
   { name: "Sunday School", time: "10:00 AM" },
@@ -46,12 +48,13 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const ease = [0.16, 1, 0.3, 1] as const;
-  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
-  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: -32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
-  const slideRight = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease } } : { initial: { opacity: 0, x: 32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
+  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
+  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
+  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: -32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
+  const slideRight = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: 32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -112,7 +115,84 @@ export default function ContactPage() {
               Whether it&apos;s your first Sunday or you&apos;re coming back,
               you&apos;re always welcome at New Life Assembly. Come as you are.
             </p>
+            <a
+              href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tap group btn-gold mt-6 md:mt-8 px-6 py-3 rounded-lg inline-flex items-center gap-2 hover:-translate-y-0.5"
+            >
+              <MapPin className="w-5 h-5" aria-hidden="true" />
+              Get Directions
+              <span className="sr-only">(opens Google Maps in a new tab)</span>
+            </a>
           </motion.div>
+        </div>
+      </section>
+
+      {/* When & Where: the first two things a visitor needs */}
+      <section className="py-16 md:py-24 bg-brand-warm" aria-labelledby="when-where-heading">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-10 lg:gap-12 items-stretch">
+            <motion.div {...slideUp()}>
+              <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
+              <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
+                When &amp; Where
+              </p>
+              <h2 id="when-where-heading" className="font-serif italic text-3xl md:text-4xl font-bold text-brand-primary tracking-tight leading-[1.1] mb-8">
+                Join us this Sunday
+              </h2>
+
+              <div className="grid grid-cols-[auto_1fr] gap-4 items-start pb-6 mb-6 border-b border-brand-primary/10">
+                <MapPin className="w-5 h-5 text-brand-accent shrink-0 mt-1" aria-hidden="true" strokeWidth={1.75} />
+                <div>
+                  <p className="font-serif text-lg font-bold text-brand-primary leading-tight mb-2">
+                    47 Embry Acres Dr<br />Leitchfield, KY 42754
+                  </p>
+                  <a
+                    href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-accent hover:text-brand-accent-dark transition-colors"
+                  >
+                    Get directions
+                    <ChevronRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+                    <span className="sr-only">(opens Google Maps in a new tab)</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-[auto_1fr] gap-4 items-start">
+                <Clock className="w-5 h-5 text-brand-accent shrink-0 mt-0.5" aria-hidden="true" strokeWidth={1.75} />
+                <ul className="space-y-3">
+                  {serviceTimes.map((service) => (
+                    <li key={service.name} className="flex items-baseline justify-between gap-4">
+                      <span className="font-serif text-base md:text-lg font-bold text-brand-primary leading-tight">
+                        {service.name}
+                      </span>
+                      <span className="text-brand-accent text-sm tabular-nums tracking-tight shrink-0">
+                        {service.time}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+
+            <motion.div
+              {...slideUp(0.1)}
+              className="rounded-2xl overflow-hidden shadow-sm border border-brand-primary/5"
+            >
+            <iframe
+              title="New Life Assembly of God location on Google Maps"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.0!2d-86.2883226!3d37.5088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886f4b96e2b5d627%3A0x7068670081ffda4c!2sNew%20Life%20Assembly%20of%20God!5e0!3m2!1sen!2sus!4v1700000000000"
+              style={{ border: 0, display: "block" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-72 lg:h-full lg:min-h-[420px] w-full"
+            />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -160,6 +240,61 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* FAQ: answers stay in the HTML (hidden via CSS) so they're still indexed */}
+      <section className="py-16 md:py-24 bg-brand-warm" aria-labelledby="faq-heading">
+        <div className="max-w-3xl mx-auto px-4">
+          <motion.div {...slideUp()} className="text-center mb-10 md:mb-12">
+            <span className="block h-px w-12 bg-brand-accent mx-auto mb-5" aria-hidden="true" />
+            <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
+              Questions
+            </p>
+            <h2 id="faq-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight">
+              Frequently Asked Questions
+            </h2>
+          </motion.div>
+
+          <motion.ul {...slideUp(0.05)} className="border-b border-brand-primary/15">
+            {faqs.map((faq, index) => {
+              const isOpen = openFaq === index;
+              const panelId = `faq-${index + 1}`;
+              return (
+                <li key={faq.question} className="border-t border-brand-primary/15">
+                  <h3>
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      onClick={() => setOpenFaq(isOpen ? null : index)}
+                      className="w-full flex items-center justify-between gap-4 py-5 text-left font-serif text-lg md:text-xl font-bold text-brand-primary tracking-tight hover:text-brand-accent transition-colors"
+                    >
+                      {faq.question}
+                      <ChevronDown
+                        className={`w-5 h-5 shrink-0 text-brand-accent transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </h3>
+                  <div id={panelId} className={`${isOpen ? "block" : "hidden"} pb-6 pr-9`}>
+                    <p className="text-brand-primary/75 text-sm md:text-base leading-relaxed">
+                      {faq.answer}
+                    </p>
+                    {faq.link && (
+                      <a
+                        href={faq.link.href}
+                        className="group inline-flex items-center gap-1.5 mt-3 text-brand-accent font-medium text-sm hover:text-brand-accent-dark transition-colors"
+                      >
+                        {faq.link.label}
+                        <ChevronRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
+                      </a>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </motion.ul>
+        </div>
+      </section>
+
       {/* Contact Info + Form */}
       <section id="get-in-touch" className="py-16 md:py-24 grid-pattern scroll-mt-20">
         <div className="max-w-6xl mx-auto px-4">
@@ -204,7 +339,7 @@ export default function ContactPage() {
                 />
               </div>
 
-              {/* Contact Details — editorial list */}
+              {/* Contact Details: editorial list */}
               <div className="divide-y divide-brand-primary/10 border-y border-brand-primary/10 mb-10">
                 <div className="py-5 grid grid-cols-[auto_1fr] gap-4 items-center">
                   <Phone className="w-5 h-5 text-brand-accent shrink-0" aria-hidden="true" strokeWidth={1.75} />
@@ -246,26 +381,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="py-5 grid grid-cols-[auto_1fr] gap-4 items-start">
-                  <MapPin className="w-5 h-5 text-brand-accent shrink-0 mt-1" aria-hidden="true" strokeWidth={1.75} />
-                  <div>
-                    <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-primary/50 mb-0.5">
-                      Visit
-                    </p>
-                    <p className="font-serif text-lg font-bold text-brand-primary leading-tight mb-2">
-                      47 Embry Acres Dr<br />Leitchfield, KY 42754
-                    </p>
-                    <a
-                      href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-accent hover:text-brand-accent-dark transition-colors"
-                    >
-                      Get directions
-                      <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
-                    </a>
-                  </div>
-                </div>
               </div>
 
 
@@ -311,7 +426,7 @@ export default function ContactPage() {
                       name="subject"
                       value="New message from New Life Assembly website"
                     />
-                    {/* Honeypot — real users leave this empty; bots fill it */}
+                    {/* Honeypot: real users leave this empty; bots fill it */}
                     <input
                       type="checkbox"
                       name="botcheck"
@@ -424,56 +539,6 @@ export default function ContactPage() {
               </div>
             </motion.div>
           </div>
-
-          {/* Service Times — horizontal full width */}
-          <motion.div
-            {...slideUp()}
-            className="bg-white rounded-2xl p-8 md:p-10 shadow-sm border border-brand-primary/5 mb-8 md:mb-10"
-          >
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 md:mb-8">
-              <div>
-                <span className="block h-px w-10 bg-brand-accent mb-3" aria-hidden="true" />
-                <h3 className="font-serif text-xl md:text-2xl font-bold text-brand-primary tracking-tight flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-brand-accent" aria-hidden="true" strokeWidth={1.75} />
-                  Service Times
-                </h3>
-              </div>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-brand-primary/45">
-                All services open to everyone
-              </p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-6">
-              {serviceTimes.map((service, i) => (
-                <div
-                  key={service.name}
-                  className={`md:px-6 md:first:pl-0 md:last:pr-0 ${i > 0 ? "md:border-l md:border-brand-primary/10" : ""}`}
-                >
-                  <p className="font-serif text-base md:text-lg font-bold text-brand-primary leading-tight mb-1">
-                    {service.name}
-                  </p>
-                  <p className="text-brand-accent text-sm tabular-nums tracking-tight">
-                    {service.time}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Google Maps — full width below the grid */}
-          <motion.div
-            {...slideUp()}
-            className="rounded-2xl overflow-hidden shadow-sm border border-brand-primary/5 mb-16 md:mb-20"
-          >
-            <iframe
-              title="New Life Assembly of God location on Google Maps"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.0!2d-86.2883226!3d37.5088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886f4b96e2b5d627%3A0x7068670081ffda4c!2sNew%20Life%20Assembly%20of%20God!5e0!3m2!1sen!2sus!4v1700000000000"
-              style={{ border: 0, display: "block" }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="h-72 md:h-[420px] w-full"
-            />
-          </motion.div>
 
           {/* Warm closing sign-off */}
           <motion.div

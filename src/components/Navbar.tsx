@@ -2,11 +2,25 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone, MapPin } from "lucide-react";
+import { Menu, X, Phone, MapPin, ChevronDown } from "lucide-react";
 
-const navLinks = [
+type NavLink = {
+  label: string;
+  href: string;
+  children?: { label: string; href: string }[];
+};
+
+const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
+  {
+    label: "About",
+    href: "/about",
+    children: [
+      { label: "Who We Are", href: "/about" },
+      { label: "What We Believe", href: "/beliefs" },
+      { label: "Leadership", href: "/leadership" },
+    ],
+  },
   { label: "Ministries", href: "/ministries" },
   { label: "Watch", href: "/watch" },
   { label: "Prayer", href: "/prayer" },
@@ -15,7 +29,15 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  // Normalize "/prayer.html" or "/prayer/" to "/prayer" so page checks work on any host
+  const rawPathname = usePathname();
+  const pathname = rawPathname.replace(/\.html$/, "").replace(/(.)\/$/, "$1").replace(/^\/index$/, "/");
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+
+  // A parent link counts as active on any of its child pages
+  const isSectionActive = (link: NavLink) =>
+    pathname === link.href || !!link.children?.some((c) => c.href === pathname);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -94,15 +116,82 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-brand-primary/80 hover:text-brand-accent font-medium text-sm transition-colors duration-500 link-underline"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const active = isSectionActive(link);
+              const linkClass = `${active ? "text-brand-accent" : "text-brand-primary/80"} hover:text-brand-accent font-medium text-sm transition-colors duration-500 link-underline`;
+              if (!link.children) {
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    aria-current={pathname === link.href ? "page" : undefined}
+                    className={linkClass}
+                  >
+                    {link.label}
+                  </a>
+                );
+              }
+              return (
+                <div
+                  key={link.href}
+                  className="relative group"
+                  onMouseLeave={() => setAboutOpen(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Escape") setAboutOpen(false);
+                  }}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget as Node)) setAboutOpen(false);
+                  }}
+                >
+                  <div className="flex items-center gap-0.5">
+                    <a href={link.href} className={linkClass}>
+                      {link.label}
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setAboutOpen((v) => !v)}
+                      aria-expanded={aboutOpen}
+                      aria-controls="about-submenu"
+                      aria-label={`${link.label} pages`}
+                      className="p-1 -mr-1 rounded text-brand-primary/60 hover:text-brand-accent transition-colors"
+                    >
+                      <ChevronDown
+                        className={`w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180 ${aboutOpen ? "rotate-180" : ""}`}
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </div>
+                  {/* Submenu: opens on hover, or via the chevron button for keyboard and touch */}
+                  <div
+                    id="about-submenu"
+                    className={`absolute left-1/2 -translate-x-1/2 top-full pt-3 transition-all duration-300 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 ${
+                      aboutOpen ? "visible opacity-100 translate-y-0" : "invisible opacity-0 -translate-y-1"
+                    }`}
+                  >
+                    <ul className="min-w-[200px] bg-white rounded-xl p-2 shadow-[0_1px_2px_rgba(27,42,74,0.06),0_16px_40px_-12px_rgba(27,42,74,0.2)] border border-brand-primary/5">
+                      {link.children.map((child) => {
+                        const childActive = pathname === child.href;
+                        return (
+                          <li key={child.href}>
+                            <a
+                              href={child.href}
+                              aria-current={childActive ? "page" : undefined}
+                              className={`block px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                                childActive
+                                  ? "text-brand-accent bg-brand-accent/5"
+                                  : "text-brand-primary/80 hover:text-brand-accent hover:bg-brand-primary/[0.03]"
+                              }`}
+                            >
+                              {child.label}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              );
+            })}
             <a
               href="/contact"
               className="tap btn-gold px-5 py-2.5 rounded-lg text-sm hover:-translate-y-0.5"
@@ -114,7 +203,11 @@ export default function Navbar() {
 
           {/* Mobile menu button */}
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => {
+              // Each time the menu opens, the About group starts collapsed
+              setMobileAboutOpen(false);
+              setIsOpen(!isOpen);
+            }}
             className="tap md:hidden p-2.5 rounded-lg text-brand-primary hover:bg-brand-primary/5 transition-colors"
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
@@ -127,7 +220,7 @@ export default function Navbar() {
 
     </nav>
 
-    {/* Mobile Navigation — full-screen glass overlay */}
+    {/* Mobile Navigation: full-screen glass overlay */}
     {isOpen && (
       <div
         id="mobile-menu"
@@ -163,26 +256,71 @@ export default function Navbar() {
           style={{ background: "radial-gradient(circle, rgba(125,148,173,0.22) 0%, rgba(125,148,173,0) 70%)", animationDelay: "-5s" }}
         />
 
-        {/* Nav links — big serif italic, centered */}
-        <div className="relative flex-1 flex flex-col justify-center px-8 gap-1">
-          {navLinks.map((link, i) => {
-            const isActive = pathname === link.href;
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                aria-current={isActive ? "page" : undefined}
-                style={{ animation: `fadeSlideRight 600ms ${120 + i * 80}ms cubic-bezier(0.16, 1, 0.3, 1) backwards` }}
-                className="tap group block font-serif italic font-bold text-brand-primary leading-none py-4 text-4xl sm:text-5xl"
-              >
-                <span className={`inline-block transition-transform duration-500 group-hover:translate-x-2 group-active:translate-x-2 ${isActive ? "translate-x-2" : ""}`}>
-                  {link.label}
-                </span>
-                <span className={`block h-px bg-brand-accent/50 mt-3 transition-all duration-500 group-hover:w-20 group-active:w-20 ${isActive ? "w-20" : "w-0"}`} />
-              </a>
-            );
-          })}
+        {/* Nav links: big serif italic, centered */}
+        <div className="relative flex-1 overflow-y-auto">
+          <div className="min-h-full flex flex-col justify-center px-8 py-6 gap-1">
+            {navLinks.map((link, i) => {
+              const isActive = isSectionActive(link);
+              return (
+                <div
+                  key={link.href}
+                  style={{ animation: `fadeSlideRight 600ms ${120 + i * 80}ms cubic-bezier(0.16, 1, 0.3, 1) backwards` }}
+                >
+                  {link.children ? (
+                    // Collapsed by default; "Who We Are" in the list covers /about
+                    <button
+                      type="button"
+                      onClick={() => setMobileAboutOpen((v) => !v)}
+                      aria-expanded={mobileAboutOpen}
+                      aria-controls="mobile-about-submenu"
+                      className="tap group w-full flex items-center gap-3 text-left font-serif italic font-bold text-brand-primary leading-none pt-3 pb-[25px] text-4xl sm:text-5xl"
+                    >
+                      <span className={`inline-block transition-transform duration-500 group-hover:translate-x-2 group-active:translate-x-2 ${isActive ? "translate-x-2" : ""}`}>
+                        {link.label}
+                      </span>
+                      <ChevronDown
+                        className={`w-6 h-6 mt-1 text-brand-accent transition-transform duration-300 ${mobileAboutOpen ? "rotate-180" : ""}`}
+                        aria-hidden="true"
+                      />
+                    </button>
+                  ) : (
+                    <a
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      aria-current={pathname === link.href ? "page" : undefined}
+                      className="tap group block font-serif italic font-bold text-brand-primary leading-none py-3 text-4xl sm:text-5xl"
+                    >
+                      <span className={`inline-block transition-transform duration-500 group-hover:translate-x-2 group-active:translate-x-2 ${isActive ? "translate-x-2" : ""}`}>
+                        {link.label}
+                      </span>
+                      <span className={`block h-px bg-brand-accent/50 mt-3 transition-all duration-500 group-hover:w-20 group-active:w-20 ${isActive ? "w-20" : "w-0"}`} />
+                    </a>
+                  )}
+                  {link.children && mobileAboutOpen && (
+                    <ul id="mobile-about-submenu" className="flex flex-col pl-3 ml-2 -mt-2 mb-3 border-l border-brand-accent/30 animate-[fadeIn_300ms_cubic-bezier(0.16,1,0.3,1)]">
+                      {link.children.map((child) => {
+                        const childActive = pathname === child.href;
+                        return (
+                          <li key={child.href}>
+                            <a
+                              href={child.href}
+                              onClick={() => setIsOpen(false)}
+                              aria-current={childActive ? "page" : undefined}
+                              className={`tap block py-1.5 text-base font-medium transition-colors ${
+                                childActive ? "text-brand-accent" : "text-brand-primary/75 hover:text-brand-accent"
+                              }`}
+                            >
+                              {child.label}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Contact block at bottom */}
@@ -226,20 +364,26 @@ export default function Navbar() {
       </div>
     )}
 
-    {/* Sticky mobile CTA — appears after scrolling past hero, hidden when menu open or on /watch */}
-    {pathname !== "/watch" && (
-      <a
-        href="tel:+12702003422"
-        className={`tap md:hidden fixed bottom-6 right-6 z-50 bg-brand-gold hover:bg-brand-gold-hover text-brand-primary w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_20px_-6px_rgba(0,0,0,0.35)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          pastHero && !isOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-75 translate-y-2 pointer-events-none"
-        }`}
-        aria-label="Call Pastor Tony Redmon"
-        aria-hidden={!pastHero || isOpen}
-        tabIndex={pastHero && !isOpen ? 0 : -1}
-      >
-        <Phone className="w-6 h-6" />
-      </a>
-    )}
+    {/* Sticky mobile CTA: directions everywhere, a call button on /prayer. Appears after
+        scrolling past the hero; hidden when the menu is open or on /watch */}
+    {pathname !== "/watch" && (() => {
+      const isPrayer = pathname === "/prayer";
+      const visible = pastHero && !isOpen;
+      return (
+        <a
+          href={isPrayer ? "tel:+12702003422" : "https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"}
+          {...(isPrayer ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+          className={`tap md:hidden fixed bottom-6 right-6 z-50 bg-brand-gold hover:bg-brand-gold-hover text-brand-primary w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_20px_-6px_rgba(0,0,0,0.35)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            visible ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-75 translate-y-2 pointer-events-none"
+          }`}
+          aria-label={isPrayer ? "Call Pastor Tony Redmon" : "Get directions to New Life Assembly of God (opens Google Maps)"}
+          aria-hidden={!visible}
+          tabIndex={visible ? 0 : -1}
+        >
+          {isPrayer ? <Phone className="w-6 h-6" /> : <MapPin className="w-6 h-6" />}
+        </a>
+      );
+    })()}
     </>
   );
 }

@@ -73,7 +73,7 @@ export default function LeadershipPage() {
                 className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-gold via-brand-gold-hover to-brand-gold md:hidden"
               />
               <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
-                Senior Pastor
+                Senior Pastor · Since 1998
               </p>
               <h2 id="pastor-heading" className="font-serif italic text-3xl md:text-4xl font-bold text-brand-primary tracking-tight leading-[1.1] mb-4">
                 Pastor Tony Redmon

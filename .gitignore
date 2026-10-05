@@ -51,3 +51,6 @@ desktop.ini
 
 # source image files (originals before WebP conversion)
 assets/
+
+# unused images, logos, screenshots and documents kept for reference (not deployed)
+_unused/

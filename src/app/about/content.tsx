@@ -194,11 +194,26 @@ export default function AboutPage() {
               <h2 className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary tracking-tight leading-[1.1] mb-6">
                 Pastor Tony Redmon
               </h2>
+              {/* From Pastor Tony's church directory bio; keep it factual to that */}
+              <p className="text-brand-primary/75 leading-relaxed mb-4">
+                Pastor Tony grew up in a ministry family. He was born in
+                Taylorsville, Kentucky, to Eugene and Geneva Redmon. His
+                father was a minister and evangelist, and the family traveled
+                to 22 states in just four years. Tony accepted the call to
+                ministry at 16.
+              </p>
+              <p className="text-brand-primary/75 leading-relaxed mb-4">
+                Eugene went on to pastor New Life Assembly of God, driving from
+                Taylorsville to Leitchfield every week for services. When he
+                retired, Tony became pastor in 1998. He kept up that weekly
+                drive until moving his family to Leitchfield in 2000.
+              </p>
               <p className="text-brand-primary/75 leading-relaxed">
-                Pastor Tony has a heart for people and a passion for God&apos;s
-                Word. More than anything, he wants everyone who walks through
-                our doors to find a church home where they are known, cared
-                for, and growing in their faith.
+                In his down time, he enjoys hunting and shooting and loves
+                working with his seven horses. One of them, Generators
+                Champion, won the 1999 World Championship. Most of all, Pastor
+                Tony loves reading and studying God&apos;s Word, and he&apos;s
+                excited to see the church continue to grow.
               </p>
               <div className="my-8 pl-5 border-l-2 border-brand-accent/40">
                 <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-accent mb-2">

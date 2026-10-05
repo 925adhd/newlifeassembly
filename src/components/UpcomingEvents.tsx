@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { CalendarDays, ChevronDown, ChevronRight } from "lucide-react";
 import { events, type ChurchEvent } from "@/app/events";
+import { useReveal } from "@/lib/useReveal";
 
 // Today's date as YYYY-MM-DD in the visitor's time zone. The static build has
 // no "today", so the server snapshot is null and every event renders; the
@@ -31,9 +32,7 @@ export default function UpcomingEvents() {
   const today = useSyncExternalStore(subscribe, getToday, getServerToday);
   // Mobile only: cards show title + date, tap to read more. Desktop shows everything.
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const prefersReducedMotion = useReducedMotion();
-  const ease = [0.16, 1, 0.3, 1] as const;
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
+  const { slideUp } = useReveal();
 
   // Dated events first (soonest first), then month-only ones
   const upcoming = events

@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import {
   ChevronRight,
   Clock,
 } from "lucide-react";
+import { useReveal } from "@/lib/useReveal";
 
 type Ministry = {
   title: string;
@@ -115,10 +116,7 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
 ];
 
 export default function MinistriesPage() {
-  const prefersReducedMotion = useReducedMotion();
-  const ease = [0.16, 1, 0.3, 1] as const;
-  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
+  const { fadeIn, slideUp } = useReveal();
 
   return (
     <>

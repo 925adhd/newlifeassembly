@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import {
   Phone,
   MapPin,
@@ -13,6 +13,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { faqs } from "./faqs";
+import { useReveal } from "@/lib/useReveal";
 
 const serviceTimes = [
   { name: "Sunday School", time: "10:00 AM" },
@@ -49,12 +50,7 @@ export default function ContactPage() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const prefersReducedMotion = useReducedMotion();
-  const ease = [0.16, 1, 0.3, 1] as const;
-  const fadeIn = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
-  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: -32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
-  const slideRight = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: 32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
+  const { fadeIn, slideUp, slideLeft, slideRight } = useReveal();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -301,7 +297,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 md:mb-20">
             {/* Left Column - Info */}
             <motion.div
-              {...slideLeft}
+              {...slideLeft()}
             >
               {/* Church from Road - mobile only above content */}
               <div className="md:hidden rounded-2xl overflow-hidden shadow-sm mb-8">
@@ -388,7 +384,7 @@ export default function ContactPage() {
 
             {/* Right Column - Form */}
             <motion.div
-              {...slideRight}
+              {...slideRight()}
             >
               <div className="bg-white rounded-2xl p-8 md:p-10 shadow-sm border border-brand-primary/5">
                 <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />

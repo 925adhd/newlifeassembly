@@ -69,6 +69,8 @@ function MainVideoPlayer({
   const playerId = `fb-player-${video.id}`;
   // Our own loading state; the parent keys this component by video, so it resets per video
   const [loaded, setLoaded] = useState(false);
+  // Facebook never finished loading (blocked, offline, etc.): offer a direct link instead
+  const [failed, setFailed] = useState(false);
   // Kept in a ref so a new callback doesn't reload the player
   const onPlayingChangeRef = useRef(onPlayingChange);
   useEffect(() => {
@@ -99,10 +101,11 @@ function MainVideoPlayer({
     // for the poster to paint. A long fallback keeps it from spinning forever.
     let revealTimer: ReturnType<typeof setTimeout> | undefined;
     const reveal = (delay: number) => {
+      clearTimeout(fallbackTimer);
       clearTimeout(revealTimer);
       revealTimer = setTimeout(() => setLoaded(true), delay);
     };
-    const fallbackTimer = setTimeout(() => setLoaded(true), 25000);
+    const fallbackTimer = setTimeout(() => setFailed(true), 25000);
     const observer = new MutationObserver(() => {
       const iframe = hostRef.current?.querySelector("iframe");
       if (!iframe) return;
@@ -156,12 +159,29 @@ function MainVideoPlayer({
           alt=""
           className="absolute inset-0 w-full h-full object-cover scale-105 blur-sm brightness-50"
         />
-        <div className="relative flex flex-col items-center gap-3" role="status">
-          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border-[3px] border-white/20 border-t-brand-gold animate-spin" />
-          <p className="text-white/80 text-xs md:text-sm font-medium tracking-[0.2em] uppercase">
-            Loading video
-          </p>
-        </div>
+        {failed ? (
+          <div className="relative flex flex-col items-center gap-3 px-6 text-center" role="status">
+            <p className="text-white/85 text-sm md:text-base">
+              This video couldn&apos;t load here.
+            </p>
+            <a
+              href={`https://www.facebook.com/reel/${video.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tap btn-gold px-5 py-2.5 rounded-lg text-sm inline-flex items-center gap-1.5"
+            >
+              Watch on Facebook
+              <ChevronRight className="w-4 h-4" aria-hidden="true" />
+            </a>
+          </div>
+        ) : (
+          <div className="relative flex flex-col items-center gap-3" role="status">
+            <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border-[3px] border-white/20 border-t-brand-gold animate-spin" />
+            <p className="text-white/80 text-xs md:text-sm font-medium tracking-[0.2em] uppercase">
+              Loading video
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

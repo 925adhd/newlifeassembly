@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import {
   Send,
   CheckCircle,
   AlertCircle,
   Lock,
 } from "lucide-react";
+import { useReveal } from "@/lib/useReveal";
 
 const categories = [
   { value: "Healing", label: "Healing" },
@@ -23,17 +24,9 @@ export default function PrayerPage() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState<string>("Healing");
-  const prefersReducedMotion = useReducedMotion();
-  const ease = [0.16, 1, 0.3, 1] as const;
 
-  const fadeIn = prefersReducedMotion
-    ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } }
-    : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease } };
+  const { fadeIn, slideUp } = useReveal();
 
-  const slideUp = (delay = 0) =>
-    prefersReducedMotion
-      ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } }
-      : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();

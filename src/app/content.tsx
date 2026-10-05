@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import UpcomingEvents from "@/components/UpcomingEvents";
+import { useReveal } from "@/lib/useReveal";
 
 const serviceTimes: {
   day: string;
@@ -132,9 +133,7 @@ export default function HomePage() {
   const ease = [0.16, 1, 0.3, 1] as const;
   const fade = prefersReducedMotion ? {} : { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0.25, ease } };
   const fadeScale = prefersReducedMotion ? {} : { initial: { scale: 0.92, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.92, opacity: 0 }, transition: { duration: 0.3, ease } };
-  const slideUp = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.8, delay, ease } };
-  const slideLeft = prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: -32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, ease } };
-  const slideRight = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: 32 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.9, delay, ease } };
+  const { slideUp, slideLeft, slideRight, scaleIn } = useReveal();
   const heroContainer = prefersReducedMotion
     ? { initial: "hidden" as const, animate: "visible" as const, variants: { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4 } } } }
     : { initial: "hidden" as const, animate: "visible" as const, variants: { hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } } } };
@@ -142,7 +141,6 @@ export default function HomePage() {
     ? { variants: { hidden: { opacity: 0 }, visible: { opacity: 1, x: 0, transition: { duration: 0.4, x: { duration: 0 } } } } }
     : { variants: { hidden: { opacity: 0, x: -28 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease } } } };
   const heroRight = prefersReducedMotion ? { initial: { opacity: 0 }, animate: { opacity: 1, x: 0, y: 0, scale: 1 }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, x: 32 }, animate: { opacity: 1, x: 0 }, transition: { duration: 0.9, delay: 0.25, ease } };
-  const scaleIn = (delay = 0) => prefersReducedMotion ? { initial: { opacity: 0 }, whileInView: { opacity: 1, x: 0, y: 0, scale: 1 }, viewport: { once: true }, transition: { duration: 0.4, ease, x: { duration: 0 }, y: { duration: 0 }, scale: { duration: 0 } } } : { initial: { opacity: 0, scale: 0.96 }, whileInView: { opacity: 1, scale: 1 }, viewport: { once: true, margin: "-80px" }, transition: { duration: 0.7, delay, ease } };
 
   return (
     <>
@@ -413,7 +411,7 @@ export default function HomePage() {
         <div className="relative z-10 max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
-              {...slideLeft}
+              {...slideLeft()}
               className="order-1 lg:order-1 relative max-w-md mx-auto lg:mx-0"
             >
               <span

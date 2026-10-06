@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { ChevronDown, ChevronRight, FileText } from "lucide-react";
+import { ChevronDown, ChevronRight, FileText, Heart } from "lucide-react";
 import { beliefs } from "./beliefs";
 import { useReveal } from "@/lib/useReveal";
 
@@ -12,6 +12,9 @@ export default function BeliefsPage() {
   // Mobile only: beliefs collapse to their titles. Text stays in the HTML
   // (hidden via CSS) so it's still indexed; desktop always shows it.
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // Marriage shares the accordion on mobile so it reads as one more belief
+  const marriageIndex = beliefs.length;
+  const marriageOpen = openIndex === marriageIndex;
 
   return (
     <>
@@ -64,7 +67,7 @@ export default function BeliefsPage() {
       </section>
 
       {/* Core beliefs */}
-      <section className="py-12 md:py-24 bg-brand-warm" aria-labelledby="core-beliefs-heading">
+      <section className="pt-12 pb-3 md:pt-24 md:pb-0 bg-brand-warm" aria-labelledby="core-beliefs-heading">
         <div className="max-w-6xl mx-auto px-4">
           <h2 id="core-beliefs-heading" className="sr-only">
             Our core beliefs
@@ -73,7 +76,8 @@ export default function BeliefsPage() {
             Tap a belief to read more.
           </p>
 
-          <ol className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 max-w-4xl mx-auto">
+          {/* Mobile: tap-to-open cards. Desktop: numbered rows with hairline rules, like a printed statement of faith */}
+          <ol className="grid grid-cols-1 gap-3 md:gap-0 max-w-4xl mx-auto">
             {beliefs.map((belief, index) => {
               const isOpen = openIndex === index;
               const panelId = `belief-${index + 1}`;
@@ -82,18 +86,21 @@ export default function BeliefsPage() {
                 <motion.li
                   key={belief.title}
                   {...slideUp((index % 2) * 0.1)}
-                  className={`bg-white rounded-xl border transition-colors duration-300 shadow-[0_1px_2px_rgba(27,42,74,0.04)] md:p-6 ${isOpen ? "border-brand-gold/60" : "border-brand-primary/10"} md:border-brand-primary/10`}
+                  className={`bg-white rounded-xl border transition-colors duration-300 shadow-[0_1px_2px_rgba(27,42,74,0.04)] md:grid md:grid-cols-[3rem_14rem_1fr] md:gap-x-10 md:py-9 md:bg-transparent md:rounded-none md:shadow-none md:border-0 md:border-t md:border-brand-primary/15 ${isOpen ? "border-brand-gold/60" : "border-brand-primary/10"}`}
                 >
-                  <h3 className="font-serif text-xl md:text-2xl font-bold text-brand-primary tracking-tight leading-[1.2]">
+                  <span aria-hidden="true" className="hidden md:block font-serif italic text-2xl text-brand-gold leading-[1.2] tabular-nums">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-serif text-xl md:text-[1.375rem] font-bold text-brand-primary tracking-tight leading-[1.2]">
                     <button
                       type="button"
                       aria-expanded={isOpen}
                       aria-controls={panelId}
                       onClick={() => setOpenIndex(isOpen ? null : index)}
-                      className="w-full flex items-center gap-3.5 px-4 py-3.5 md:p-0 md:mb-4 text-left md:pointer-events-none"
+                      className="w-full flex items-center gap-3.5 px-4 py-3.5 md:p-0 text-left md:pointer-events-none"
                     >
                       <span
-                        className={`w-10 h-10 md:w-11 md:h-11 shrink-0 rounded-full flex items-center justify-center transition-colors duration-300 ${isOpen ? "bg-brand-gold/20 text-brand-primary" : "bg-brand-accent/10 text-brand-accent"} md:bg-brand-accent/10 md:text-brand-accent`}
+                        className={`md:hidden shrink-0 flex items-center justify-center transition-colors duration-300 ${isOpen ? "text-brand-primary" : "text-brand-accent"}`}
                         aria-hidden="true"
                       >
                         <Icon className="w-5 h-5" strokeWidth={1.75} />
@@ -120,48 +127,59 @@ export default function BeliefsPage() {
         </div>
       </section>
 
-      {/* Marriage */}
-      <section
-        className="relative py-12 md:py-24 overflow-hidden"
-        style={{ backgroundColor: "var(--color-brand-cream-deep)" }}
-        aria-labelledby="marriage-heading"
-      >
-        <div className="max-w-4xl mx-auto px-4">
+      {/* Marriage: styled like the beliefs above so it reads as one more belief, not a feature */}
+      <section className="pb-12 md:pb-24 bg-brand-warm" aria-labelledby="marriage-heading">
+        <div className="max-w-6xl mx-auto px-4">
         <motion.div
           {...slideUp()}
-          className="relative bg-white rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(27,42,74,0.04),0_24px_48px_-32px_rgba(27,42,74,0.12)]"
+          className={`max-w-4xl mx-auto bg-white rounded-xl border transition-colors duration-300 shadow-[0_1px_2px_rgba(27,42,74,0.04)] md:grid md:grid-cols-[3rem_14rem_1fr] md:gap-x-10 md:py-9 md:bg-transparent md:rounded-none md:shadow-none md:border-0 md:border-t md:border-brand-primary/15 md:border-b ${marriageOpen ? "border-brand-gold/60" : "border-brand-primary/10"}`}
         >
-          <span
+          {/* Desktop only: two interlocking wedding bands in place of a number */}
+          <svg
             aria-hidden="true"
-            className="block h-[3px] w-full bg-gradient-to-r from-brand-gold via-brand-gold-hover to-brand-gold"
-          />
-          {/* Photo by Pexels (free license): fades into the card so it reads as a soft backdrop */}
-          <div className="relative h-40 md:h-56 overflow-hidden">
-            <img
-              src="/wedding-rings-bible-960.webp"
-              srcSet="/wedding-rings-bible-480.webp 480w, /wedding-rings-bible-960.webp 960w, /wedding-rings-bible-1600.webp 1600w"
-              sizes="(min-width: 896px) 896px, 100vw"
-              alt="Two gold wedding bands resting on the pages of an open Bible"
-              width={1600}
-              height={640}
-              className="w-full h-full object-cover opacity-80"
-              loading="lazy"
-            />
-            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-transparent via-white/30 to-white" />
-          </div>
-          <div className="p-6 md:p-10 pt-2 md:pt-4">
-            <h2 id="marriage-heading" className="font-serif italic text-2xl md:text-3xl font-bold text-brand-primary tracking-tight leading-[1.15] mb-4">
-              Marriage
-            </h2>
-            <p className="text-brand-primary/75 leading-relaxed mb-5">
+            viewBox="0 0 40 28"
+            width={40}
+            height={28}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            className="hidden md:block text-brand-gold -mt-0.5"
+          >
+            <circle cx="14" cy="15" r="9.5" />
+            <circle cx="26" cy="15" r="9.5" />
+            <path d="M23.5 3.5 26 1l2.5 2.5L26 6z" fill="currentColor" strokeWidth={1} strokeLinejoin="round" />
+          </svg>
+          <h2 id="marriage-heading" className="font-serif text-xl md:text-[1.375rem] font-bold text-brand-primary tracking-tight leading-[1.2]">
+            <button
+              type="button"
+              aria-expanded={marriageOpen}
+              aria-controls="marriage-panel"
+              onClick={() => setOpenIndex(marriageOpen ? null : marriageIndex)}
+              className="w-full flex items-center gap-3.5 px-4 py-3.5 md:p-0 text-left md:pointer-events-none"
+            >
+              <span
+                className={`md:hidden shrink-0 flex items-center justify-center transition-colors duration-300 ${marriageOpen ? "text-brand-primary" : "text-brand-accent"}`}
+                aria-hidden="true"
+              >
+                <Heart className="w-5 h-5" strokeWidth={1.75} />
+              </span>
+              <span className="flex-1">Marriage</span>
+              <ChevronDown
+                className={`md:hidden w-5 h-5 shrink-0 text-brand-accent transition-transform duration-300 ${marriageOpen ? "rotate-180" : ""}`}
+                aria-hidden="true"
+              />
+            </button>
+          </h2>
+          <div id="marriage-panel" className={`${marriageOpen ? "block" : "hidden"} md:block px-4 pb-5 md:p-0`}>
+            <p className="text-brand-primary/75 text-sm md:text-base leading-relaxed mb-4">
               We believe marriage is a sacred covenant designed by God, joining
               one man and one woman for life. From the very beginning, God
               created us male and female and established marriage as a picture
               of Christ&apos;s love for His Church.
             </p>
-            <blockquote className="pl-5 border-l-2 border-brand-gold mb-5">
+            <blockquote className="pl-4 border-l-2 border-brand-gold mb-4">
               {/* Red letters for Jesus' words; narration stays in body color */}
-              <p className="font-serif italic text-lg md:text-xl text-brand-primary/80 leading-snug">
+              <p className="font-serif italic text-base md:text-lg text-brand-primary/80 leading-snug">
                 <span className="text-brand-red">
                   &ldquo;Haven&apos;t you read the Scriptures?&rdquo;
                 </span>{" "}

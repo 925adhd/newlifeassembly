@@ -56,7 +56,7 @@ export const beliefs: Belief[] = [
     scripture: "Matthew 28:19; Romans 6:4; 1 Corinthians 11:26",
   },
   {
-    title: "The Baptism in the Holy Spirit",
+    title: "Baptism in the Holy Spirit",
     icon: Flame,
     description:
       "Every believer may receive the baptism in the Holy Spirit, which brings power for life and service and is evidenced by speaking in other tongues as the Spirit gives utterance.",

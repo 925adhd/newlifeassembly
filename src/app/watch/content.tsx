@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ChevronRight, ExternalLink } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import VideoExperienceSection, {
   type Video,
 } from "@/components/VideoExperienceSection";
@@ -57,9 +57,20 @@ export default function WatchPage() {
               Past Services
             </h1>
             <p className="text-white/75 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
-              Missed a Sunday? Catch up on past services here and find more
-              videos and updates on our Facebook page.
+              Missed a Sunday? Catch up on past services here.
             </p>
+            <a
+              href="https://www.facebook.com/newlifeagleitchfield"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 md:mt-5 inline-flex items-center gap-2 text-white/85 text-sm md:text-base hover:text-white transition-colors"
+            >
+              <svg className="w-4 h-4 md:w-[18px] md:h-[18px] shrink-0" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              <span className="underline decoration-white/40 underline-offset-4 hover:decoration-white">
+                More videos and updates on Facebook
+              </span>
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
           </motion.div>
         </div>
       </section>
@@ -94,27 +105,13 @@ export default function WatchPage() {
             Online is a great start. Worshiping in person is even better.
             We&apos;d love to meet you and welcome you to the family.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a
-              href="/contact"
-              className="tap group btn-gold px-8 py-4 rounded-lg text-lg inline-flex items-center gap-2 hover:-translate-y-0.5"
-            >
-              Plan Your Visit
-              <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
-            </a>
-            <a
-              href="https://www.facebook.com/newlifeagleitchfield"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="tap group relative border-2 border-white/40 bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-medium text-lg overflow-hidden hover:border-white hover:-translate-y-0.5 hover:text-brand-primary transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            >
-              <span className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true" />
-              <span className="relative z-10 inline-flex items-center gap-2">
-                Follow on Facebook
-                <ExternalLink className="w-5 h-5" aria-hidden="true" />
-              </span>
-            </a>
-          </div>
+          <a
+            href="/contact"
+            className="tap group btn-gold px-8 py-4 rounded-lg text-lg inline-flex items-center gap-2 hover:-translate-y-0.5"
+          >
+            Plan Your Visit
+            <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
+          </a>
         </motion.div>
       </section>
     </>

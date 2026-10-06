@@ -7,7 +7,6 @@ import {
   MapPin,
   Phone,
   BookOpen,
-  Church,
   Users,
   Baby,
   Music2,
@@ -19,21 +18,21 @@ import { useReveal } from "@/lib/useReveal";
 
 const serviceTimes: {
   day: string;
-  services: { name: string; time: string; icon: typeof Church }[];
+  services: { name: string; time: string }[];
   note?: string;
 }[] = [
   {
     day: "Sunday",
     services: [
-      { name: "Sunday School", time: "10:00 AM", icon: BookOpen },
-      { name: "Sunday Morning Service", time: "11:00 AM", icon: Church },
-      { name: "Children's Church", time: "11:30 AM", icon: Baby },
+      { name: "Sunday School", time: "10:00 AM" },
+      { name: "Sunday Morning Service", time: "11:00 AM" },
+      { name: "Children's Church", time: "11:30 AM" },
     ],
   },
   {
     day: "Wednesday",
     services: [
-      { name: "Bible Study", time: "6:30 PM", icon: BookOpen },
+      { name: "Bible Study", time: "6:30 PM" },
     ],
     note: "Casual setting · drop in any week, no prior study required.",
   },
@@ -195,7 +194,7 @@ export default function HomePage() {
                 Assemblies of God &middot; Leitchfield, Kentucky
               </motion.p>
               <motion.h1 {...heroChild} className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.2] md:leading-[1.15] mb-3 italic [text-shadow:0_4px_12px_rgba(0,0,0,0.35)]">
-                Welcome to New Life Assembly of God
+                New Life Assembly of God
               </motion.h1>
               <motion.p {...heroChild} className="text-white/80 text-sm md:text-xl max-w-lg mb-6 leading-relaxed md:mx-0 mx-auto">
                 A welcoming church family in Leitchfield, KY where you can
@@ -204,14 +203,14 @@ export default function HomePage() {
               <motion.div {...heroChild} className="flex flex-row items-center md:items-start justify-center md:justify-start gap-3">
                 <a
                   href="/contact"
-                  className="tap group relative btn-gold px-5 py-3 md:px-8 md:py-4 rounded-lg text-sm md:text-lg inline-flex items-center gap-2 hover:-translate-y-1"
+                  className="tap group relative btn-gold border-2 border-transparent px-5 py-3 md:px-6 lg:px-8 lg:py-4 rounded-lg text-sm md:text-base lg:text-lg whitespace-nowrap inline-flex items-center gap-2 hover:-translate-y-1"
                 >
                   <span className="relative z-10">Plan Your Visit</span>
                   <ChevronRight className="relative z-10 w-4 h-4 md:w-5 md:h-5 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
                 </a>
                 <a
                   href="/watch"
-                  className="tap group relative border-2 border-white/40 bg-white/10 backdrop-blur-sm text-white px-5 py-3 md:px-8 md:py-4 rounded-lg font-medium text-sm md:text-lg overflow-hidden hover:border-white hover:-translate-y-1 hover:text-brand-primary transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  className="tap group relative border-2 border-white/40 bg-white/10 backdrop-blur-sm text-white px-5 py-3 md:px-6 lg:px-8 lg:py-4 rounded-lg font-medium text-sm md:text-base lg:text-lg whitespace-nowrap overflow-hidden hover:border-white hover:-translate-y-1 hover:text-brand-primary transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 >
                   <span className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true" />
                   <span className="relative z-10">Watch a Service</span>
@@ -270,32 +269,24 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-brand-primary/10 items-stretch">
               {serviceTimes.map((day) => (
                 <div key={day.day} className="p-8 md:p-10 flex flex-col">
-                  <span className="block h-px w-10 bg-brand-accent mb-5" aria-hidden="true" />
-                  <h3 className="font-serif text-2xl md:text-3xl font-bold text-brand-primary tracking-tight mb-6">
+                  <h3 className="font-serif text-2xl md:text-3xl font-bold text-brand-primary tracking-tight mb-5">
                     {day.day}
                   </h3>
                   <ul className="divide-y divide-brand-primary/5">
-                    {day.services.map((service) => {
-                      const Icon = service.icon;
-                      return (
-                        <li
-                          key={service.name}
-                          className="flex items-center gap-4 py-3 first:pt-0 last:pb-0"
-                        >
-                          <Icon
-                            className="w-4 h-4 text-brand-primary/40 shrink-0"
-                            aria-hidden="true"
-                            strokeWidth={1.5}
-                          />
-                          <p className="flex-1 text-sm text-brand-primary">
-                            {service.name}
-                          </p>
-                          <p className="text-sm text-brand-primary/60 tabular-nums tracking-tight">
-                            {service.time}
-                          </p>
-                        </li>
-                      );
-                    })}
+                    {/* Times lead, set in the serif like a printed bulletin */}
+                    {day.services.map((service) => (
+                      <li
+                        key={service.name}
+                        className="flex items-baseline justify-between gap-4 py-3.5 first:pt-0 last:pb-0"
+                      >
+                        <p className="text-sm md:text-base text-brand-primary/75">
+                          {service.name}
+                        </p>
+                        <p className="font-serif text-lg md:text-xl font-semibold text-brand-primary tabular-nums whitespace-nowrap">
+                          {service.time}
+                        </p>
+                      </li>
+                    ))}
                   </ul>
                   {day.note && (
                     <p className="mt-5 pt-5 border-t border-brand-primary/5 text-xs text-brand-primary/55 italic leading-relaxed">
@@ -373,7 +364,7 @@ export default function HomePage() {
                   className="group block tap"
                 >
                   <span className="block h-px w-10 bg-brand-primary/15 mb-4 transition-all duration-500 group-hover:w-16 group-hover:bg-brand-accent" aria-hidden="true" />
-                  <h3 className="font-serif italic text-2xl md:text-4xl lg:text-5xl font-bold text-brand-primary tracking-tight leading-[1.1] md:leading-[1.05] mb-4 group-hover:text-brand-accent transition-colors duration-500">
+                  <h3 className="font-serif italic text-xl md:text-3xl font-semibold text-brand-primary tracking-tight leading-[1.15] mb-3 group-hover:text-brand-accent transition-colors duration-500">
                     {ministry.title}
                   </h3>
                   <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">

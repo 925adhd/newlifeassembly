@@ -58,10 +58,10 @@ export default function LeadershipPage() {
             className="bg-white rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(27,42,74,0.04),0_24px_48px_-32px_rgba(27,42,74,0.12)] md:grid md:grid-cols-[2fr_3fr]"
           >
             <img
-              src="/pastor-tony-closeup.webp"
+              src="/pastor-tony-portrait.webp"
               alt="Pastor Tony Redmon of New Life Assembly of God"
-              width={1247}
-              height={851}
+              width={785}
+              height={751}
               className="w-full h-64 md:h-full object-cover object-top"
               loading="lazy"
             />

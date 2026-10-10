@@ -5,6 +5,8 @@ export type ChurchEvent = {
   /** Month it happens in (YYYY-MM) when the exact day isn't set yet */
   month?: string;
   time?: string;
+  /** Keeps the event listed but marks it as canceled */
+  canceled?: boolean;
   description: string;
   link?: { label: string; href: string };
 };
@@ -15,8 +17,9 @@ export const events: ChurchEvent[] = [
   {
     title: "Treats on the Trail",
     date: "2026-10-10",
+    canceled: true,
     description:
-      "A fun, family-friendly fall event with treats for the kids. Bring the whole family and invite a friend. Everyone is welcome!",
+      "Treats on the Trail has been canceled. Thank you for understanding, and we hope to see you at an upcoming event!",
   },
   {
     title: "Women's Ministries Meeting",

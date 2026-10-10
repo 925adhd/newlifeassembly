@@ -95,7 +95,14 @@ export default function UpcomingEvents() {
                       className="w-full flex items-start justify-between gap-3 text-left md:pointer-events-none"
                     >
                       <span>
-                        <span className="block mb-1">{event.title}</span>
+                        <span className="block mb-1">
+                          {event.title}
+                          {event.canceled && (
+                            <span className="ml-2 inline-block align-middle rounded-full bg-red-50 border border-red-200 px-2 py-0.5 font-sans text-[11px] md:text-xs font-semibold tracking-wide uppercase text-red-700">
+                              Canceled
+                            </span>
+                          )}
+                        </span>
                         <span className="block font-sans text-brand-accent font-medium text-xs md:text-sm tracking-normal">
                           {dateLine}
                           {event.time && ` · ${event.time}`}

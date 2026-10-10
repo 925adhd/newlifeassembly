@@ -13,7 +13,7 @@ npm run build    # static export to out/
 npm run lint
 ```
 
-Built with Next.js (App Router, static export), TypeScript, Tailwind CSS v4 and motion. Contact and prayer forms are delivered by Web3Forms. Hosted on Vercel; DNS on Cloudflare.
+Built with Next.js (App Router, static export), TypeScript, Tailwind CSS v4 and motion. Contact and prayer forms are delivered by Web3Forms. Google Analytics 4 runs on the live domain only (`src/lib/analytics.ts`). Hosted on Vercel; DNS on Cloudflare.
 
 ## Project layout
 

@@ -59,7 +59,8 @@ Every change must keep these true. Check them before calling work done.
 - JSON-LD via `dangerouslySetInnerHTML` only with hard-coded data, never user input.
 - Keep the security headers in vercel.json; if adding a third-party embed or script, update the CSP.
 - Run `npm audit --omit=dev` when touching dependencies; production must stay at 0 vulnerabilities.
-- The privacy policy must describe every form and third-party service the site uses (Web3Forms, Facebook video, Google Maps). Update it when that changes.
+- The privacy policy must describe every form and third-party service the site uses (Web3Forms, Google Analytics, Facebook video, Google Maps). Update it when that changes.
+- Google Analytics 4 (`G-S3GKRZ8RSF`, set in src/lib/analytics.ts) loads only on www.newlifeaogleitchfield.com. Events: `generate_lead` (contact form), `prayer_request_submit`, `phone_call_click`. Never send names, emails, or message/prayer text to GA.
 
 ### Agentic browsing (Lighthouse)
 - public/llms.txt: Markdown with a `# H1`, real `[text](url)` links; update it when pages, times, or contacts change.

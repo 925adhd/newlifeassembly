@@ -1,0 +1,31 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "New Life Assembly of God",
+    "identifier": "www.newlifeaogleitchfield.com"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:www.newlifeaogleitchfield.com:skills:church-guide",
+      "displayName": "New Life Assembly of God church guide",
+      "type": "text/markdown; profile=\"urn:air:agent-skills\"",
+      "url": "https://www.newlifeaogleitchfield.com/.well-known/skills/new-life-assembly.md",
+      "description": "Agent skill for answering questions about New Life Assembly of God in Leitchfield, Kentucky (service times, location, contacts) and helping people send a message or prayer request.",
+      "representativeQueries": [
+        "What time are Sunday services at New Life Assembly of God in Leitchfield?",
+        "Where is New Life Assembly of God located?",
+        "How do I send a prayer request to Pastor Tony Redmon?",
+        "Is there a children's church at New Life Assembly in Leitchfield KY?"
+      ],
+      "tags": [
+        "church",
+        "Assemblies of God",
+        "Leitchfield",
+        "Kentucky",
+        "worship",
+        "prayer"
+      ],
+      "updatedAt": "2026-10-10T00:00:00Z"
+    }
+  ]
+}

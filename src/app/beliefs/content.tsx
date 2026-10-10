@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { ChevronDown, ChevronRight, FileText, Heart } from "lucide-react";
-import { beliefs } from "./beliefs";
+import { beliefs, showMarriage } from "./beliefs";
 import { useReveal } from "@/lib/useReveal";
 
 export default function BeliefsPage() {
@@ -67,7 +67,7 @@ export default function BeliefsPage() {
       </section>
 
       {/* Core beliefs */}
-      <section className="pt-12 pb-3 md:pt-24 md:pb-0 bg-brand-warm" aria-labelledby="core-beliefs-heading">
+      <section className={`pt-12 md:pt-24 bg-brand-warm ${showMarriage ? "pb-3 md:pb-0" : "pb-12 md:pb-24"}`} aria-labelledby="core-beliefs-heading">
         <div className="max-w-6xl mx-auto px-4">
           <h2 id="core-beliefs-heading" className="sr-only">
             Our core beliefs
@@ -86,7 +86,7 @@ export default function BeliefsPage() {
                 <motion.li
                   key={belief.title}
                   {...slideUp((index % 2) * 0.1)}
-                  className={`bg-white rounded-xl border transition-colors duration-300 shadow-[0_1px_2px_rgba(27,42,74,0.04)] md:grid md:grid-cols-[3rem_14rem_1fr] md:gap-x-10 md:py-9 md:bg-transparent md:rounded-none md:shadow-none md:border-0 md:border-t md:border-brand-primary/15 ${isOpen ? "border-brand-gold/60" : "border-brand-primary/10"}`}
+                  className={`bg-white rounded-xl border transition-colors duration-300 shadow-[0_1px_2px_rgba(27,42,74,0.04)] md:grid md:grid-cols-[3rem_14rem_1fr] md:gap-x-10 md:py-9 md:bg-transparent md:rounded-none md:shadow-none md:border-0 md:border-t md:border-brand-primary/15 ${!showMarriage && index === beliefs.length - 1 ? "md:border-b" : ""} ${isOpen ? "border-brand-gold/60" : "border-brand-primary/10"}`}
                 >
                   <span aria-hidden="true" className="hidden md:block font-serif italic text-2xl text-brand-gold leading-[1.2] tabular-nums">
                     {String(index + 1).padStart(2, "0")}
@@ -128,6 +128,7 @@ export default function BeliefsPage() {
       </section>
 
       {/* Marriage: styled like the beliefs above so it reads as one more belief, not a feature */}
+      {showMarriage && (
       <section className="pb-12 md:pb-24 bg-brand-warm" aria-labelledby="marriage-heading">
         <div className="max-w-6xl mx-auto px-4">
         <motion.div
@@ -206,6 +207,7 @@ export default function BeliefsPage() {
         </motion.div>
         </div>
       </section>
+      )}
 
       {/* Full statement */}
       <section className="py-12 md:py-20 bg-brand-warm" aria-labelledby="full-statement-heading">

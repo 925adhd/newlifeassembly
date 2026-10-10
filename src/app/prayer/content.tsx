@@ -96,7 +96,7 @@ export default function PrayerPage() {
               We&apos;ll pray with you.
             </h1>
             <p className="text-white/75 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
-              Whatever you&apos;re carrying — share it. Our church family will
+              Drop whatever you&apos;re carrying. Our church family will
               stand with you in prayer, quietly and without condition.
             </p>
 

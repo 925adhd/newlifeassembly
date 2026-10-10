@@ -91,3 +91,6 @@ export const beliefs: Belief[] = [
     scripture: "1 Thessalonians 4:16-17; Revelation 20-22",
   },
 ];
+
+// Hidden for now. Set to true to bring the Marriage section back exactly as it was.
+export const showMarriage = false;

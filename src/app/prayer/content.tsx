@@ -34,16 +34,40 @@ export default function PrayerPage() {
     setError(false);
 
     const form = e.currentTarget;
-    const formData = new FormData(form);
+    const entered = new FormData(form);
+    const confidential = entered.get("confidential") === "on";
 
-    const confidential = formData.get("confidential") === "on";
-    const tag = confidential ? "[CONFIDENTIAL]" : "[PRAYER WALL]";
+    // Requests arrive in the church office inbox. Subjects stay neutral (they show
+    // on lock screens), and a confidential request opens with a notice and a
+    // divider so the office can forward it to Pastor Tony without reading it.
+    // Web3Forms lists fields in the order they're added, so the notice goes first.
+    const formData = new FormData();
+    for (const key of ["access_key", "botcheck"]) {
+      const value = entered.get(key);
+      if (value !== null) formData.set(key, value);
+    }
+    formData.set("from_name", "New Life Assembly website");
+    if (confidential) {
+      formData.set("subject", "Confidential prayer request: please forward to Pastor Tony");
+      formData.set(
+        "CONFIDENTIAL",
+        "For Pastor Tony only. Please forward this email to Pastor Tony without reading further, and do not share it with the prayer circle.",
+      );
+      formData.set("- - - - -", "Prayer request below this line");
+    } else {
+      formData.set("subject", "New prayer request from the website");
+    }
+    formData.set("Prayer request", String(entered.get("message") ?? ""));
+    formData.set("Prayer category", category);
+    // "email" keeps its exact name: Web3Forms uses it as the reply-to address
+    for (const [key, label] of [["name", "Name"], ["email", "email"], ["phone", "Phone"]]) {
+      const value = String(entered.get(key) ?? "").trim();
+      if (value) formData.set(label, value);
+    }
     formData.set(
-      "subject",
-      `🙏 Prayer Request — ${category} ${tag} — New Life Assembly`,
+      "Sharing",
+      confidential ? "Confidential: Pastor Tony only" : "May be shared with the church prayer circle",
     );
-    formData.set("from_name", "New Life Prayer Wall");
-    formData.set("_category", category);
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -159,7 +183,7 @@ export default function PrayerPage() {
                     onSubmit={handleSubmit}
                     className="space-y-7"
                     toolname="submit_prayer_request"
-                    tooldescription="Send a prayer request to Pastor Tony Redmon at New Life Assembly of God. Only the prayer request is required; name, email, and phone are optional. Check confidential to keep it between the sender and Pastor Tony."
+                    tooldescription="Send a prayer request to Pastor Tony Redmon at New Life Assembly of God. Only the prayer request is required; name, email, and phone are optional. Check confidential to keep it from the prayer circle; it is marked for Pastor Tony."
                   >
                     <p className="text-sm text-brand-primary/70">
                       Fields marked <span className="text-brand-red">*</span> are required.
@@ -172,9 +196,9 @@ export default function PrayerPage() {
                     <input
                       type="hidden"
                       name="subject"
-                      value="🙏 Prayer Request — New Life Assembly"
+                      value="New prayer request from the website"
                     />
-                    <input type="hidden" name="from_name" value="New Life Prayer Wall" />
+                    <input type="hidden" name="from_name" value="New Life Assembly website" />
                     {/* Honeypot */}
                     <input
                       type="checkbox"
@@ -316,12 +340,13 @@ export default function PrayerPage() {
                             aria-hidden="true"
                             strokeWidth={2}
                           />
-                          Keep this between Pastor Tony and me
+                          Keep this confidential for Pastor Tony
                         </span>
                         <span className="block text-xs text-brand-primary/65 leading-relaxed">
                           Check this and your request won&apos;t be shared with
-                          the church prayer circle. Only Pastor Tony will
-                          read it.
+                          the church prayer circle. It&apos;s emailed to the
+                          church marked confidential and forwarded straight to
+                          Pastor Tony.
                         </span>
                       </span>
                     </label>

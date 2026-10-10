@@ -26,7 +26,7 @@ const legalData: Record<
       {
         heading: "Prayer Requests",
         content:
-          "Prayer requests are read by Pastor Tony. Unless you check the box to keep your request between you and Pastor Tony, it may also be shared with our church prayer circle so they can pray for you. We never post prayer requests on this website or share them outside the church.",
+          "Prayer requests are sent to the church by email and forwarded to Pastor Tony. Unless you check the box to keep your request confidential, it may also be shared with our church prayer circle so they can pray for you. Confidential requests are marked for Pastor Tony only and are not shared with the prayer circle. We never post prayer requests on this website or share them outside the church.",
       },
       {
         heading: "Cookies",
@@ -36,7 +36,7 @@ const legalData: Record<
       {
         heading: "Third-Party Services",
         content:
-          "Our contact and prayer forms are delivered to us by email through Web3Forms. Our sermon and worship videos are played through Facebook, and our map is provided by Google Maps. Each of these services has its own privacy policy that governs how it handles data.",
+          "Our contact and prayer forms are sent to the church by email through Web3Forms. Our sermon and worship videos are played through Facebook, and our map is provided by Google Maps. Each of these services has its own privacy policy that governs how it handles data.",
       },
       {
         heading: "Contact Us",

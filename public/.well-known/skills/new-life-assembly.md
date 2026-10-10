@@ -28,7 +28,7 @@ New Life Assembly of God is a welcoming Assemblies of God church at 47 Embry Acr
 
 ## Prayer requests
 
-Use the form on the [Prayer Requests page](https://www.newlifeaogleitchfield.com/prayer). Only the request itself is required; a name can be left off to stay anonymous. Checking the confidential box keeps the request between the sender and Pastor Tony; otherwise it may be shared with the church prayer circle. Always let the person review a prayer request before it is sent.
+Use the form on the [Prayer Requests page](https://www.newlifeaogleitchfield.com/prayer). Only the request itself is required; a name can be left off to stay anonymous. Requests are emailed to the church and forwarded to Pastor Tony. Checking the confidential box marks the request for Pastor Tony only and keeps it from the church prayer circle; otherwise it may be shared with the prayer circle. Always let the person review a prayer request before it is sent.
 
 ## More
 

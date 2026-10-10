@@ -120,24 +120,6 @@ export default function RootLayout({
                   closes: "20:00",
                 },
               ],
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "4.8",
-                reviewCount: "5",
-                bestRating: "5",
-              },
-              review: [
-                {
-                  "@type": "Review",
-                  author: { "@type": "Person", name: "E Howe" },
-                  reviewRating: {
-                    "@type": "Rating",
-                    ratingValue: "5",
-                  },
-                  reviewBody:
-                    "An amazing church with an amazing pastor.",
-                },
-              ],
               image: "https://www.newlifeaogleitchfield.com/church.webp",
               logo: "https://www.newlifeaogleitchfield.com/new-life-assembly-logo.webp",
               sameAs: [

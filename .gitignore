@@ -54,3 +54,6 @@ assets/
 
 # unused images, logos, screenshots and documents kept for reference (not deployed)
 _unused/
+
+# local Claude Code settings (per-machine, not shared)
+.claude/settings.local.json

@@ -22,17 +22,19 @@ export const events: ChurchEvent[] = [
       "Treats on the Trail has been canceled. Thank you for understanding, and we hope to see you at an upcoming event!",
   },
   {
-    title: "Women's Ministries Meeting",
+    title: "New Life Sisterhood",
     date: "2026-10-13",
+    time: "5:00 PM to 7:00 PM",
     description:
-      "Ladies of every age, join us for prayer, Bible study, and time together. We'd love to see you there!",
+      "New Life Sisterhood will meet at Sherry McClure's home. Ladies of every age are welcome to join us for fellowship and time together. We'd love to see you there!",
     link: { label: "About Women's Ministries", href: "/ministries#womens-ministries" },
   },
   {
     title: "Fellowship Dinner",
     date: "2026-10-18",
+    time: "Immediately following service",
     description:
-      "Come share a meal and good conversation with your church family. Newcomers are always welcome at the table.",
+      "Stay after Sunday service and share a meal with your church family. We'll be serving a variety of soups, sandwiches, breads, and desserts. Newcomers are always welcome at the table!",
     link: { label: "About Fellowship", href: "/ministries#fellowship" },
   },
 ];

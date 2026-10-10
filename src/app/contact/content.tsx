@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { faqs } from "./faqs";
 import { useReveal } from "@/lib/useReveal";
+import { trackEvent } from "@/lib/analytics";
 
 const serviceTimes = [
   { name: "Sunday School", time: "10:00 AM" },
@@ -68,6 +69,7 @@ export default function ContactPage() {
 
       if (response.ok) {
         setSubmitted(true);
+        trackEvent("generate_lead", { form: "contact" });
         form.reset();
       } else {
         setError(true);

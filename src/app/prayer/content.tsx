@@ -9,6 +9,7 @@ import {
   Lock,
 } from "lucide-react";
 import { useReveal } from "@/lib/useReveal";
+import { trackEvent } from "@/lib/analytics";
 
 const categories = [
   { value: "Healing", label: "Healing" },
@@ -77,6 +78,8 @@ export default function PrayerPage() {
 
       if (response.ok) {
         setSubmitted(true);
+        // Counts only: never the request, category, or who sent it
+        trackEvent("prayer_request_submit");
         form.reset();
         setCategory("Healing");
       } else {

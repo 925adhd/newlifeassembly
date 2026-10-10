@@ -31,12 +31,12 @@ const legalData: Record<
       {
         heading: "Cookies",
         content:
-          "Our own website does not use tracking or advertising cookies. The Facebook video player on our Watch page and the Google Map on our Contact page come from Facebook and Google, and those companies may set their own cookies when they load. You can block or clear these cookies in your browser settings.",
+          "We use Google Analytics to understand how many people visit and which pages help them, and it sets cookies to do that. We do not use advertising cookies. The Facebook video player on our Watch page and the Google Map on our Contact page may also set their own cookies when they load. You can block or clear cookies in your browser settings, or opt out of Google Analytics with Google's browser add-on at tools.google.com/dlpage/gaoptout.",
       },
       {
         heading: "Third-Party Services",
         content:
-          "Our contact and prayer forms are sent to the church by email through Web3Forms. Our sermon and worship videos are played through Facebook, and our map is provided by Google Maps. Each of these services has its own privacy policy that governs how it handles data.",
+          "Our contact and prayer forms are sent to the church by email through Web3Forms. Google Analytics counts visits and form submissions, but never receives what you write in our forms. Our sermon and worship videos are played through Facebook, and our map is provided by Google Maps. Each of these services has its own privacy policy that governs how it handles data.",
       },
       {
         heading: "Contact Us",

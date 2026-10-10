@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-const SITE = "https://newlifeassembly.vercel.app";
+const SITE = "https://www.newlifeaogleitchfield.com";
 
 const fbEmbed = (id: string) =>
   `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(

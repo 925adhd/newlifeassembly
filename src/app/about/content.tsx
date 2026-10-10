@@ -19,8 +19,8 @@ export default function AboutPage() {
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover object-[center_31%]"
-            width={800}
-            height={600}
+            width={1200}
+            height={676}
           />
         </div>
         <div className="absolute inset-0 bg-black/35 hidden md:block" aria-hidden="true" />
@@ -98,7 +98,7 @@ export default function AboutPage() {
             <span className="h-8 w-px bg-brand-primary/15" aria-hidden="true" />
             <a
               href="/beliefs"
-              className="group inline-flex items-center gap-1.5 text-brand-accent font-medium text-sm md:text-base hover:text-brand-accent-dark transition-colors"
+              className="group inline-flex items-center gap-1.5 py-1 text-brand-accent font-medium text-sm md:text-base hover:text-brand-accent-dark transition-colors"
             >
               Read what we believe
               <ChevronRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
@@ -168,12 +168,10 @@ export default function AboutPage() {
                 className="absolute -top-3 -left-3 md:-top-4 md:-left-4 right-6 bottom-6 border-2 border-brand-accent/40 rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl pointer-events-none"
               />
               <img
-                src="/pastor-tony-redmon-960.webp"
-                srcSet="/pastor-tony-redmon-480.webp 480w, /pastor-tony-redmon-960.webp 960w, /pastor-tony-redmon-1600.webp 1600w"
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                src="/pastor-tony-portrait.webp"
                 alt="Pastor Tony Redmon preaching at New Life Assembly of God in Leitchfield, Kentucky"
-                width={1920}
-                height={1440}
+                width={785}
+                height={751}
                 className="relative w-full rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl shadow-xl"
                 loading="lazy"
               />

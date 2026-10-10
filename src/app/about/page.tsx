@@ -4,16 +4,17 @@ import AboutPage from "./content";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about New Life Assembly of God in Leitchfield, KY. Led by Pastor Tony Redmon, we are a welcoming Assemblies of God church committed to faith, worship, and community.",
+    "Get to know New Life Assembly of God in Leitchfield, KY, a welcoming Assemblies of God church led by Pastor Tony Redmon and committed to faith and community.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About Us | New Life Assembly of God",
     description:
-      "Learn about New Life Assembly of God in Leitchfield, KY. Led by Pastor Tony Redmon, we are a welcoming Assemblies of God church committed to faith, worship, and community.",
+      "Get to know New Life Assembly of God in Leitchfield, KY, a welcoming Assemblies of God church led by Pastor Tony Redmon and committed to faith and community.",
     url: "/about",
     type: "website",
+    images: ["/new-life-assembly-og-v2.png"],
   },
 };
 

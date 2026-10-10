@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Thank You",
   description:
     "Thank you for reaching out to New Life Assembly of God in Leitchfield, KY. We will get back to you soon.",
+  alternates: {
+    canonical: "/thank-you",
+  },
   robots: { index: false },
 };
 

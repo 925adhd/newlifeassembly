@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     description,
     url: "/beliefs",
     type: "website",
+    images: ["/new-life-assembly-og-v2.png"],
   },
 };
 

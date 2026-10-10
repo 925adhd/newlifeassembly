@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: "%s | New Life Assembly of God",
   },
   description:
-    "Welcome to New Life Assembly of God in Leitchfield, Kentucky. Join Pastor Tony Redmon and our church family for Sunday worship, children's church, and Wednesday Bible study.",
+    "Welcome to New Life Assembly of God in Leitchfield, KY. Join Pastor Tony Redmon and our church family for Sunday worship, children's church, and Bible study.",
   keywords: [
     "New Life Assembly of God",
     "church Leitchfield KY",
@@ -59,11 +59,9 @@ export const metadata: Metadata = {
       },
     ],
   },
+  // No title/description here: X falls back to each page's own og:title and og:description
   twitter: {
     card: "summary_large_image",
-    title: "New Life Assembly of God | Leitchfield, KY",
-    description:
-      "A welcoming Assemblies of God church in Leitchfield, Kentucky. Join us for worship, fellowship, and spiritual growth.",
     images: ["/new-life-assembly-og-v2.png"],
   },
   icons: {
@@ -82,6 +80,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable} h-full`}>
       <head>
         <link rel="preload" href="/dove-logo.webp" as="image" />
+        <link rel="ard" href="/.well-known/ard.json" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

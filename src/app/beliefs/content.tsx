@@ -88,9 +88,11 @@ export default function BeliefsPage() {
                   {...slideUp((index % 2) * 0.1)}
                   className={`bg-white rounded-xl border transition-colors duration-300 shadow-[0_1px_2px_rgba(27,42,74,0.04)] md:grid md:grid-cols-[3rem_14rem_1fr] md:gap-x-10 md:py-9 md:bg-transparent md:rounded-none md:shadow-none md:border-0 md:border-t md:border-brand-primary/15 ${!showMarriage && index === beliefs.length - 1 ? "md:border-b" : ""} ${isOpen ? "border-brand-gold/60" : "border-brand-primary/10"}`}
                 >
-                  <span aria-hidden="true" className="hidden md:block font-serif italic text-2xl text-brand-gold leading-[1.2] tabular-nums">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                  <span
+                    aria-hidden="true"
+                    data-num={String(index + 1).padStart(2, "0")}
+                    className="hidden md:block font-serif italic text-2xl text-brand-gold leading-[1.2] tabular-nums before:content-[attr(data-num)]"
+                  />
                   <h3 className="font-serif text-xl md:text-[1.375rem] font-bold text-brand-primary tracking-tight leading-[1.2]">
                     <button
                       type="button"

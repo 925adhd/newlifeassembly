@@ -34,7 +34,7 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
       {
         title: "Sunday Worship",
         time: "Sundays at 11:00 AM",
-        image: "/pastor-tony-portrait.jpg",
+        image: "/pastor-tony-portrait.webp",
         description:
           "Our Sunday morning service is the heartbeat of New Life Assembly. We open with Spirit-filled praise and worship at 11:00, followed right after by heartfelt prayer and a powerful message from Pastor Tony at 11:30. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
         details: [
@@ -130,8 +130,8 @@ export default function MinistriesPage() {
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover object-[center_45%]"
-            width={800}
-            height={600}
+            width={1153}
+            height={1100}
           />
         </div>
         <div className="absolute inset-0 bg-black/35 hidden md:block" aria-hidden="true" />

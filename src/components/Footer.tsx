@@ -33,7 +33,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-white/70 hover:text-brand-accent text-sm transition-colors underline underline-offset-2 decoration-white/30 hover:decoration-brand-accent"
+                    className="inline-block py-1 text-white/70 hover:text-brand-accent text-sm transition-colors underline underline-offset-2 decoration-white/30 hover:decoration-brand-accent"
                   >
                     {link.label}
                   </a>
@@ -73,21 +73,21 @@ export default function Footer() {
                 <Phone className="w-3.5 h-3.5 text-brand-accent shrink-0" aria-hidden="true" />
                 <a
                   href="tel:+12702003422"
-                  className="text-white/70 hover:text-brand-accent transition-colors underline underline-offset-2 decoration-white/30 hover:decoration-brand-accent"
+                  className="inline-block py-1 text-white/70 hover:text-brand-accent transition-colors underline underline-offset-2 decoration-white/30 hover:decoration-brand-accent"
                 >
                   (270) 200-3422
                 </a>
-                <span className="text-white/50 text-xs">Pastor Tony</span>
+                <span className="text-white/65 text-xs">Pastor Tony</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-brand-accent shrink-0" aria-hidden="true" />
                 <a
                   href="tel:+12708680369"
-                  className="text-white/70 hover:text-brand-accent transition-colors underline underline-offset-2 decoration-white/30 hover:decoration-brand-accent"
+                  className="inline-block py-1 text-white/70 hover:text-brand-accent transition-colors underline underline-offset-2 decoration-white/30 hover:decoration-brand-accent"
                 >
                   (270) 868-0369
                 </a>
-                <span className="text-white/50 text-xs">Office</span>
+                <span className="text-white/65 text-xs">Office</span>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-brand-accent shrink-0" aria-hidden="true" />
@@ -99,7 +99,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit our Facebook page"
-              className="inline-flex items-center gap-2 mt-4 text-white/60 hover:text-brand-accent text-sm transition-colors"
+              className="inline-flex items-center gap-2 mt-3 py-1 text-white/65 hover:text-brand-accent text-sm transition-colors"
             >
               <svg className="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
               Facebook
@@ -109,7 +109,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-white/55 text-xs">
+          <p className="text-white/65 text-xs">
             &copy; {new Date().getFullYear()} New Life Assembly of God
           </p>
           <div className="flex items-center gap-4">
@@ -117,18 +117,18 @@ export default function Footer() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-white/55 hover:text-white/75 text-xs transition-colors underline underline-offset-2"
+                className="inline-block py-1.5 text-white/65 hover:text-white/75 text-xs transition-colors underline underline-offset-2"
               >
                 {link.label}
               </a>
             ))}
-            <span className="text-white/40 text-xs">
+            <span className="text-white/65 text-xs">
               Website by{" "}
               <a
                 href="https://studio925.design"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/50 hover:text-white/70 transition-colors underline underline-offset-2"
+                className="inline-block py-1.5 text-white/65 hover:text-white/70 transition-colors underline underline-offset-2"
               >
                 Studio 925
               </a>

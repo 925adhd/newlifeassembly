@@ -127,7 +127,7 @@ export default function UpcomingEvents() {
                   {event.link && (
                     <a
                       href={event.link.href}
-                      className="group inline-flex items-center gap-1.5 mt-3 text-brand-accent font-medium text-sm hover:text-brand-accent-dark transition-colors"
+                      className="group inline-flex items-center gap-1.5 mt-2 py-1 text-brand-accent font-medium text-sm hover:text-brand-accent-dark transition-colors"
                     >
                       {event.link.label}
                       <ChevronRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />

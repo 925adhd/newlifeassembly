@@ -91,8 +91,8 @@ export default function ContactPage() {
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover object-[center_calc(45%+5px)]"
-            width={800}
-            height={500}
+            width={1200}
+            height={900}
           />
         </div>
         <div className="absolute inset-0 bg-black/35 hidden md:block" aria-hidden="true" />
@@ -148,7 +148,7 @@ export default function ContactPage() {
                     href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-accent hover:text-brand-accent-dark transition-colors"
+                    className="group inline-flex items-center gap-1.5 py-1.5 text-xs font-medium tracking-wider uppercase text-brand-accent hover:text-brand-accent-dark transition-colors"
                   >
                     Get directions
                     <ChevronRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
@@ -217,10 +217,9 @@ export default function ContactPage() {
               >
                 <span
                   aria-hidden="true"
-                  className="font-serif italic text-5xl md:text-6xl text-brand-accent/35 leading-none tabular-nums select-none"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+                  data-num={String(index + 1).padStart(2, "0")}
+                  className="font-serif italic text-5xl md:text-6xl text-brand-accent/35 leading-none tabular-nums select-none before:content-[attr(data-num)]"
+                />
                 <div>
                   <span className="block h-px w-8 bg-brand-accent/50 mb-3" aria-hidden="true" />
                   <h3 className="font-serif italic text-2xl md:text-3xl font-bold text-brand-primary tracking-tight leading-[1.1] mb-3">
@@ -277,7 +276,7 @@ export default function ContactPage() {
                     {faq.link && (
                       <a
                         href={faq.link.href}
-                        className="group inline-flex items-center gap-1.5 mt-3 text-brand-accent font-medium text-sm hover:text-brand-accent-dark transition-colors"
+                        className="group inline-flex items-center gap-1.5 mt-2 py-1 text-brand-accent font-medium text-sm hover:text-brand-accent-dark transition-colors"
                       >
                         {faq.link.label}
                         <ChevronRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
@@ -306,8 +305,8 @@ export default function ContactPage() {
                   srcSet="/church-exterior-480.webp 480w, /church-exterior-960.webp 960w"
                   sizes="100vw"
                   alt="New Life Assembly of God church building and sign from the road in Leitchfield, Kentucky"
-                  width={800}
-                  height={500}
+                  width={960}
+                  height={564}
                   className="w-full rounded-2xl"
                   loading="lazy"
                 />
@@ -328,8 +327,8 @@ export default function ContactPage() {
                   srcSet="/church-exterior-480.webp 480w, /church-exterior-960.webp 960w, /church-exterior-1600.webp 1600w"
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   alt="New Life Assembly of God church building and sign from the road in Leitchfield, Kentucky"
-                  width={800}
-                  height={500}
+                  width={960}
+                  height={564}
                   className="w-full rounded-2xl"
                   loading="lazy"
                 />
@@ -341,7 +340,7 @@ export default function ContactPage() {
                   <Phone className="w-5 h-5 text-brand-accent shrink-0" aria-hidden="true" strokeWidth={1.75} />
                   <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
                     <div>
-                      <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-primary/50 mb-0.5">
+                      <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-primary/65 mb-0.5">
                         Pastor
                       </p>
                       <p className="font-serif text-lg font-bold text-brand-primary leading-tight">
@@ -361,7 +360,7 @@ export default function ContactPage() {
                   <Phone className="w-5 h-5 text-brand-accent shrink-0" aria-hidden="true" strokeWidth={1.75} />
                   <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
                     <div>
-                      <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-primary/50 mb-0.5">
+                      <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-brand-primary/65 mb-0.5">
                         Office
                       </p>
                       <p className="font-serif text-lg font-bold text-brand-primary leading-tight">
@@ -411,7 +410,15 @@ export default function ContactPage() {
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                    toolname="contact_church"
+                    tooldescription="Send a message to New Life Assembly of God in Leitchfield, KY. Requires a name, email address, and message; phone is optional."
+                  >
+                    <p className="text-sm text-brand-primary/70">
+                      Fields marked <span className="text-brand-red">*</span> are required.
+                    </p>
                     <input
                       type="hidden"
                       name="access_key"
@@ -429,6 +436,7 @@ export default function ContactPage() {
                       tabIndex={-1}
                       autoComplete="off"
                       aria-hidden="true"
+                      toolparamdescription="Spam check. Always leave unchecked."
                       style={{ position: "absolute", left: "-9999px", opacity: 0 }}
                     />
 
@@ -545,7 +553,7 @@ export default function ContactPage() {
             <p className="font-serif italic text-2xl md:text-3xl text-brand-primary/85 leading-snug mb-3">
               We can&apos;t wait to meet you.
             </p>
-            <p className="text-brand-primary/55 text-[11px] tracking-[0.2em] uppercase">
+            <p className="text-brand-primary/65 text-[11px] tracking-[0.2em] uppercase">
               — Pastor Tony &amp; the New Life family
             </p>
           </motion.div>

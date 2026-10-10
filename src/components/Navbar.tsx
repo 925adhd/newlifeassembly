@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, MapPin, ChevronDown } from "lucide-react";
 
@@ -34,6 +35,8 @@ export default function Navbar() {
   const pathname = rawPathname.replace(/\.html$/, "").replace(/(.)\/$/, "$1").replace(/^\/index$/, "/");
   const [aboutOpen, setAboutOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // A parent link counts as active on any of its child pages
   const isSectionActive = (link: NavLink) =>
@@ -65,15 +68,52 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  // Close menu on Escape
+  // Mobile menu is a dialog: move focus into it, keep Tab inside it (plus the
+  // close button), and send focus back to the menu button on Escape
   useEffect(() => {
     if (!isOpen) return;
+    const focusables = () => [
+      menuButtonRef.current,
+      ...Array.from(mobileMenuRef.current?.querySelectorAll<HTMLElement>("a[href], button") ?? []),
+    ].filter((el): el is HTMLElement => !!el);
+    const frame = requestAnimationFrame(() => focusables()[1]?.focus());
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const items = focusables();
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      } else if (!items.includes(document.activeElement as HTMLElement)) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      cancelAnimationFrame(frame);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [isOpen]);
+
+  // Escape closes the About submenu, even while the pointer is hovering it
+  useEffect(() => {
+    if (!aboutOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setAboutOpen(false);
     };
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
-  }, [isOpen]);
+  }, [aboutOpen]);
 
   return (
     <>
@@ -96,29 +136,29 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo / Church Name */}
-          <a href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <img
               src="/dove-logo.webp"
               alt="New Life Assembly of God dove logo"
-              width={48}
-              height={48}
+              width={143}
+              height={175}
               className="h-10 md:h-12 w-auto object-contain shrink-0"
             />
             <div>
               <p className="font-sans font-bold text-brand-primary text-lg leading-tight tracking-tight">
                 New Life Assembly of God
               </p>
-              <p className="text-xs text-brand-primary/60 leading-tight">
+              <p className="text-xs text-brand-primary/65 leading-tight">
                 Leitchfield, KY
               </p>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => {
               const active = isSectionActive(link);
-              const linkClass = `${active ? "text-brand-accent" : "text-brand-primary/80"} hover:text-brand-accent font-medium text-sm transition-colors duration-500 link-underline`;
+              const linkClass = `${active ? "text-brand-accent" : "text-brand-primary/80"} hover:text-brand-accent font-medium text-sm py-1 transition-colors duration-500 link-underline`;
               if (!link.children) {
                 return (
                   <a
@@ -134,11 +174,9 @@ export default function Navbar() {
               return (
                 <div
                   key={link.href}
-                  className="relative group"
+                  className="relative"
+                  onMouseEnter={() => setAboutOpen(true)}
                   onMouseLeave={() => setAboutOpen(false)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Escape") setAboutOpen(false);
-                  }}
                   onBlur={(e) => {
                     if (!e.currentTarget.contains(e.relatedTarget as Node)) setAboutOpen(false);
                   }}
@@ -153,18 +191,18 @@ export default function Navbar() {
                       aria-expanded={aboutOpen}
                       aria-controls="about-submenu"
                       aria-label={`${link.label} pages`}
-                      className="p-1 -mr-1 rounded text-brand-primary/60 hover:text-brand-accent transition-colors"
+                      className="p-1.5 -mr-1.5 rounded text-brand-primary/65 hover:text-brand-accent transition-colors"
                     >
                       <ChevronDown
-                        className={`w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180 ${aboutOpen ? "rotate-180" : ""}`}
+                        className={`w-3.5 h-3.5 transition-transform duration-300 ${aboutOpen ? "rotate-180" : ""}`}
                         aria-hidden="true"
                       />
                     </button>
                   </div>
-                  {/* Submenu: opens on hover, or via the chevron button for keyboard and touch */}
+                  {/* Submenu: opens on hover, or via the chevron button for keyboard and touch; Escape closes it */}
                   <div
                     id="about-submenu"
-                    className={`absolute left-1/2 -translate-x-1/2 top-full pt-3 transition-all duration-300 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 ${
+                    className={`absolute left-1/2 -translate-x-1/2 top-full pt-3 transition-all duration-300 ${
                       aboutOpen ? "visible opacity-100 translate-y-0" : "invisible opacity-0 -translate-y-1"
                     }`}
                   >
@@ -203,6 +241,7 @@ export default function Navbar() {
 
           {/* Mobile menu button */}
           <button
+            ref={menuButtonRef}
             onClick={() => {
               // Each time the menu opens, the About group starts collapsed
               setMobileAboutOpen(false);
@@ -224,6 +263,7 @@ export default function Navbar() {
     {isOpen && (
       <div
         id="mobile-menu"
+        ref={mobileMenuRef}
         className="md:hidden fixed inset-0 top-16 z-[9998] bg-[rgba(255,253,248,0.72)] flex flex-col animate-[fadeIn_300ms_cubic-bezier(0.16,1,0.3,1)]"
         style={{
           backdropFilter: "blur(40px) saturate(110%) brightness(108%)",
@@ -238,8 +278,8 @@ export default function Navbar() {
           src="/dove-logo.webp"
           alt=""
           aria-hidden="true"
-          width={600}
-          height={600}
+          width={143}
+          height={175}
           className="absolute bottom-48 right-6 w-[180px] h-auto opacity-[0.06] pointer-events-none select-none"
           loading="lazy"
         />
@@ -342,7 +382,7 @@ export default function Navbar() {
               className="flex items-center gap-3 text-brand-accent hover:text-brand-accent/80 transition-colors"
             >
               <Phone className="w-4 h-4 shrink-0" aria-hidden="true" />
-              <span className="font-medium">(270) 200-3422 <span className="text-brand-primary/50 font-normal text-xs ml-1">· Pastor Tony</span></span>
+              <span className="font-medium">(270) 200-3422 <span className="text-brand-primary/65 font-normal text-xs ml-1">· Pastor Tony</span></span>
             </a>
             <a
               href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"

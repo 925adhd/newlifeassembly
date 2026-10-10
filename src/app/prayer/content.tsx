@@ -73,8 +73,8 @@ export default function PrayerPage() {
           src="/dove-logo.webp"
           alt=""
           aria-hidden="true"
-          width={600}
-          height={600}
+          width={143}
+          height={175}
           className="hidden md:block absolute top-[20px] right-10 w-[260px] h-auto opacity-[0.13] pointer-events-none select-none"
           loading="lazy"
         />
@@ -150,12 +150,20 @@ export default function PrayerPage() {
                       will lift it up on Wednesday evening. You are not
                       carrying this alone.
                     </p>
-                    <p className="mt-6 text-[11px] tracking-[0.2em] uppercase text-brand-primary/50">
+                    <p className="mt-6 text-[11px] tracking-[0.2em] uppercase text-brand-primary/65">
                       — With love, the New Life family
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-7">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="space-y-7"
+                    toolname="submit_prayer_request"
+                    tooldescription="Send a prayer request to Pastor Tony Redmon at New Life Assembly of God. Only the prayer request is required; name, email, and phone are optional. Check confidential to keep it between the sender and Pastor Tony."
+                  >
+                    <p className="text-sm text-brand-primary/70">
+                      Fields marked <span className="text-brand-red">*</span> are required.
+                    </p>
                     <input
                       type="hidden"
                       name="access_key"
@@ -174,6 +182,7 @@ export default function PrayerPage() {
                       tabIndex={-1}
                       autoComplete="off"
                       aria-hidden="true"
+                      toolparamdescription="Spam check. Always leave unchecked."
                       style={{ position: "absolute", left: "-9999px", opacity: 0 }}
                     />
 
@@ -188,7 +197,7 @@ export default function PrayerPage() {
                           return (
                             <label
                               key={c.value}
-                              className={`tap cursor-pointer select-none rounded-full px-4 py-2 text-sm font-medium tracking-tight transition-all duration-300 border ${
+                              className={`tap cursor-pointer select-none rounded-full px-4 py-2 text-sm font-medium tracking-tight transition-all duration-300 border has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand-accent has-[:focus-visible]:ring-offset-2 ${
                                 active
                                   ? "bg-brand-primary text-white border-brand-primary shadow-[0_6px_16px_-6px_rgba(27,42,74,0.4)]"
                                   : "bg-white text-brand-primary/75 border-brand-primary/15 hover:border-brand-accent hover:text-brand-accent"
@@ -215,7 +224,7 @@ export default function PrayerPage() {
                         className="block text-sm font-medium text-brand-primary mb-2"
                       >
                         Your Name{" "}
-                        <span className="text-brand-primary/60 font-normal">
+                        <span className="text-brand-primary/65 font-normal">
                           (leave blank to stay anonymous)
                         </span>
                       </label>
@@ -236,7 +245,7 @@ export default function PrayerPage() {
                           className="block text-sm font-medium text-brand-primary mb-2"
                         >
                           Email{" "}
-                          <span className="text-brand-primary/60 font-normal">
+                          <span className="text-brand-primary/65 font-normal">
                             (optional)
                           </span>
                         </label>
@@ -255,7 +264,7 @@ export default function PrayerPage() {
                           className="block text-sm font-medium text-brand-primary mb-2"
                         >
                           Phone{" "}
-                          <span className="text-brand-primary/60 font-normal">
+                          <span className="text-brand-primary/65 font-normal">
                             (optional)
                           </span>
                         </label>
@@ -309,7 +318,7 @@ export default function PrayerPage() {
                           />
                           Keep this between Pastor Tony and me
                         </span>
-                        <span className="block text-xs text-brand-primary/60 leading-relaxed">
+                        <span className="block text-xs text-brand-primary/65 leading-relaxed">
                           Check this and your request won&apos;t be shared with
                           the church prayer circle. Only Pastor Tony will
                           read it.
@@ -340,7 +349,7 @@ export default function PrayerPage() {
                           </>
                         )}
                       </button>
-                      <p className="text-center text-[11px] tracking-[0.15em] uppercase text-brand-primary/45 mt-4">
+                      <p className="text-center text-[11px] tracking-[0.15em] uppercase text-brand-primary/65 mt-4">
                         Your request is sent securely to our pastoral team
                       </p>
                     </div>

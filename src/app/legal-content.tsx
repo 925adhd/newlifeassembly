@@ -11,32 +11,37 @@ const legalData: Record<
 > = {
   "privacy-policy": {
     title: "Privacy Policy",
-    lastUpdated: "April 2026",
+    lastUpdated: "October 2026",
     sections: [
       {
         heading: "Information We Collect",
         content:
-          "When you contact us through our website form, we collect your name, email address, phone number (if provided), and message content. This information is submitted via Web3Forms and used solely to respond to your inquiry.",
+          "We only collect what you choose to send us. Our contact form asks for your name, email address, an optional phone number, and your message. Our prayer request form asks for your prayer request and, if you like, your name, email address, and phone number. You can leave your name off a prayer request to stay anonymous.",
       },
       {
         heading: "How We Use Your Information",
         content:
-          "We use the information you provide to respond to your inquiries, communicate about church events and services, and improve our website experience. We do not sell, trade, or rent your personal information to third parties.",
+          "We use what you send to answer your questions, follow up with you, and pray for you. We do not sell, trade, or rent your personal information to anyone.",
+      },
+      {
+        heading: "Prayer Requests",
+        content:
+          "Prayer requests are read by Pastor Tony. Unless you check the box to keep your request between you and Pastor Tony, it may also be shared with our church prayer circle so they can pray for you. We never post prayer requests on this website or share them outside the church.",
       },
       {
         heading: "Cookies",
         content:
-          "Our website may use minimal cookies for basic functionality. We do not use tracking cookies or third-party advertising cookies.",
+          "Our own website does not use tracking or advertising cookies. The Facebook video player on our Watch page and the Google Map on our Contact page come from Facebook and Google, and those companies may set their own cookies when they load. You can block or clear these cookies in your browser settings.",
       },
       {
         heading: "Third-Party Services",
         content:
-          "Our contact form is powered by Web3Forms. Google Maps is embedded on our contact page. These services have their own privacy policies that govern their use of data.",
+          "Our contact and prayer forms are delivered to us by email through Web3Forms. Our sermon and worship videos are played through Facebook, and our map is provided by Google Maps. Each of these services has its own privacy policy that governs how it handles data.",
       },
       {
         heading: "Contact Us",
         content:
-          "If you have questions about this privacy policy, please contact us at (270) 200-3422 (Pastor Tony) or (270) 868-0369 (Church Office).",
+          "If you have questions about this privacy policy, or would like us to delete a message or prayer request you sent, please contact us at (270) 200-3422 (Pastor Tony) or (270) 868-0369 (Church Office).",
       },
     ],
   },

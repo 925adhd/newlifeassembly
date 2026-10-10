@@ -29,8 +29,8 @@ export default function LeadershipPage() {
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover"
-            width={800}
-            height={600}
+            width={1500}
+            height={1000}
           />
         </div>
         <div className="absolute inset-0 bg-black/35 hidden md:block" aria-hidden="true" />

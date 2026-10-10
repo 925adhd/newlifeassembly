@@ -13,7 +13,6 @@ const sources = [
   "new-life-assembly-baptism.webp",
   "churchfromroad.webp",
   "church-exterior.webp",
-  "pastor-tony-redmon.webp",
 ];
 
 const widths = [480, 960, 1600];

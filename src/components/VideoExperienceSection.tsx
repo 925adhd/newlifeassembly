@@ -309,7 +309,7 @@ function VideoCard({
         )}
         <div className="absolute inset-x-0 bottom-0 p-4">
           {video.label && (
-            <p className="text-brand-accent text-xs font-medium tracking-widest uppercase mb-1">
+            <p className="text-brand-gold text-xs font-medium tracking-widest uppercase mb-1">
               {video.label}
             </p>
           )}
@@ -484,7 +484,7 @@ export default function VideoExperienceSection({
             transition={{ duration: 0.3 }}
           >
             <MainVideoPlayer key={active.id} video={active} kind={kind} onPlayingChange={setIsPlaying} />
-            <figcaption className="mt-4 md:mt-5 text-white/80">
+            <div className="mt-4 md:mt-5 text-white/80">
               <p className="font-serif text-lg md:text-xl font-bold text-white">
                 {active.label ? `${active.label} ${kind}` : `Sunday ${kind}`} — {active.date}
               </p>
@@ -493,7 +493,7 @@ export default function VideoExperienceSection({
                   ? `Sermon from Pastor Tony Redmon at New Life Assembly of God in Leitchfield, Kentucky, recorded ${active.date}.`
                   : `Sunday morning worship with the New Life Assembly of God church family in Leitchfield, Kentucky, recorded ${active.date}.`}
               </p>
-            </figcaption>
+            </div>
           </motion.div>
         </AnimatePresence>
         <div className="mt-8 md:mt-10">

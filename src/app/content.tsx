@@ -174,10 +174,10 @@ export default function HomePage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative pt-4 md:pt-12 pb-16 md:pb-16 -mb-px bg-gradient-to-r from-brand-primary via-[#3d5575] to-[#7e94ad] overflow-hidden gradient-mesh">
+      <section className="relative pt-4 md:pt-12 pb-24 md:pb-16 -mb-px bg-gradient-to-b from-[#3d5575] via-brand-primary to-brand-primary md:bg-gradient-to-r md:from-brand-primary md:via-[#3d5575] md:to-[#7e94ad] overflow-hidden gradient-mesh">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-0 inset-x-0 h-64 md:h-96 z-[1]"
+          className="pointer-events-none absolute bottom-0 inset-x-0 h-20 md:h-96 z-[1]"
           style={{
             backgroundImage:
               "linear-gradient(to bottom, rgba(248,246,241,0) 0%, rgba(248,246,241,0.08) 25%, rgba(248,246,241,0.3) 55%, rgba(248,246,241,0.7) 78%, rgba(248,246,241,1) 94%, rgba(248,246,241,1) 100%)",
@@ -190,7 +190,7 @@ export default function HomePage() {
               {...heroContainer}
               className="text-center md:text-left order-2 md:order-1 -mt-[50px] md:mt-0 relative z-10"
             >
-              <motion.p {...heroChild} className="text-white/60 md:text-white/70 font-medium text-[10px] md:text-xs tracking-[0.2em] md:tracking-widest uppercase mb-3 md:mb-2">
+              <motion.p {...heroChild} className="text-white/85 md:text-white/75 font-medium text-[10px] md:text-xs tracking-[0.2em] md:tracking-widest uppercase mb-3 md:mb-2">
                 Assemblies of God &middot; Leitchfield, Kentucky
               </motion.p>
               <motion.h1 {...heroChild} className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.2] md:leading-[1.15] mb-3 italic [text-shadow:0_4px_12px_rgba(0,0,0,0.35)]">
@@ -289,7 +289,7 @@ export default function HomePage() {
                     ))}
                   </ul>
                   {day.note && (
-                    <p className="mt-5 pt-5 border-t border-brand-primary/5 text-xs text-brand-primary/55 italic leading-relaxed">
+                    <p className="mt-5 pt-5 border-t border-brand-primary/5 text-xs text-brand-primary/65 italic leading-relaxed">
                       {day.note}
                     </p>
                   )}
@@ -305,7 +305,7 @@ export default function HomePage() {
                 href="https://maps.google.com/?q=47+Embry+Acres+Dr,+Leitchfield,+KY+42754"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-accent hover:text-brand-accent-dark transition-colors"
+                className="group inline-flex items-center gap-1.5 py-1.5 text-xs font-medium tracking-wider uppercase text-brand-accent hover:text-brand-accent-dark transition-colors"
                 aria-label="Open directions to 47 Embry Acres Dr, Leitchfield, KY in Google Maps"
               >
                 Get directions
@@ -325,8 +325,8 @@ export default function HomePage() {
           src="/dove-logo.webp"
           alt=""
           aria-hidden="true"
-          width={600}
-          height={600}
+          width={143}
+          height={175}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-auto md:top-auto md:translate-x-0 md:translate-y-0 md:-left-20 md:bottom-8 w-[440px] md:w-[520px] h-auto opacity-[0.03] md:opacity-[0.04] pointer-events-none select-none"
           loading="lazy"
         />
@@ -336,7 +336,7 @@ export default function HomePage() {
             className="flex items-end justify-between mb-8 md:mb-10 gap-6"
           >
             <div>
-              <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-brand-primary/50 mb-2">
+              <p className="text-[11px] font-medium tracking-[0.2em] uppercase text-brand-primary/65 mb-2">
                 Get Involved
               </p>
               <h2 id="ministries-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight">
@@ -345,7 +345,7 @@ export default function HomePage() {
             </div>
             <a
               href="/ministries"
-              className="hidden md:inline-flex items-center gap-1.5 text-sm text-brand-primary/60 hover:text-brand-accent transition-colors shrink-0 pb-1"
+              className="hidden md:inline-flex items-center gap-1.5 py-1 text-sm text-brand-primary/65 hover:text-brand-accent transition-colors shrink-0 pb-1"
             >
               View all
               <ChevronRight className="w-4 h-4" aria-hidden="true" />
@@ -370,7 +370,7 @@ export default function HomePage() {
                   <p className="text-sm md:text-base text-brand-primary/65 leading-relaxed mb-5">
                     {ministry.description}
                   </p>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/60 group-hover:text-brand-accent transition-colors duration-500">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-brand-primary/65 group-hover:text-brand-accent transition-colors duration-500">
                     <span className="link-underline">Learn more</span>
                     <ChevronRight className="w-3 h-3 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true" />
                   </span>
@@ -382,7 +382,7 @@ export default function HomePage() {
           <div className="md:hidden mt-6 text-center">
             <a
               href="/ministries"
-              className="inline-flex items-center gap-1.5 text-sm text-brand-primary/60 hover:text-brand-accent transition-colors"
+              className="inline-flex items-center gap-1.5 py-1.5 text-sm text-brand-primary/65 hover:text-brand-accent transition-colors"
             >
               View all ministries
               <ChevronRight className="w-4 h-4" aria-hidden="true" />
@@ -414,8 +414,8 @@ export default function HomePage() {
                 srcSet="/new-life-assembly-baptism-480.webp 480w, /new-life-assembly-baptism-960.webp 960w"
                 sizes="(min-width: 1024px) 448px, 100vw"
                 alt="Outdoor baptism at New Life Assembly of God"
-                width={600}
-                height={550}
+                width={960}
+                height={916}
                 className="relative w-full rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl shadow-xl"
                 loading="lazy"
               />
@@ -485,7 +485,7 @@ export default function HomePage() {
               src="/gallery-christmas-play-stage.webp"
               alt="Christmas nativity play at New Life Assembly"
               width={1200}
-              height={400}
+              height={407}
               className="w-full h-40 md:h-64 object-cover hover:scale-[1.03] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
               loading="lazy"
             />
@@ -505,8 +505,8 @@ export default function HomePage() {
               <img
                 src="/gallery-christmas-play-angels.webp"
                 alt="Children's Christmas play at New Life Assembly"
-                width={600}
-                height={450}
+                width={1200}
+                height={2131}
                 className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 loading="lazy"
               />
@@ -606,8 +606,8 @@ export default function HomePage() {
               src="/dove-logo.webp"
               alt=""
               aria-hidden="true"
-              width={120}
-              height={120}
+              width={143}
+              height={175}
               className="hidden md:block absolute right-8 bottom-8 w-20 h-auto opacity-[0.08] pointer-events-none select-none"
               loading="lazy"
             />

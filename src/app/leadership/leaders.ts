@@ -25,10 +25,10 @@ export const leaders: Leader[] = [
   },
   {
     name: "Tammy Sandlin",
-    role: "Children's Church",
+    role: "Children's Church Director",
     leads: "Children's Church · Sundays at 11:30 AM",
     image: "/tammy-sandlin.webp",
-    bio: "Tammy Sandlin leads Children's Church, giving kids a safe, fun place to learn about God's love through lessons, crafts, games, and worship.",
+    bio: "Tammy Sandlin directs Children's Church, working alongside a team to give kids a safe, fun place to learn about God's love through lessons, crafts, games, and worship.",
   },
   {
     name: "Sherry McClure",

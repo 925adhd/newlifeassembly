@@ -4,6 +4,8 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+// Full-size masters live in assets/ (gitignored); only the resized copies are published
+const assetsDir = resolve(__dirname, "..", "assets");
 const publicDir = resolve(__dirname, "..", "public");
 
 const sources = [
@@ -11,14 +13,14 @@ const sources = [
   "new-life-assembly-entrance.webp",
   "new-life-assembly-worship-service.webp",
   "new-life-assembly-baptism.webp",
-  "churchfromroad.webp",
-  "church-exterior.webp",
+  "new-life-assembly-church-from-road.webp",
+  "new-life-assembly-church-sign.webp",
 ];
 
 const widths = [480, 960, 1600];
 
 for (const file of sources) {
-  const input = resolve(publicDir, file);
+  const input = resolve(assetsDir, file);
   if (!existsSync(input)) {
     console.warn(`[skip] ${file} not found`);
     continue;

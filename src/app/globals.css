@@ -3,7 +3,6 @@
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), serif;
-  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
   --color-brand-primary: #1B2A4A;
   --color-brand-accent: #2563AB;
@@ -82,10 +81,6 @@
   }
 }
 
-.glass {
-  @apply bg-white/70 backdrop-blur-md border border-white/20;
-}
-
 .grid-pattern {
   background-image:
     radial-gradient(circle at 16px 16px, rgba(27, 42, 74, 0.05) 1px, transparent 0);
@@ -123,25 +118,6 @@
 .link-underline:hover,
 .link-underline:focus-visible {
   background-size: 100% 1px;
-}
-
-/* Scroll-reveal helper for staggered images on mobile */
-@media (max-width: 767px) {
-  .reveal-mask {
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 100%);
-    mask-image: linear-gradient(to bottom, black 0%, black 100%);
-  }
-}
-
-@keyframes fadeSlideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @keyframes fadeSlideRight {

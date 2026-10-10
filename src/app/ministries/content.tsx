@@ -23,7 +23,7 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
       {
         title: "Sunday School",
         time: "Sundays at 10:00 AM",
-        image: "/sunday-school.webp",
+        image: "/new-life-assembly-sunday-school.webp",
         description:
           "Start your Sunday with in-depth Bible study in a small group setting. Our Sunday School classes are designed for adults and provide an opportunity to dig deeper into Scripture, ask questions, and build relationships with fellow believers.",
         details: [
@@ -34,7 +34,7 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
       {
         title: "Sunday Worship",
         time: "Sundays at 11:00 AM",
-        image: "/pastor-tony-portrait.webp",
+        image: "/pastor-tony-redmon.webp",
         description:
           "Our Sunday morning service is the heartbeat of New Life Assembly. We open with Spirit-filled praise and worship at 11:00, followed right after by heartfelt prayer and a powerful message from Pastor Tony at 11:30. Whether you prefer contemporary worship or traditional hymns, you'll find a blend that speaks to your heart.",
         details: [
@@ -46,7 +46,7 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
       {
         title: "Children's Church",
         time: "Sundays at 11:30 AM",
-        image: "/childrens-church.webp",
+        image: "/new-life-assembly-childrens-church.webp",
         description:
           "We believe in investing in the next generation. Children's Church at New Life Assembly provides a fun, safe, and engaging environment where kids can learn about God's love through age-appropriate lessons, crafts, games, and worship.",
         details: [
@@ -63,7 +63,7 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
       {
         title: "Bible Study",
         time: "Wednesdays at 6:30 PM",
-        image: "/bible-study.webp",
+        image: "/new-life-assembly-bible-study.webp",
         description:
           "Our midweek Bible study is a time to go deeper into God's Word in a more intimate setting. Led by Pastor Tony, these sessions focus on practical application of Scripture for everyday life. It's a great way to recharge and refocus during the week.",
         details: [

@@ -85,8 +85,8 @@ export default function ContactPage() {
       <section className="relative py-8 md:py-24 bg-brand-primary overflow-hidden">
         <div className="absolute inset-0 opacity-40 hidden md:block">
           <img
-            src="/churchfromroad-1600.webp"
-            srcSet="/churchfromroad-960.webp 960w, /churchfromroad-1600.webp 1600w"
+            src="/new-life-assembly-church-from-road-1600.webp"
+            srcSet="/new-life-assembly-church-from-road-960.webp 960w, /new-life-assembly-church-from-road-1600.webp 1600w"
             sizes="100vw"
             alt=""
             aria-hidden="true"
@@ -301,8 +301,8 @@ export default function ContactPage() {
               {/* Church from Road - mobile only above content */}
               <div className="md:hidden rounded-2xl overflow-hidden shadow-sm mb-8">
                 <img
-                  src="/church-exterior-960.webp"
-                  srcSet="/church-exterior-480.webp 480w, /church-exterior-960.webp 960w"
+                  src="/new-life-assembly-church-sign-960.webp"
+                  srcSet="/new-life-assembly-church-sign-480.webp 480w, /new-life-assembly-church-sign-960.webp 960w"
                   sizes="100vw"
                   alt="New Life Assembly of God church building and sign from the road in Leitchfield, Kentucky"
                   width={960}
@@ -323,8 +323,8 @@ export default function ContactPage() {
               {/* Church from Road - desktop after service times */}
               <div className="hidden md:block rounded-2xl overflow-hidden shadow-sm mb-10">
                 <img
-                  src="/church-exterior-960.webp"
-                  srcSet="/church-exterior-480.webp 480w, /church-exterior-960.webp 960w, /church-exterior-1600.webp 1600w"
+                  src="/new-life-assembly-church-sign-960.webp"
+                  srcSet="/new-life-assembly-church-sign-480.webp 480w, /new-life-assembly-church-sign-960.webp 960w, /new-life-assembly-church-sign-1600.webp 1600w"
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   alt="New Life Assembly of God church building and sign from the road in Leitchfield, Kentucky"
                   width={960}

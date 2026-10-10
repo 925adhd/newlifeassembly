@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Poppins } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -15,13 +15,6 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "700"],
-});
-
-const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -77,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${poppins.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable} h-full`}>
       <head>
         <link rel="preload" href="/dove-logo.webp" as="image" />
         <link rel="ard" href="/.well-known/ard.json" />
@@ -119,7 +112,7 @@ export default function RootLayout({
                   closes: "20:00",
                 },
               ],
-              image: "https://www.newlifeaogleitchfield.com/church.webp",
+              image: "https://www.newlifeaogleitchfield.com/new-life-assembly-church-building-1600.webp",
               logo: "https://www.newlifeaogleitchfield.com/new-life-assembly-logo.webp",
               sameAs: [
                 "https://www.facebook.com/newlifeagleitchfield",

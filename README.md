@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# New Life Assembly of God
 
-## Getting Started
+Website for New Life Assembly of God, an Assemblies of God church in Leitchfield, Kentucky.
 
-First, run the development server:
+Live site: https://www.newlifeaogleitchfield.com
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # static export to out/
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Built with Next.js (App Router, static export), TypeScript, Tailwind CSS v4 and motion. Contact and prayer forms are delivered by Web3Forms. Hosted on Vercel; DNS on Cloudflare.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project layout
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/app/` pages (each has `page.tsx` for metadata and `content.tsx` for the page itself)
+- `src/components/` shared UI (navbar, footer, events, video player)
+- `public/` files served by the site, including `sitemap.xml`, `robots.txt`, `llms.txt` and `.well-known/` agent discovery files
+- `scripts/` image helpers: `generate-responsive-images.mjs` (resizes masters from `assets/`) and `fetch-fb-thumbs.mjs` (video thumbnails)
 
-## Learn More
+## Common updates
 
-To learn more about Next.js, take a look at the following resources:
+- **Events:** edit `src/app/events.ts`. Past events hide themselves.
+- **Leaders:** edit `src/app/leadership/leaders.ts`.
+- **Videos:** add the Facebook video to `src/app/watch/content.tsx` and `src/app/watch/page.tsx`, then add it to `scripts/fetch-fb-thumbs.mjs` and run it for the thumbnail.
+- **Service times or contact details:** they appear in several places (home, contact, footer, layout structured data, `llms.txt`, the skill in `public/.well-known/skills/`). Update them all together.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `CLAUDE.md` for the SEO, accessibility, security and agent-readiness rules every change must follow.

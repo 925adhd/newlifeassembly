@@ -12,8 +12,10 @@
 ## Structure
 - src/app/: pages and layouts (each page: page.tsx for metadata, content.tsx for UI)
 - src/components/: reusable UI components
-- public/: static assets (images, sitemap, robots.txt)
-- client-info/, _unused/: original client files and source photos (gitignored, never deployed)
+- public/: only files the live site uses (images, sitemap, robots.txt, llms.txt, .well-known/)
+- assets/: full-size master photos; `node scripts/generate-responsive-images.mjs` writes their -480/-960/-1600 copies to public/ (gitignored)
+- client-info/, _unused/: original client files and retired photos (gitignored, never deployed)
+- scripts/: image helpers (responsive sizes, Facebook video thumbnails)
 
 ## Git Rules
 - Do NOT commit or push without asking
@@ -23,6 +25,7 @@
 ## Conventions
 - Mobile-first (default styles = mobile, md: = desktop)
 - All images WebP with alt, width, height
+- Image file names: lowercase, hyphenated, descriptive (`new-life-assembly-<subject>[-<width>].webp`, people as `first-last.webp`); nothing unused stays in public/
 - Text contrast minimum: 65% opacity
 - Semantic HTML: main, section, article, nav, footer
 - One H1 per page, never skip heading levels

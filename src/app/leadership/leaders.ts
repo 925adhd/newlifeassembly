@@ -41,6 +41,7 @@ export const leaders: Leader[] = [
     name: "Jared Wilson",
     role: "Sound Technician",
     leads: "Sound · Sunday Services",
+    image: "/jared-wilson.webp",
     bio: "Jared Wilson runs sound for our services, making sure every song and every word of the message comes through clearly on Sunday mornings.",
   },
 ];

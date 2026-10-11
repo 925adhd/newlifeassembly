@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { motion } from "motion/react";
 import {
   Send,
@@ -28,6 +28,13 @@ export default function PrayerPage() {
 
   const { fadeIn, slideUp } = useReveal();
 
+  // The thank-you card is much shorter than the form, so without this the
+  // visitor is left scrolled past it and has to scroll up to see it.
+  useEffect(() => {
+    if (!submitted) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  }, [submitted]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -39,9 +46,10 @@ export default function PrayerPage() {
     const confidential = entered.get("confidential") === "on";
 
     // Requests arrive in the church office inbox. Subjects stay neutral (they show
-    // on lock screens), and a confidential request opens with a notice and a
-    // divider so the office can forward it to Pastor Tony without reading it.
-    // Web3Forms lists fields in the order they're added, so the notice goes first.
+    // on lock screens), and a confidential request opens with a notice so the
+    // office can forward it to Pastor Tony without reading it. Web3Forms lists
+    // fields in the order they're added, so the notice goes first and the prayer
+    // itself goes last, below everything else.
     const formData = new FormData();
     for (const key of ["access_key", "botcheck"]) {
       const value = entered.get(key);
@@ -52,23 +60,23 @@ export default function PrayerPage() {
       formData.set("subject", "Confidential prayer request: please forward to Pastor Tony");
       formData.set(
         "CONFIDENTIAL",
-        "For Pastor Tony only. Please forward this email to Pastor Tony without reading further, and do not share it with the prayer circle.",
+        "For Pastor Tony only. Please forward this email to Pastor Tony without reading further, and do not share it with the prayer circle. The prayer request is at the very end of this email.",
       );
-      formData.set("- - - - -", "Prayer request below this line");
     } else {
       formData.set("subject", "New prayer request from the website");
     }
-    formData.set("Prayer request", String(entered.get("message") ?? ""));
+    formData.set(
+      "Sharing",
+      confidential ? "Confidential: Pastor Tony only" : "May be shared with the church prayer circle",
+    );
     formData.set("Prayer category", category);
     // "email" keeps its exact name: Web3Forms uses it as the reply-to address
     for (const [key, label] of [["name", "Name"], ["email", "email"], ["phone", "Phone"]]) {
       const value = String(entered.get(key) ?? "").trim();
       if (value) formData.set(label, value);
     }
-    formData.set(
-      "Sharing",
-      confidential ? "Confidential: Pastor Tony only" : "May be shared with the church prayer circle",
-    );
+    if (confidential) formData.set("- - - - -", "Confidential prayer request below this line");
+    formData.set("Prayer request", String(entered.get("message") ?? ""));
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {

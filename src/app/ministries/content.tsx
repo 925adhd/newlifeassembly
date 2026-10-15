@@ -287,16 +287,16 @@ export default function MinistriesPage() {
                             ))}
                           </ul>
 
-                          {/* Desktop: show all images */}
-                          <div className="hidden md:grid grid-cols-2 gap-4">
-                            {ministry.images.map((img) => (
+                          {/* Mobile: the rest below the text. Desktop: all images in a grid */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {ministry.images.map((img, imgIndex) => (
                               <img
                                 key={img.src}
                                 src={img.src}
                                 alt={img.alt}
                                 width={img.width}
                                 height={img.height}
-                                className="w-full rounded-xl object-cover"
+                                className={`w-full rounded-xl object-cover ${imgIndex === 0 ? "hidden md:block" : ""}`}
                                 loading="lazy"
                               />
                             ))}

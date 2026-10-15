@@ -37,4 +37,12 @@ export const events: ChurchEvent[] = [
       "Stay after Sunday service and share a meal with your church family. We'll be serving a variety of soups, sandwiches, breads, and desserts. Newcomers are always welcome at the table!",
     link: { label: "About Fellowship", href: "/ministries#fellowship" },
   },
+  {
+    title: "Safe Spot Halloween Candy",
+    date: "2026-10-31",
+    time: "5:00 PM to 8:00 PM",
+    description:
+      "Find us at the Safe Spot at the Grayson County Fairgrounds! We'll be passing out candy to the children, so bring the kids by in their costumes and say hello. We'd love to see you there!",
+    link: { label: "About Outreach", href: "/ministries#outreach" },
+  },
 ];

@@ -23,10 +23,10 @@ export const events: ChurchEvent[] = [
   },
   {
     title: "New Life Sisterhood",
-    date: "2026-10-13",
+    date: "2026-11-11",
     time: "5:00 PM to 7:00 PM",
     description:
-      "New Life Sisterhood will meet at Sherry McClure's home. Ladies of every age are welcome to join us for fellowship and time together. We'd love to see you there!",
+      "New Life Sisterhood will meet at Shannon Terry's home. Ladies of every age are welcome to join us for fellowship and time together. We'd love to see you there!",
     link: { label: "About Women's Ministries", href: "/ministries#womens-ministries" },
   },
   {

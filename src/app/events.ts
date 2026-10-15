@@ -42,7 +42,7 @@ export const events: ChurchEvent[] = [
     date: "2026-10-31",
     time: "5:00 PM to 8:00 PM",
     description:
-      "Find us at the Safe Spot at the Grayson County Fairgrounds! We'll be passing out candy to the children, so bring the kids by in their costumes and say hello. We'd love to see you there!",
+      "Find us at the Safe Spot at the Grayson County Fairgrounds! Treats on the Trail was canceled, but the candy collected for it isn't going to waste. We'll be passing it out to the children, so bring the kids by in their costumes and say hello. We'd love to see you there!",
     link: { label: "About Outreach", href: "/ministries#outreach" },
   },
 ];

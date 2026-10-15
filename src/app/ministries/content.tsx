@@ -11,7 +11,7 @@ type Ministry = {
   title: string;
   time: string;
   image?: string;
-  images?: string[];
+  images?: { src: string; alt: string; width: number; height: number }[];
   description: string;
   details: string[];
 };
@@ -91,6 +91,20 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
       {
         title: "Women's Ministries",
         time: "Monthly, dates vary",
+        images: [
+          {
+            src: "/new-life-assembly-womens-ministries-fellowship.webp",
+            alt: "Women smiling and sharing together during a Women's Ministries meeting",
+            width: 1200,
+            height: 900,
+          },
+          {
+            src: "/new-life-assembly-womens-ministries-bible-study.webp",
+            alt: "Women gathered in a living room with Bibles open for a Women's Ministries meeting",
+            width: 1200,
+            height: 900,
+          },
+        ],
         description:
           "Women's Ministries is a place for women of every age and season of life to grow in faith and friendship. Through Bible study, prayer, and time together, we encourage one another, share life's joys and burdens, and find ways to serve our church and community. We gather once a month, so reach out and we'll let you know when we're meeting next.",
         details: [
@@ -103,7 +117,20 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
       {
         title: "Fellowship",
         time: "Every quarter",
-        images: ["/new-life-assembly-community-dinner.webp", "/new-life-assembly-community-dinner-2.webp"],
+        images: [
+          {
+            src: "/new-life-assembly-community-dinner.webp",
+            alt: "Fellowship dinner at New Life Assembly of God",
+            width: 1536,
+            height: 1000,
+          },
+          {
+            src: "/new-life-assembly-community-dinner-2.webp",
+            alt: "Church family sharing a fellowship dinner at New Life Assembly of God",
+            width: 1536,
+            height: 1000,
+          },
+        ],
         description:
           "Building meaningful relationships is at the core of who we are. From community dinners to fellowship events, we create opportunities for people to connect, share life together, and grow in faith outside of Sunday services.",
         details: [
@@ -238,10 +265,10 @@ export default function MinistriesPage() {
                         <>
                           {/* Mobile: show first image on top */}
                           <img
-                            src={ministry.images[0]}
-                            alt={`${ministry.title} at New Life Assembly of God`}
-                            width={400}
-                            height={300}
+                            src={ministry.images[0].src}
+                            alt={ministry.images[0].alt}
+                            width={ministry.images[0].width}
+                            height={ministry.images[0].height}
                             className="w-full rounded-xl object-cover mb-4 md:hidden"
                             loading="lazy"
                           />
@@ -260,15 +287,15 @@ export default function MinistriesPage() {
                             ))}
                           </ul>
 
-                          {/* Desktop: show both images */}
+                          {/* Desktop: show all images */}
                           <div className="hidden md:grid grid-cols-2 gap-4">
                             {ministry.images.map((img) => (
                               <img
-                                key={img}
-                                src={img}
-                                alt={`${ministry.title} at New Life Assembly of God`}
-                                width={400}
-                                height={300}
+                                key={img.src}
+                                src={img.src}
+                                alt={img.alt}
+                                width={img.width}
+                                height={img.height}
                                 className="w-full rounded-xl object-cover"
                                 loading="lazy"
                               />

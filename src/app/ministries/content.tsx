@@ -12,6 +12,8 @@ type Ministry = {
   time: string;
   image?: string;
   images?: { src: string; alt: string; width: number; height: number }[];
+  /** Which of `images` mobile shows (defaults to the first) */
+  mobileImage?: number;
   description: string;
   details: string[];
 };
@@ -105,6 +107,7 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
             height: 900,
           },
         ],
+        mobileImage: 1,
         description:
           "Women's Ministries is a place for women of every age and season of life to grow in faith and friendship. Through Bible study, prayer, and time together, we encourage one another, share life's joys and burdens, and find ways to serve our church and community. We gather once a month, so reach out and we'll let you know when we're meeting next.",
         details: [
@@ -263,12 +266,12 @@ export default function MinistriesPage() {
 
                       {ministry.images ? (
                         <>
-                          {/* Mobile: show first image on top */}
+                          {/* Mobile: show one image on top */}
                           <img
-                            src={ministry.images[0].src}
-                            alt={ministry.images[0].alt}
-                            width={ministry.images[0].width}
-                            height={ministry.images[0].height}
+                            src={ministry.images[ministry.mobileImage ?? 0].src}
+                            alt={ministry.images[ministry.mobileImage ?? 0].alt}
+                            width={ministry.images[ministry.mobileImage ?? 0].width}
+                            height={ministry.images[ministry.mobileImage ?? 0].height}
                             className="w-full rounded-xl object-cover mb-4 md:hidden"
                             loading="lazy"
                           />
@@ -287,16 +290,16 @@ export default function MinistriesPage() {
                             ))}
                           </ul>
 
-                          {/* Mobile: the rest below the text. Desktop: all images in a grid */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {ministry.images.map((img, imgIndex) => (
+                          {/* Desktop: show all images */}
+                          <div className="hidden md:grid grid-cols-2 gap-4">
+                            {ministry.images.map((img) => (
                               <img
                                 key={img.src}
                                 src={img.src}
                                 alt={img.alt}
                                 width={img.width}
                                 height={img.height}
-                                className={`w-full rounded-xl object-cover ${imgIndex === 0 ? "hidden md:block" : ""}`}
+                                className="w-full rounded-xl object-cover"
                                 loading="lazy"
                               />
                             ))}

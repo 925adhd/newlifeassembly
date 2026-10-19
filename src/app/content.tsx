@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
   Clock,
   MapPin,
@@ -11,9 +10,9 @@ import {
   Baby,
   Music2,
   ChevronRight,
-  X,
 } from "lucide-react";
 import UpcomingEvents from "@/components/UpcomingEvents";
+import PhotoGallery from "@/components/PhotoGallery";
 import { useReveal } from "@/lib/useReveal";
 
 const serviceTimes: {
@@ -77,61 +76,8 @@ const testimonials = [
 ];
 
 export default function HomePage() {
-  const [lightboxImg, setLightboxImg] = useState<{ src: string; alt: string } | null>(null);
-  const triggerRef = useRef<HTMLElement | null>(null);
-  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
-
-  const openLightbox = useCallback((photo: { src: string; alt: string }, trigger?: HTMLElement) => {
-    triggerRef.current = trigger || null;
-    setLightboxImg(photo);
-    window.history.pushState({ lightbox: true }, "");
-  }, []);
-
-  const closeLightbox = useCallback(() => {
-    if (lightboxImg) {
-      window.history.back();
-    }
-  }, [lightboxImg]);
-
-  useEffect(() => {
-    const handlePopState = () => {
-      setLightboxImg(null);
-      triggerRef.current?.focus();
-    };
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
-
-  // Focus the close button when lightbox opens
-  useEffect(() => {
-    if (lightboxImg) {
-      closeBtnRef.current?.focus();
-    }
-  }, [lightboxImg]);
-
-  // Trap focus inside lightbox and handle Escape
-  useEffect(() => {
-    if (!lightboxImg) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        closeLightbox();
-      }
-      if (e.key === "Tab") {
-        // Trap focus on the close button (only focusable element)
-        e.preventDefault();
-        closeBtnRef.current?.focus();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxImg, closeLightbox]);
-
   const ease = [0.16, 1, 0.3, 1] as const;
-  const fade = prefersReducedMotion ? {} : { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0.25, ease } };
-  const fadeScale = prefersReducedMotion ? {} : { initial: { scale: 0.92, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.92, opacity: 0 }, transition: { duration: 0.3, ease } };
   const { slideUp, slideLeft, slideRight, scaleIn } = useReveal();
   const heroContainer = prefersReducedMotion
     ? { initial: "hidden" as const, animate: "visible" as const, variants: { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4 } } } }
@@ -143,36 +89,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {lightboxImg && (
-          <motion.div
-            {...fade}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Enlarged image"
-            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 cursor-pointer"
-            onClick={closeLightbox}
-          >
-            <button
-              ref={closeBtnRef}
-              onClick={closeLightbox}
-              className="absolute top-4 right-4 text-white/80 hover:text-white p-2"
-              aria-label="Close image"
-            >
-              <X className="w-8 h-8" aria-hidden="true" />
-            </button>
-            <motion.img
-              {...fadeScale}
-              src={lightboxImg.src}
-              alt={lightboxImg.alt}
-              className="max-w-full max-h-[90vh] object-contain rounded-lg"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Hero Section */}
       <section className="relative pt-4 md:pt-12 pb-24 md:pb-16 -mb-px bg-gradient-to-b from-[#3d5575] via-brand-primary to-brand-primary md:bg-gradient-to-r md:from-brand-primary md:via-[#3d5575] md:to-[#7e94ad] overflow-hidden gradient-mesh">
         <div
@@ -455,145 +371,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Life at New Life Gallery */}
-      <section className="py-16 md:py-24 bg-white overflow-hidden" aria-labelledby="gallery-heading">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="h-px w-24 mx-auto bg-brand-primary/15 mb-12" aria-hidden="true" />
-          <motion.div
-            {...slideUp()}
-            className="text-center mb-10"
-          >
-            <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
-              Moments Together
-            </p>
-            <h2 id="gallery-heading" className="font-serif text-3xl md:text-4xl font-bold text-brand-primary tracking-tight">
-              Events &amp; Activities
-            </h2>
-          </motion.div>
-
-          {/* Christmas Play Banner */}
-          <motion.div
-            {...slideUp()}
-            className="overflow-hidden rounded-xl mb-3 md:mb-4 cursor-pointer tap lift"
-            role="button"
-            tabIndex={0}
-            aria-label="View enlarged: Christmas nativity play at New Life Assembly"
-            onClick={(e) => openLightbox({ src: "/gallery-christmas-play-stage.webp", alt: "Christmas nativity play at New Life Assembly" }, e.currentTarget)}
-            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox({ src: "/gallery-christmas-play-stage.webp", alt: "Christmas nativity play at New Life Assembly" }, e.currentTarget); }}}
-          >
-            <img
-              src="/gallery-christmas-play-stage.webp"
-              alt="Christmas nativity play at New Life Assembly"
-              width={1200}
-              height={407}
-              className="w-full h-40 md:h-64 object-cover hover:scale-[1.03] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-              loading="lazy"
-            />
-          </motion.div>
-
-          {/* Desktop: two play photos */}
-          <div className="hidden md:grid grid-cols-2 gap-4 mb-4">
-            <motion.div
-              {...scaleIn()}
-              className="overflow-hidden rounded-xl aspect-[4/3] cursor-pointer tap lift"
-              role="button"
-              tabIndex={0}
-              aria-label="View enlarged: Children's Christmas play at New Life Assembly"
-              onClick={(e) => openLightbox({ src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly" }, e.currentTarget)}
-              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox({ src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly" }, e.currentTarget); }}}
-            >
-              <img
-                src="/gallery-christmas-play-angels.webp"
-                alt="Children's Christmas play at New Life Assembly"
-                width={1200}
-                height={2131}
-                className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                loading="lazy"
-              />
-            </motion.div>
-
-            <motion.div
-              {...scaleIn(0.05)}
-              className="overflow-hidden rounded-xl aspect-[4/3] cursor-pointer tap lift"
-              role="button"
-              tabIndex={0}
-              aria-label="View enlarged: Kids performing in Christmas play at New Life Assembly"
-              onClick={(e) => openLightbox({ src: "/gallery-christmas-play-kids.webp", alt: "Kids performing in Christmas play at New Life Assembly" }, e.currentTarget)}
-              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox({ src: "/gallery-christmas-play-kids.webp", alt: "Kids performing in Christmas play at New Life Assembly" }, e.currentTarget); }}}
-            >
-              <img
-                src="/gallery-christmas-play-kids.webp"
-                alt="Kids performing in Christmas play at New Life Assembly"
-                width={300}
-                height={400}
-                className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                loading="lazy"
-              />
-            </motion.div>
-          </div>
-          <div className="hidden md:grid grid-cols-4 gap-4">
-            {[
-              { src: "/gallery-egg-hunt.webp", alt: "Easter egg hunt at New Life Assembly" },
-              { src: "/gallery-egg-hunt-kid.webp", alt: "Child with Easter eggs at New Life Assembly" },
-              { src: "/gallery-vbs-group.webp", alt: "VBS kids group photo at New Life Assembly" },
-              { src: "/gallery-vbs-crafts.webp", alt: "VBS crafts and activities at New Life Assembly" },
-            ].map((photo, index) => (
-              <motion.div
-                key={photo.src}
-                {...scaleIn(index * 0.05)}
-                className="overflow-hidden rounded-xl aspect-square cursor-pointer tap lift"
-                role="button"
-                tabIndex={0}
-                aria-label={`View enlarged: ${photo.alt}`}
-                onClick={(e) => openLightbox(photo, e.currentTarget)}
-                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(photo, e.currentTarget); }}}
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={300}
-                  height={300}
-                  className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                  loading="lazy"
-                />
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Mobile: balanced 3-col square grid: compact */}
-          <div className="grid grid-cols-3 gap-2 md:hidden">
-            {[
-              { src: "/gallery-christmas-play-angels.webp", alt: "Children's Christmas play at New Life Assembly" },
-              { src: "/gallery-christmas-play-kids.webp", alt: "Kids performing in Christmas play at New Life Assembly" },
-              { src: "/gallery-egg-hunt.webp", alt: "Easter egg hunt at New Life Assembly" },
-              { src: "/gallery-egg-hunt-kid.webp", alt: "Child with Easter eggs at New Life Assembly" },
-              { src: "/gallery-vbs-group.webp", alt: "VBS kids group photo at New Life Assembly" },
-              { src: "/gallery-vbs-crafts.webp", alt: "VBS crafts and activities at New Life Assembly" },
-            ].map((photo, index) => (
-              <motion.div
-                key={photo.src}
-                {...scaleIn(index * 0.05)}
-                className="overflow-hidden rounded-xl aspect-square cursor-pointer tap lift"
-                role="button"
-                tabIndex={0}
-                aria-label={`View enlarged: ${photo.alt}`}
-                onClick={(e) => openLightbox(photo, e.currentTarget)}
-                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(photo, e.currentTarget); }}}
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={300}
-                  height={300}
-                  className="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                  loading="lazy"
-                />
-              </motion.div>
-            ))}
-          </div>
-
-        </div>
-      </section>
+      {/* Events & Activities: albums live in src/app/gallery.ts */}
+      <PhotoGallery />
 
       {/* Contact / CTA Section */}
       <section className="py-16 md:py-24" id="contact" aria-labelledby="cta-heading">

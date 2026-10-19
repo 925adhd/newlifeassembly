@@ -122,16 +122,16 @@ const ministryGroups: { title: string; ministries: Ministry[] }[] = [
         time: "Every quarter",
         images: [
           {
-            src: "/new-life-assembly-community-dinner.webp",
-            alt: "Fellowship dinner at New Life Assembly of God",
-            width: 1536,
-            height: 1000,
+            src: "/new-life-assembly-fellowship-dinner.webp",
+            alt: "Church family eating together at fall-decorated tables during a fellowship dinner at New Life Assembly of God",
+            width: 1600,
+            height: 1200,
           },
           {
-            src: "/new-life-assembly-community-dinner-2.webp",
-            alt: "Church family sharing a fellowship dinner at New Life Assembly of God",
-            width: 1536,
-            height: 1000,
+            src: "/new-life-assembly-fellowship-dinner-serving.webp",
+            alt: "Church members filling their plates from a line of slow cookers at a New Life Assembly fellowship dinner",
+            width: 1600,
+            height: 1200,
           },
         ],
         description:

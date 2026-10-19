@@ -15,13 +15,6 @@ export type ChurchEvent = {
 // (or its month, if no day is set) has passed, so nothing stale stays up.
 export const events: ChurchEvent[] = [
   {
-    title: "Treats on the Trail",
-    date: "2026-10-10",
-    canceled: true,
-    description:
-      "Treats on the Trail has been canceled. Thank you for understanding, and we hope to see you at an upcoming event!",
-  },
-  {
     title: "New Life Sisterhood",
     date: "2026-11-11",
     time: "5:00 PM to 7:00 PM",

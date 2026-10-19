@@ -235,6 +235,73 @@ export default function HomePage() {
       {/* Upcoming Events: hides itself when nothing is scheduled */}
       <UpcomingEvents />
 
+      {/* Events & Activities: albums live in src/app/gallery.ts */}
+      <PhotoGallery />
+
+      {/* Baptism / Life at New Life */}
+      <section className="relative py-16 md:py-24 grid-pattern overflow-hidden" aria-labelledby="life-heading">
+        <span
+          aria-hidden="true"
+          className="absolute right-0 bottom-4 md:right-8 md:bottom-12 font-serif italic text-[10rem] md:text-[18rem] leading-none text-brand-primary/[0.04] select-none pointer-events-none z-0"
+        >
+          Faith.
+        </span>
+        <div className="relative z-10 max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <motion.div
+              {...slideLeft()}
+              className="order-1 lg:order-1 relative max-w-md mx-auto lg:mx-0"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute -top-3 -left-3 md:-top-4 md:-left-4 right-6 bottom-6 border-2 border-brand-accent/40 rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl pointer-events-none"
+              />
+              <img
+                src="/new-life-assembly-baptism-960.webp"
+                srcSet="/new-life-assembly-baptism-480.webp 480w, /new-life-assembly-baptism-960.webp 960w"
+                sizes="(min-width: 1024px) 448px, 100vw"
+                alt="Outdoor baptism at New Life Assembly of God"
+                width={960}
+                height={916}
+                className="relative w-full rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl shadow-xl"
+                loading="lazy"
+              />
+            </motion.div>
+
+            <motion.div
+              {...slideRight()}
+              className="order-2 lg:order-2 relative"
+            >
+              <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
+              <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
+                Life at New Life
+              </p>
+              <h2 id="life-heading" className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary tracking-tight mb-6 leading-[1.1]">
+                Growing Together in Faith
+              </h2>
+              <p className="text-brand-primary/75 leading-relaxed mb-4">
+                At New Life Assembly, we celebrate every step of your spiritual
+                journey, from your first visit to water baptism and beyond. Our
+                church is a place where real life change happens through the
+                power of God.
+              </p>
+              <p className="text-brand-primary/75 leading-relaxed mb-6">
+                Whether you&apos;re new to faith or have been walking with God
+                for years, you&apos;ll find opportunities to grow, serve, and
+                connect with others who share your journey.
+              </p>
+              <a
+                href="/contact#get-in-touch"
+                className="tap group relative btn-gold px-6 py-3 rounded-lg inline-flex items-center gap-2 hover:-translate-y-0.5"
+              >
+                Get Connected
+                <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
+              </a>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Ministries Overview */}
       <section className="relative py-16 md:py-24 bg-white overflow-hidden" aria-labelledby="ministries-heading">
         <img
@@ -306,73 +373,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Baptism / Life at New Life */}
-      <section className="relative py-16 md:py-24 grid-pattern overflow-hidden" aria-labelledby="life-heading">
-        <span
-          aria-hidden="true"
-          className="absolute right-0 bottom-4 md:right-8 md:bottom-12 font-serif italic text-[10rem] md:text-[18rem] leading-none text-brand-primary/[0.04] select-none pointer-events-none z-0"
-        >
-          Faith.
-        </span>
-        <div className="relative z-10 max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
-              {...slideLeft()}
-              className="order-1 lg:order-1 relative max-w-md mx-auto lg:mx-0"
-            >
-              <span
-                aria-hidden="true"
-                className="absolute -top-3 -left-3 md:-top-4 md:-left-4 right-6 bottom-6 border-2 border-brand-accent/40 rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl pointer-events-none"
-              />
-              <img
-                src="/new-life-assembly-baptism-960.webp"
-                srcSet="/new-life-assembly-baptism-480.webp 480w, /new-life-assembly-baptism-960.webp 960w"
-                sizes="(min-width: 1024px) 448px, 100vw"
-                alt="Outdoor baptism at New Life Assembly of God"
-                width={960}
-                height={916}
-                className="relative w-full rounded-tl-[64px] rounded-br-[64px] rounded-tr-2xl rounded-bl-2xl shadow-xl"
-                loading="lazy"
-              />
-            </motion.div>
-
-            <motion.div
-              {...slideRight()}
-              className="order-2 lg:order-2 relative"
-            >
-              <span className="block h-px w-12 bg-brand-accent mb-5" aria-hidden="true" />
-              <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-3">
-                Life at New Life
-              </p>
-              <h2 id="life-heading" className="font-serif italic text-3xl md:text-5xl font-bold text-brand-primary tracking-tight mb-6 leading-[1.1]">
-                Growing Together in Faith
-              </h2>
-              <p className="text-brand-primary/75 leading-relaxed mb-4">
-                At New Life Assembly, we celebrate every step of your spiritual
-                journey, from your first visit to water baptism and beyond. Our
-                church is a place where real life change happens through the
-                power of God.
-              </p>
-              <p className="text-brand-primary/75 leading-relaxed mb-6">
-                Whether you&apos;re new to faith or have been walking with God
-                for years, you&apos;ll find opportunities to grow, serve, and
-                connect with others who share your journey.
-              </p>
-              <a
-                href="/contact#get-in-touch"
-                className="tap group relative btn-gold px-6 py-3 rounded-lg inline-flex items-center gap-2 hover:-translate-y-0.5"
-              >
-                Get Connected
-                <ChevronRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-0.5" aria-hidden="true" />
-              </a>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Events & Activities: albums live in src/app/gallery.ts */}
-      <PhotoGallery />
 
       {/* Contact / CTA Section */}
       <section className="py-16 md:py-24" id="contact" aria-labelledby="cta-heading">

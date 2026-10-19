@@ -98,7 +98,6 @@ export default function PhotoGallery() {
   return (
     <section className="py-16 md:py-24 bg-white overflow-hidden" aria-labelledby="gallery-heading">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="h-px w-24 mx-auto bg-brand-primary/15 mb-12" aria-hidden="true" />
         <motion.div {...slideUp()} className="text-center mb-10">
           <p className="text-brand-accent font-medium text-[10px] md:text-sm tracking-[0.2em] md:tracking-widest uppercase mb-2">
             Moments Together

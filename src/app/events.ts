@@ -30,14 +30,6 @@ export const events: ChurchEvent[] = [
     link: { label: "About Women's Ministries", href: "/ministries#womens-ministries" },
   },
   {
-    title: "Fellowship Dinner",
-    date: "2026-10-18",
-    time: "Immediately following service",
-    description:
-      "Stay after Sunday service and share a meal with your church family. We'll be serving a variety of soups, sandwiches, breads, and desserts. Newcomers are always welcome at the table!",
-    link: { label: "About Fellowship", href: "/ministries#fellowship" },
-  },
-  {
     title: "Safe Spot Halloween Candy",
     date: "2026-10-31",
     time: "5:00 PM to 8:00 PM",

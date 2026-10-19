@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { createPortal } from "react-dom";
-import { ChevronLeft, ChevronRight, Images, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Images, Loader2, X } from "lucide-react";
 import { albums } from "@/app/gallery";
 import { useReveal, ease } from "@/lib/useReveal";
 
@@ -16,10 +16,24 @@ function monthLabel(month?: string) {
   return new Date(Number(y), Number(m) - 1, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 }
 
+// Start downloading an album's photos before they're shown, so paging
+// through the viewer doesn't wait on the network for each one
+const preloaded = new Set<string>();
+function preloadAlbum(album: number) {
+  for (const photo of albums[album]?.photos ?? []) {
+    if (preloaded.has(photo.src)) continue;
+    preloaded.add(photo.src);
+    const img = new Image();
+    img.src = photo.src;
+  }
+}
+
 const zoom = "hover:scale-[1.04] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]";
 
 export default function PhotoGallery() {
   const [viewing, setViewing] = useState<{ album: number; photo: number } | null>(null);
+  // The photo that has finished loading, so it only fades in once it's ready
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -31,6 +45,7 @@ export default function PhotoGallery() {
 
   const open = useCallback((album: number, photo: number, trigger: HTMLElement) => {
     triggerRef.current = trigger;
+    preloadAlbum(album);
     setViewing({ album, photo });
     // Lets the phone's back button close the viewer instead of leaving the page
     window.history.pushState({ lightbox: true }, "");
@@ -118,6 +133,7 @@ export default function PhotoGallery() {
                 key={photo.src}
                 type="button"
                 onClick={(e) => open(0, index, e.currentTarget)}
+                onPointerEnter={() => preloadAlbum(0)}
                 className={`tap cursor-pointer overflow-hidden rounded-xl ${index === 0 && sidePhotos.length > 0 ? "col-span-2 row-span-2" : ""}`}
               >
                 <img
@@ -147,6 +163,7 @@ export default function PhotoGallery() {
             <button
               type="button"
               onClick={(e) => open(0, 0, e.currentTarget)}
+              onPointerEnter={() => preloadAlbum(0)}
               className="group cursor-pointer inline-flex items-center gap-2 py-1.5 text-brand-accent font-medium hover:text-brand-accent-dark transition-colors"
             >
               <Images className="w-5 h-5" aria-hidden="true" />
@@ -165,6 +182,8 @@ export default function PhotoGallery() {
               return (
                 <motion.li
                   key={album.title}
+                  onPointerEnter={() => preloadAlbum(albumIndex)}
+                  onPointerDown={() => preloadAlbum(albumIndex)}
                   {...scaleIn(index * 0.05)}
                   className="relative shrink-0 w-[78%] sm:w-[45%] md:w-auto snap-start rounded-2xl border border-brand-primary/10 bg-white overflow-hidden lift tap has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand-accent has-[:focus-visible]:ring-offset-2"
                 >
@@ -185,6 +204,7 @@ export default function PhotoGallery() {
                       <button
                         type="button"
                         onClick={(e) => open(albumIndex, 0, e.currentTarget)}
+                        onFocus={() => preloadAlbum(albumIndex)}
                         className="text-left cursor-pointer after:absolute after:inset-0 focus-visible:shadow-none!"
                       >
                         {album.title}
@@ -231,11 +251,20 @@ export default function PhotoGallery() {
               <X className="w-8 h-8" aria-hidden="true" />
             </button>
 
+            {loadedSrc !== currentPhoto.src && (
+              <Loader2
+                className={`absolute w-8 h-8 text-white/80 ${prefersReducedMotion ? "" : "animate-spin"}`}
+                aria-hidden="true"
+              />
+            )}
             <motion.img
               key={currentPhoto.src}
-              initial={prefersReducedMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.25, ease }}
+              // Already cached: onLoad may have fired before React attached it
+              ref={(img) => { if (img?.complete && img.naturalWidth) setLoadedSrc(currentPhoto.src); }}
+              onLoad={() => setLoadedSrc(currentPhoto.src)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: loadedSrc === currentPhoto.src ? 1 : 0 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.25, ease }}
               src={currentPhoto.src}
               alt={currentPhoto.alt}
               width={currentPhoto.width}

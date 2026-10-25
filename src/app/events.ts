@@ -16,7 +16,7 @@ export type ChurchEvent = {
 export const events: ChurchEvent[] = [
   {
     title: "New Life Sisterhood",
-    date: "2026-11-11",
+    date: "2026-11-10",
     time: "5:00 PM to 7:00 PM",
     description:
       "New Life Sisterhood will meet at Shannon Terry's home. Ladies of every age are welcome to join us for fellowship and time together. We'd love to see you there!",
